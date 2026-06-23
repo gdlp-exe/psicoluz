@@ -10,6 +10,8 @@ import Dashboard from "./pages/psicologo/Dashboard";
 import Citas     from "./pages/psicologo/Citas";
 import Pacientes from "./pages/psicologo/Pacientes";
 import Expedientes from "./pages/psicologo/Expedientes";
+import PortalPaciente from "./pages/PortalPaciente";
+
 
 // Guard: redirige si no hay sesión
 function useAuth() {
@@ -33,6 +35,16 @@ function useAuth() {
   return { user, perfil, loading: user === undefined };
 }
 
+function NotFound() {
+  return (
+    <div style={{ minHeight:"100vh", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", fontFamily:"Nunito", gap:16 }}>
+      <span style={{ fontSize:48 }}>🔍</span>
+      <p style={{ fontFamily:"Poppins", fontWeight:800, fontSize:24, margin:0, color:"#222" }}>Página no encontrada</p>
+      <a href="/" style={{ color:"#00AFC1", fontWeight:600 }}>← Volver al inicio</a>
+    </div>
+  );
+}
+
 export default function App() {
   const { user, perfil, loading } = useAuth();
   const path = window.location.pathname;
@@ -48,6 +60,8 @@ export default function App() {
   if (path === "/" || path === "")          return <PsicoLuz />;
   if (path.startsWith("/login"))            return <AuthPage mode="login" />;
   if (path.startsWith("/register"))         return <AuthPage mode="register" />;
+  if (path.startsWith("/expediente"))        return <PortalPaciente/>;  // portal público
+
 
   // Rutas protegidas — redirigir si no hay sesión
   if (!user) { window.location.href = "/login"; return null; }

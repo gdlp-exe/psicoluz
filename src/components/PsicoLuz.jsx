@@ -193,6 +193,7 @@ function Navbar() {
           ))}
 
           {/* Login button FIX */}
+          
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
@@ -205,6 +206,12 @@ function Navbar() {
           >
             Login
           </motion.button>
+<motion.a href="/expediente"
+   whileHover={{ scale:1.03 }}
+     className="px-5 py-2.5 rounded-full text-sm font-bold border-2 transition-all"
+    style={{ borderColor: scrolled ? COLORS.teal : "white", color: scrolled ? COLORS.teal : "white", fontFamily:"Poppins" }}>
+    Mi expediente
+  </motion.a>
         </div>
 
         {/* Mobile button */}

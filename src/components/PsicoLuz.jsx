@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
 import { Heart, Brain, BookOpen, MessageCircle, Activity, ChevronDown, Star, Phone, MapPin, Clock, Menu, X, ArrowRight, CheckCircle, Users, Award, Smile, ChevronRight, ChevronLeft, Play, PlayIcon} from "lucide-react";
 
@@ -111,59 +110,145 @@ function Particles() {
 
 // ─── Navbar ──────────────────────────────────────────────────────────────────
 function Navbar() {
-  const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", fn);
     return () => window.removeEventListener("scroll", fn);
   }, []);
+
   const links = ["Servicios", "Equipo", "Galería", "Testimonios", "Contacto"];
+
+  const goTo = (path) => {
+    window.location.href = path;
+  };
+
   return (
     <motion.nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "bg-white/95 backdrop-blur-md shadow-lg shadow-teal-100/50" : "bg-transparent"}`}
-      initial={{ y: -80 }} animate={{ y: 0 }} transition={{ duration: 0.6, ease: "easeOut" }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "bg-white/95 backdrop-blur-md shadow-lg shadow-teal-100/50"
+          : "bg-transparent"
+      }`}
+      initial={{ y: -80 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+
+        {/* Logo */}
         <motion.div className="flex items-center gap-3" whileHover={{ scale: 1.02 }}>
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-md" style={{ background: `linear-gradient(135deg, ${COLORS.teal}, ${COLORS.tealDark})` }}>
-             <img
-    src="/loguito.png"
-    alt="PsicoLuz Logo"
-    className="w-7 h-7 object-contain"
-  />
+          <div
+            className="w-10 h-10 rounded-xl flex items-center justify-center shadow-md"
+            style={{
+              background: `linear-gradient(135deg, ${COLORS.teal}, ${COLORS.tealDark})`,
+            }}
+          >
+            <img
+              src="/loguito.png"
+              alt="PsicoLuz Logo"
+              className="w-7 h-7 object-contain"
+            />
           </div>
+
           <div>
-            <span className="font-black text-xl tracking-tight" style={{ fontFamily: "Poppins", color: scrolled ? COLORS.dark : "white" }}>Psico<span style={{ color: COLORS.orange }}>Luz</span></span>
-            <div className="text-xs" style={{ color: scrolled ? COLORS.teal : "rgba(255,255,255,0.7)", fontFamily: "Nunito" }}>Centro Psicopedagógico</div>
+            <span
+              className="font-black text-xl tracking-tight"
+              style={{
+                fontFamily: "Poppins",
+                color: scrolled ? COLORS.dark : "white",
+              }}
+            >
+              Psico<span style={{ color: COLORS.orange }}>Luz</span>
+            </span>
+
+            <div
+              className="text-xs"
+              style={{
+                color: scrolled ? COLORS.teal : "rgba(255,255,255,0.7)",
+                fontFamily: "Nunito",
+              }}
+            >
+              Centro Psicopedagógico
+            </div>
           </div>
         </motion.div>
+
+        {/* Links desktop */}
         <div className="hidden md:flex items-center gap-8">
-          {links.map(l => (
-            <a key={l} href={`#${l.toLowerCase()}`} className="text-sm font-semibold transition-colors duration-200 hover:text-orange-400" style={{ fontFamily: "Nunito", color: scrolled ? COLORS.dark : "white" }}>{l}</a>
+          {links.map((l) => (
+            <a
+              key={l}
+              href={`#${l.toLowerCase()}`}
+              className="text-sm font-semibold transition-colors duration-200 hover:text-orange-400"
+              style={{
+                fontFamily: "Nunito",
+                color: scrolled ? COLORS.dark : "white",
+              }}
+            >
+              {l}
+            </a>
           ))}
-          <motion.button whileHover={{ scale: 1.05, boxShadow: `0 0 20px ${COLORS.orange}60` }} 
+
+          {/* Login button FIX */}
+          <motion.button
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.97 }}
-            onClick={() => navigate('/login')}
+            onClick={() => goTo("/login")}
             className="px-5 py-2.5 rounded-full text-sm font-bold text-white shadow-lg"
-            style={{ background: `linear-gradient(135deg, ${COLORS.orange}, #e07810)`, fontFamily: "Poppins" }}>
+            style={{
+              background: `linear-gradient(135deg, ${COLORS.orange}, #e07810)`,
+              fontFamily: "Poppins",
+            }}
+          >
             Login
           </motion.button>
         </div>
-        <button className="md:hidden" onClick={() => setOpen(!open)} style={{ color: scrolled ? COLORS.dark : "white" }}>
+
+        {/* Mobile button */}
+        <button
+          className="md:hidden"
+          onClick={() => setOpen(!open)}
+          style={{ color: scrolled ? COLORS.dark : "white" }}
+        >
           {open ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
+
+      {/* Mobile menu */}
       <AnimatePresence>
         {open && (
-          <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white/98 backdrop-blur-md border-t border-teal-100 px-6 py-4 flex flex-col gap-4">
-            {links.map(l => <a key={l} href={`#${l.toLowerCase()}`} onClick={() => setOpen(false)} className="font-semibold py-2 border-b border-gray-100" style={{ fontFamily: "Nunito", color: COLORS.dark }}>{l}</a>)}
-            <button 
-            className="mt-2 py-3 rounded-full font-bold text-white" 
-            onClick={() => navigate('/login')}
-            style={{ background: COLORS.orange, fontFamily: "Poppins" }}>Login</button>
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-white/98 backdrop-blur-md border-t border-teal-100 px-6 py-4 flex flex-col gap-4"
+          >
+            {links.map((l) => (
+              <a
+                key={l}
+                href={`#${l.toLowerCase()}`}
+                onClick={() => setOpen(false)}
+                className="font-semibold py-2 border-b border-gray-100"
+                style={{ fontFamily: "Nunito", color: COLORS.dark }}
+              >
+                {l}
+              </a>
+            ))}
+
+            {/* Mobile login FIX */}
+            <button
+              className="mt-2 py-3 rounded-full font-bold text-white"
+              onClick={() => goTo("/login")}
+              style={{
+                background: COLORS.orange,
+                fontFamily: "Poppins",
+              }}
+            >
+              Login
+            </button>
           </motion.div>
         )}
       </AnimatePresence>

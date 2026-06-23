@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from 'react-router-dom';
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
 import { Heart, Brain, BookOpen, MessageCircle, Activity, ChevronDown, Star, Phone, MapPin, Clock, Menu, X, ArrowRight, CheckCircle, Users, Award, Smile, ChevronRight, ChevronLeft, Play, PlayIcon} from "lucide-react";
 
@@ -17,6 +18,8 @@ const COLORS = {
   gray: "#ECECEC",
   dark: "#222222",
 };
+
+const navigate = useNavigate();
 
 const SERVICES = [
   { id: 1, icon: Brain, title: "Psicología Infantil", desc: "Apoyo emocional y conductual para que tu hijo desarrolle herramientas que lo acompañen toda la vida.", color: "#00AFC1", bg: "from-cyan-50 to-teal-50" },
@@ -139,10 +142,12 @@ function Navbar() {
           {links.map(l => (
             <a key={l} href={`#${l.toLowerCase()}`} className="text-sm font-semibold transition-colors duration-200 hover:text-orange-400" style={{ fontFamily: "Nunito", color: scrolled ? COLORS.dark : "white" }}>{l}</a>
           ))}
-          <motion.button whileHover={{ scale: 1.05, boxShadow: `0 0 20px ${COLORS.orange}60` }} whileTap={{ scale: 0.97 }}
+          <motion.button whileHover={{ scale: 1.05, boxShadow: `0 0 20px ${COLORS.orange}60` }} 
+            whileTap={{ scale: 0.97 }}
+            onClick={() => navigate('/login')}
             className="px-5 py-2.5 rounded-full text-sm font-bold text-white shadow-lg"
             style={{ background: `linear-gradient(135deg, ${COLORS.orange}, #e07810)`, fontFamily: "Poppins" }}>
-            Agendar valoración
+            Login
           </motion.button>
         </div>
         <button className="md:hidden" onClick={() => setOpen(!open)} style={{ color: scrolled ? COLORS.dark : "white" }}>
@@ -154,7 +159,10 @@ function Navbar() {
           <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-white/98 backdrop-blur-md border-t border-teal-100 px-6 py-4 flex flex-col gap-4">
             {links.map(l => <a key={l} href={`#${l.toLowerCase()}`} onClick={() => setOpen(false)} className="font-semibold py-2 border-b border-gray-100" style={{ fontFamily: "Nunito", color: COLORS.dark }}>{l}</a>)}
-            <button className="mt-2 py-3 rounded-full font-bold text-white" style={{ background: COLORS.orange, fontFamily: "Poppins" }}>Agendar valoración</button>
+            <button 
+            className="mt-2 py-3 rounded-full font-bold text-white" 
+            onClick={() => navigate('/login')}
+            style={{ background: COLORS.orange, fontFamily: "Poppins" }}>Login</button>
           </motion.div>
         )}
       </AnimatePresence>

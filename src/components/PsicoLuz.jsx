@@ -338,34 +338,50 @@ function Hero() {
 function TrustSection() {
   const ref = useRef();
   const inView = useInView(ref, { once: true, margin: "-100px" });
-  const cards = [
-    { emoji: "👨‍👩‍👧", title: "Atención cercana y personalizada", desc: "Cada niño recibe un plan diseñado especialmente para él, porque entendemos que no hay dos iguales." },
-    { emoji: "🧠", title: "Especialistas en desarrollo infantil", desc: "Nuestro equipo cuenta con formación especializada y años de experiencia en psicopedagogía infantil." },
-    { emoji: "💛", title: "Paciencia, empatía y vocación", desc: "Más que una profesión, esto es un llamado. Amamos lo que hacemos y se nota en cada sesión." },
-    { emoji: "📚", title: "Acompañamiento educativo integral", desc: "Trabajamos de la mano con la familia para que los avances del niño se reflejen en todos los ámbitos." },
-  ];
+
   return (
-    <section id="servicios" className="py-24 relative overflow-hidden" style={{ background: COLORS.white }}>
-      <div className="absolute top-0 left-0 right-0 h-1" style={{ background: `linear-gradient(90deg, ${COLORS.teal}, ${COLORS.orange}, ${COLORS.teal})` }} />
+    <section
+      id="servicios"
+      className="py-24 relative overflow-hidden"
+      style={{ background: COLORS.white }}
+    >
+      <div
+        className="absolute top-0 left-0 right-0 h-1"
+        style={{
+          background: `linear-gradient(90deg, ${COLORS.teal}, ${COLORS.orange}, ${COLORS.teal})`,
+        }}
+      />
+
       <div className="max-w-7xl mx-auto px-6">
-        <motion.div ref={ref} initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7 }} className="text-center mb-16">
-          <span className="text-sm font-bold uppercase tracking-widest" style={{ color: COLORS.orange, fontFamily: "Nunito" }}>Nuestra filosofía</span>
-          <h2 className="text-4xl md:text-5xl font-black mt-2" style={{ fontFamily: "Poppins", color: COLORS.dark }}>
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7 }}
+          className="text-center"
+        >
+          <span
+            className="text-sm font-bold uppercase tracking-widest"
+            style={{ color: COLORS.orange, fontFamily: "Nunito" }}
+          >
+            Nuestra filosofía
+          </span>
+
+          <h2
+            className="text-4xl md:text-5xl font-black mt-2"
+            style={{ fontFamily: "Poppins", color: COLORS.dark }}
+          >
             Cada niño <span style={{ color: COLORS.teal }}>nos importa</span>
           </h2>
-          <p className="text-gray-500 mt-4 max-w-xl mx-auto text-lg" style={{ fontFamily: "Nunito" }}>Construimos vínculos de confianza con las familias porque sabemos que dejar a tu hijo en nuestras manos es un acto de amor.</p>
+
+          <p
+            className="text-gray-500 mt-4 max-w-xl mx-auto text-lg"
+            style={{ fontFamily: "Nunito" }}
+          >
+            Construimos vínculos de confianza con las familias porque sabemos
+            que dejar a tu hijo en nuestras manos es un acto de amor.
+          </p>
         </motion.div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {cards.map((c, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: i * 0.12, duration: 0.6 }}
-              whileHover={{ y: -8, boxShadow: `0 20px 60px ${COLORS.teal}25` }}
-              className="bg-white rounded-3xl p-7 border border-gray-100 cursor-default transition-all duration-300 group">
-              <div className="text-4xl mb-4">{c.emoji}</div>
-              <h3 className="font-black text-lg mb-2 group-hover:text-teal-500 transition-colors" style={{ fontFamily: "Poppins", color: COLORS.dark }}>{c.title}</h3>
-              <p className="text-sm text-gray-500 leading-relaxed" style={{ fontFamily: "Nunito" }}>{c.desc}</p>
-            </motion.div>
-          ))}
-        </div>
       </div>
     </section>
   );
@@ -409,7 +425,6 @@ function ServicesSection() {
                   <h3 className="font-black text-xl mb-2" style={{ fontFamily: "Poppins", color: COLORS.dark }}>{s.title}</h3>
                   <p className="text-gray-500 text-sm leading-relaxed mb-4" style={{ fontFamily: "Nunito" }}>{s.desc}</p>
                   <button className="flex items-center gap-1.5 text-sm font-bold transition-colors duration-200 hover:gap-3" style={{ color: s.color, fontFamily: "Poppins" }}>
-                    Más información <ArrowRight size={14} />
                   </button>
                 </div>
               </motion.div>
@@ -528,8 +543,8 @@ function EmotionalSection() {
         </motion.div>
         <motion.div style={{ y }} initial={{ opacity: 0, x: 40 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8 }} className="relative">
           <div className="absolute -inset-4 rounded-[2.5rem] blur-2xl opacity-20" style={{ background: COLORS.teal }} />
-          <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl" style={{ aspectRatio: "4/3" }}>
-            <img src="https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?w=600&q=80" alt="Especialista con niño" className="w-full h-full object-cover" />
+          <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl" style={{ aspectRatio: "3/3" }}>
+            <img src="/familia.jpg" alt="Especialista con niño" className="w-full h-full object-cover" />
           </div>
           <motion.div animate={{ y: [-4, 4, -4] }} transition={{ duration: 3, repeat: Infinity }} className="absolute -bottom-5 -left-5 bg-white rounded-2xl p-4 shadow-2xl">
             <div className="flex items-center gap-2 mb-1">

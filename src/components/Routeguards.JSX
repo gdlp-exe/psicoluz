@@ -12,7 +12,7 @@
 // ============================================================
 
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import { Useauth } from '../hooks/useAuth';
 
 // ─── Spinner mientras carga la sesión ────────────────────────
 function AuthLoader() {
@@ -32,7 +32,7 @@ function AuthLoader() {
  * Uso: <Route element={<ProtectedRoute />}> <Route path="..." /> </Route>
  */
 export function ProtectedRoute() {
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, loading } = Useauth();
   const location = useLocation();
 
   if (loading) return <AuthLoader />;
@@ -51,7 +51,7 @@ export function ProtectedRoute() {
  * allowedRoles: string[] — ej: ['admin', 'psicologo']
  */
 export function RoleGuard({ allowedRoles = [] }) {
-  const { isAuthenticated, loading, rol, perfil } = useAuth();
+  const { isAuthenticated, loading, rol, perfil } = Useauth();
   const location = useLocation();
 
   if (loading) return <AuthLoader />;
@@ -77,7 +77,7 @@ export function RoleGuard({ allowedRoles = [] }) {
  * Si el usuario ya tiene sesión, lo redirige al dashboard.
  */
 export function GuestRoute() {
-  const { isAuthenticated, loading, rol } = useAuth();
+  const { isAuthenticated, loading, rol } = Useauth();
   const location = useLocation();
 
   if (loading) return <AuthLoader />;

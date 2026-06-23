@@ -281,14 +281,15 @@ function Hero() {
           </motion.p>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 0.7 }} className="flex flex-col sm:flex-row gap-4">
             <motion.button whileHover={{ scale: 1.05, boxShadow: `0 0 30px ${COLORS.orange}80` }} whileTap={{ scale: 0.97 }}
+            onClick={() =>
+    window.open(
+      "https://wa.me/50586577616?text=Hola%20PsicoLuz,%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n.",
+      "_blank"
+    )
+  }
               className="flex items-center justify-center gap-2 px-8 py-4 rounded-full text-white font-bold text-lg shadow-2xl"
               style={{ background: `linear-gradient(135deg, ${COLORS.orange}, #e07810)`, fontFamily: "Poppins" }}>
-              Agendar valoración <ArrowRight size={18} />
-            </motion.button>
-            <motion.button whileHover={{ scale: 1.03, background: "rgba(255,255,255,0.15)" }} whileTap={{ scale: 0.97 }}
-              className="flex items-center justify-center gap-2 px-8 py-4 rounded-full font-bold text-lg border-2 border-white/60 text-white transition-all"
-              style={{ fontFamily: "Poppins", background: "rgba(255,255,255,0.08)", backdropFilter: "blur(10px)" }}>
-              <Play size={16} /> Conocer servicios
+              Valoración :)? <ArrowRight size={18} />
             </motion.button>
           </motion.div>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }} className="flex items-center gap-6 pt-4">
@@ -546,13 +547,7 @@ function EmotionalSection() {
           <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl" style={{ aspectRatio: "3/3" }}>
             <img src="/familia.jpg" alt="Especialista con niño" className="w-full h-full object-cover" />
           </div>
-          <motion.div animate={{ y: [-4, 4, -4] }} transition={{ duration: 3, repeat: Infinity }} className="absolute -bottom-5 -left-5 bg-white rounded-2xl p-4 shadow-2xl">
-            <div className="flex items-center gap-2 mb-1">
-              {[0,1,2,3,4].map(i => <Star key={i} size={14} fill={COLORS.orange} color={COLORS.orange} />)}
-            </div>
-            <div className="text-xs font-bold" style={{ fontFamily: "Poppins", color: COLORS.dark }}>Calificación promedio</div>
-            <div className="text-xs" style={{ color: COLORS.teal, fontFamily: "Nunito" }}>Basado en 500+ reseñas</div>
-          </motion.div>
+          
         </motion.div>
       </div>
     </section>
@@ -604,12 +599,12 @@ function Gallery() {
   const ref = useRef();
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const imgs = [
-    { src: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&q=80", span: "col-span-1 row-span-2" },
-    { src: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=400&q=80", span: "col-span-1 row-span-1" },
-    { src: "https://images.unsplash.com/photo-1551966775-a4ddc8df052b?w=400&q=80", span: "col-span-1 row-span-1" },
-    { src: "https://images.unsplash.com/photo-1604881988758-f76ad2f7aac1?w=400&q=80", span: "col-span-1 row-span-1" },
-    { src: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=400&q=80", span: "col-span-1 row-span-1" },
-    { src: "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&q=80", span: "col-span-1 row-span-2" },
+    { src: "real1.jpg", span: "col-span-1 row-span-2" },
+    { src: "real2.jpg", span: "col-span-1 row-span-1" },
+    { src: "real3.jpg", span: "col-span-1 row-span-1" },
+    { src: "real4.jpg", span: "col-span-1 row-span-1" },
+    { src: "real5.jpg", span: "col-span-1 row-span-1" },
+    { src: "real6.jpg", span: "col-span-1 row-span-2" },
   ];
   return (
     <section id="galería" className="py-24" style={{ background: "linear-gradient(180deg, #f0fdfe 0%, white 100%)" }}>
@@ -641,51 +636,139 @@ function Testimonials() {
   const [idx, setIdx] = useState(0);
   const ref = useRef();
   const inView = useInView(ref, { once: true });
+
+  const testimonialImages = [
+    "/pfp1.jpg",
+    "/pfp2.jpg",
+  ];
+
   useEffect(() => {
-    const t = setInterval(() => setIdx(p => (p + 1) % TESTIMONIALS.length), 4500);
+    const t = setInterval(() => setIdx((p) => (p + 1) % TESTIMONIALS.length), 4500);
     return () => clearInterval(t);
   }, []);
+
   return (
-    <section id="testimonios" className="py-24 relative overflow-hidden" style={{ background: COLORS.white }}>
+    <section
+      id="testimonios"
+      className="py-24 relative overflow-hidden"
+      style={{ background: COLORS.white }}
+    >
       <div className="max-w-5xl mx-auto px-6">
-        <motion.div ref={ref} initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7 }} className="text-center mb-14">
-          <span className="text-sm font-bold uppercase tracking-widest" style={{ color: COLORS.teal, fontFamily: "Nunito" }}>Lo que dicen</span>
-          <h2 className="text-4xl md:text-5xl font-black mt-2" style={{ fontFamily: "Poppins", color: COLORS.dark }}>
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 30 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-14"
+        >
+          <span
+            className="text-sm font-bold uppercase tracking-widest"
+            style={{ color: COLORS.teal, fontFamily: "Nunito" }}
+          >
+            Lo que dicen
+          </span>
+
+          <h2
+            className="text-4xl md:text-5xl font-black mt-2"
+            style={{ fontFamily: "Poppins", color: COLORS.dark }}
+          >
             Familias que <span style={{ color: COLORS.orange }}>confían en nosotros</span>
           </h2>
         </motion.div>
+
         <div className="relative">
           <AnimatePresence mode="wait">
-            <motion.div key={idx} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.5 }}
-              className="bg-white rounded-3xl p-10 shadow-2xl border border-gray-100 text-center max-w-3xl mx-auto">
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5 }}
+              className="bg-white rounded-3xl p-10 shadow-2xl border border-gray-100 text-center max-w-3xl mx-auto"
+            >
               <div className="flex justify-center gap-1 mb-6">
-                {[0,1,2,3,4].map(i => <Star key={i} size={20} fill={COLORS.orange} color={COLORS.orange} />)}
+                {[0, 1, 2, 3, 4].map((i) => (
+                  <Star
+                    key={i}
+                    size={20}
+                    fill={COLORS.orange}
+                    color={COLORS.orange}
+                  />
+                ))}
               </div>
-              <p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-8 italic" style={{ fontFamily: "Nunito" }}>"{TESTIMONIALS[idx].text}"</p>
+
+              <p
+                className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-8 italic"
+                style={{ fontFamily: "Nunito" }}
+              >
+                "{TESTIMONIALS[idx].text}"
+              </p>
+
               <div className="flex items-center justify-center gap-4">
-                <div className="w-12 h-12 rounded-full overflow-hidden border-2" style={{ borderColor: COLORS.teal }}>
-                  <img src={`https://i.pravatar.cc/80?img=${idx+20}`} alt="" className="w-full h-full object-cover" />
+                <div
+                  className="w-12 h-12 rounded-full overflow-hidden border-2"
+                  style={{ borderColor: COLORS.teal }}
+                >
+                  <img
+                    src={testimonialImages[idx % testimonialImages.length]}
+                    alt={TESTIMONIALS[idx].author}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
+
                 <div className="text-left">
-                  <div className="font-black" style={{ fontFamily: "Poppins", color: COLORS.dark }}>{TESTIMONIALS[idx].author}</div>
-                  <div className="text-sm" style={{ color: COLORS.teal, fontFamily: "Nunito" }}>{TESTIMONIALS[idx].role}</div>
+                  <div
+                    className="font-black"
+                    style={{ fontFamily: "Poppins", color: COLORS.dark }}
+                  >
+                    {TESTIMONIALS[idx].author}
+                  </div>
+
+                  <div
+                    className="text-sm"
+                    style={{ color: COLORS.teal, fontFamily: "Nunito" }}
+                  >
+                    {TESTIMONIALS[idx].role}
+                  </div>
                 </div>
               </div>
             </motion.div>
           </AnimatePresence>
+
           <div className="flex justify-center gap-2 mt-8">
             {TESTIMONIALS.map((_, i) => (
-              <button key={i} onClick={() => setIdx(i)} className="w-2.5 h-2.5 rounded-full transition-all duration-300"
-                style={{ background: i === idx ? COLORS.teal : COLORS.gray, transform: i === idx ? "scale(1.4)" : "scale(1)" }} />
+              <button
+                key={i}
+                onClick={() => setIdx(i)}
+                className="w-2.5 h-2.5 rounded-full transition-all duration-300"
+                style={{
+                  background: i === idx ? COLORS.teal : COLORS.gray,
+                  transform: i === idx ? "scale(1.4)" : "scale(1)",
+                }}
+              />
             ))}
           </div>
+
           <div className="flex justify-center gap-4 mt-6">
-            <motion.button whileHover={{ scale: 1.1 }} onClick={() => setIdx(p => (p - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
-              className="w-10 h-10 rounded-full border-2 flex items-center justify-center" style={{ borderColor: COLORS.teal, color: COLORS.teal }}>
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              onClick={() =>
+                setIdx((p) => (p - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)
+              }
+              className="w-10 h-10 rounded-full border-2 flex items-center justify-center"
+              style={{ borderColor: COLORS.teal, color: COLORS.teal }}
+            >
               <ChevronLeft size={18} />
             </motion.button>
-            <motion.button whileHover={{ scale: 1.1 }} onClick={() => setIdx(p => (p + 1) % TESTIMONIALS.length)}
-              className="w-10 h-10 rounded-full flex items-center justify-center" style={{ background: COLORS.teal, color: "white" }}>
+
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              onClick={() =>
+                setIdx((p) => (p + 1) % TESTIMONIALS.length)
+              }
+              className="w-10 h-10 rounded-full flex items-center justify-center"
+              style={{ background: COLORS.teal, color: "white" }}
+            >
               <ChevronRight size={18} />
             </motion.button>
           </div>
@@ -757,6 +840,12 @@ function CTASection() {
             whileTap={{ scale: 0.96 }}
             animate={{ boxShadow: [`0 0 0px ${COLORS.orange}00`, `0 0 30px ${COLORS.orange}60`, `0 0 0px ${COLORS.orange}00`] }}
             transition={{ boxShadow: { duration: 2, repeat: Infinity }, scale: { duration: 0.2 } }}
+            onClick={() =>
+    window.open(
+      "https://wa.me/50586577616?text=Hola%20PsicoLuz,%20me%20gustar%C3%ADa%20recibir%20informaci%C3%B3n.",
+      "_blank"
+    )
+  }
             className="inline-flex items-center gap-3 px-12 py-5 rounded-full text-white font-black text-xl shadow-2xl"
             style={{ background: `linear-gradient(135deg, ${COLORS.orange}, #e07810)`, fontFamily: "Poppins" }}>
             Contáctanos ahora <ArrowRight size={22} />

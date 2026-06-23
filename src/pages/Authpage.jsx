@@ -129,7 +129,7 @@ export default function AuthPage({ mode = "login" }) {
           </p>
           {/* Badges de confianza */}
           <div className="flex gap-4 justify-center mt-10 flex-wrap">
-            {["850+ Familias","12+ Años","98% Satisfacción"].map(b => (
+            {["70+ Familias","12+ Años!!!","98% Satisfacción"].map(b => (
               <div key={b} className="px-4 py-2 rounded-full bg-white/15 backdrop-blur text-white text-sm font-semibold">{b}</div>
             ))}
           </div>

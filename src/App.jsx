@@ -5,7 +5,7 @@ import { supabase } from "./lib/supabase";
 
 // Pages
 import PsicoLuz  from "./components/PsicoLuz";
-import AuthPage  from "./pages/AuthPage";
+import AuthPage  from "./pages/Authpage";
 import Dashboard from "./pages/psicologo/Dashboard";
 import Citas     from "./pages/psicologo/Citas";
 import Pacientes from "./pages/psicologo/Pacientes";

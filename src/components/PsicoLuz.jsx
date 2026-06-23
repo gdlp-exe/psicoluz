@@ -19,7 +19,7 @@ const COLORS = {
   dark: "#222222",
 };
 
-const navigate = useNavigate();
+
 
 const SERVICES = [
   { id: 1, icon: Brain, title: "Psicología Infantil", desc: "Apoyo emocional y conductual para que tu hijo desarrolle herramientas que lo acompañen toda la vida.", color: "#00AFC1", bg: "from-cyan-50 to-teal-50" },
@@ -111,6 +111,7 @@ function Particles() {
 
 // ─── Navbar ──────────────────────────────────────────────────────────────────
 function Navbar() {
+  const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   useEffect(() => {

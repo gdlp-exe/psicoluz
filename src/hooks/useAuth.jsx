@@ -1,18 +1,3 @@
-// ============================================================
-// src/hooks/useAuth.js
-// DECISIÓN TÉCNICA:
-//   • Context + Hook pattern: evita prop-drilling y centraliza
-//     el estado de sesión en un solo lugar.
-//   • onAuthStateChange: Supabase emite eventos (SIGNED_IN,
-//     SIGNED_OUT, TOKEN_REFRESHED, PASSWORD_RECOVERY) que
-//     actualizan el contexto automáticamente.
-//   • El perfil del usuario (tabla "usuario") se carga justo
-//     después de confirmar la sesión, para obtener rol, nombre,
-//     etc. sin exponer datos en el token JWT.
-//   • loading = true hasta que se confirme el estado inicial:
-//     evita flash de contenido no autorizado (IDOR prevention).
-// ============================================================
-
 import {
   createContext,
   useContext,
@@ -20,26 +5,30 @@ import {
   useState,
   useCallback,
   useRef,
+  useMemo,
 } from 'react';
+
 import { supabase } from '../lib/supabaseClient';
 import { signOut as authSignOut } from '../services/authService';
 
-// ─── Contexto ────────────────────────────────────────────────
 const AuthContext = createContext(null);
 
-// ─── Provider ────────────────────────────────────────────────
 export function AuthProvider({ children }) {
   const [session, setSession] = useState(null);
-  const [user, setUser] = useState(null);
-  const [perfil, setPerfil] = useState(null); // datos de tabla "usuario"
+  const [perfil, setPerfil] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [authEvent, setAuthEvent] = useState(null); // 'PASSWORD_RECOVERY', etc.
-  const fetchingRef = useRef(false);
+  const [authEvent, setAuthEvent] = useState(null);
 
-  // Cargar perfil extendido desde la tabla "usuario"
+  const fetchingPerfil = useRef(false);
+
+  // ─────────────────────────────
+  // CARGA PERFIL DB
+  // ─────────────────────────────
   const loadPerfil = useCallback(async (userId) => {
-    if (!userId || fetchingRef.current) return;
-    fetchingRef.current = true;
+    if (!userId || fetchingPerfil.current) return;
+
+    fetchingPerfil.current = true;
+
     try {
       const { data, error } = await supabase
         .from('usuario')
@@ -61,73 +50,109 @@ export function AuthProvider({ children }) {
         .single();
 
       if (error) {
-        console.error('[useAuth] Error cargando perfil:', error.message);
+        console.error('[Auth] perfil error:', error.message);
         setPerfil(null);
-      } else {
-        setPerfil(data);
+        return;
       }
+
+      setPerfil(data);
     } finally {
-      fetchingRef.current = false;
+      fetchingPerfil.current = false;
     }
   }, []);
 
+  // ─────────────────────────────
+  // INIT AUTH
+  // ─────────────────────────────
   useEffect(() => {
-    // 1. Obtener sesión inicial (por si ya hay sesión activa)
-    supabase.auth.getSession().then(({ data: { session: s } }) => {
-      setSession(s);
-      setUser(s?.user ?? null);
-      if (s?.user) loadPerfil(s.user.id);
-      setLoading(false);
-    });
+    let mounted = true;
 
-    // 2. Suscribirse a cambios de estado de auth
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, s) => {
+    const init = async () => {
+      const { data } = await supabase.auth.getSession();
+
+      if (!mounted) return;
+
+      const s = data.session ?? null;
+      setSession(s);
+
+      if (s?.user) {
+        await loadPerfil(s.user.id);
+      }
+
+      setLoading(false);
+    };
+
+    init();
+
+    // ─────────────────────────────
+    // LISTENER AUTH STATE
+    // ─────────────────────────────
+    const { data: { subscription } } =
+      supabase.auth.onAuthStateChange(async (event, session) => {
         setAuthEvent(event);
-        setSession(s);
-        setUser(s?.user ?? null);
+        setSession(session);
+
+        const userId = session?.user?.id;
 
         if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
-          if (s?.user) loadPerfil(s.user.id);
+          if (userId) await loadPerfil(userId);
         }
 
         if (event === 'SIGNED_OUT') {
           setPerfil(null);
         }
 
-        if (event === 'PASSWORD_RECOVERY') {
-          // El guard redirigirá al componente de nueva contraseña
-        }
-
         setLoading(false);
-      }
-    );
+      });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
   }, [loadPerfil]);
 
+  // ─────────────────────────────
+  // LOGOUT
+  // ─────────────────────────────
   const logout = useCallback(async () => {
     setLoading(true);
+
     await authSignOut();
-    // onAuthStateChange limpiará el estado automáticamente
+
+    setSession(null);
+    setPerfil(null);
+
+    setLoading(false);
   }, []);
 
-  const value = {
-    session,
-    user,
-    perfil,
-    loading,
-    authEvent,
-    isAuthenticated: !!session,
-    rol: perfil?.rol?.nombre ?? null,
-    logout,
-    refreshPerfil: () => user && loadPerfil(user.id),
-  };
+  // ─────────────────────────────
+  // DERIVED STATE
+  // ─────────────────────────────
+  const value = useMemo(() => {
+    const user = session?.user ?? null;
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+    return {
+      session,
+      user,
+      perfil,
+      loading,
+      authEvent,
+
+      isAuthenticated: !!session,
+      rol: perfil?.rol?.nombre ?? null,
+
+      logout,
+      refreshPerfil: () => user?.id && loadPerfil(user.id),
+    };
+  }, [session, perfil, loading, authEvent, logout, loadPerfil]);
+
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
-// ─── Hook ────────────────────────────────────────────────────
 export function useAuth() {
   const ctx = useContext(AuthContext);
   if (!ctx) {

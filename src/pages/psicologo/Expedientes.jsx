@@ -424,14 +424,20 @@ function TabNotas({ expedienteId, psicologoId }) {
 
   const crear = async () => {
     setSaving(true);
-    await supabase.from("nota_clinica").insert({
-      expediente_id: expedienteId,
-      psicologo_id:  psicologoId,
-      sesion_numero: sesionNum,
-      fecha_sesion:  new Date().toISOString(),
-      ...form,
-      duracion_minutos: parseInt(form.duracion_minutos) || 60,
-    });
+   await supabase.from("nota_clinica").insert({
+  expediente_id:          expedienteId,
+  psicologo_id:           psicologoId,
+  sesion_numero:          sesionNum,
+  fecha_sesion:           new Date().toISOString(),
+  visibilidad:            form.visibilidad,
+  resumen_sesion:         form.resumen_sesion      || null,
+  observaciones_clinicas: form.observaciones_clinicas || null,
+  notas_privadas:         form.notas_privadas      || null,
+  tareas_asignadas:       form.tareas_asignadas    || null,
+  duracion_minutos:       parseInt(form.duracion_minutos) || 60,
+  modalidad:              form.modalidad,
+  borrador:               true,
+});
     setSaving(false); setModal(false); setForm(EMPTY); cargar();
   };
 

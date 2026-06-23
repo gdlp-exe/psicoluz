@@ -31,7 +31,7 @@ const SERVICES = [
 const TEAM = [
   { name: "Dra. Sofía Martínez", role: "Psicóloga Infantil", desc: "Comprometida con el bienestar emocional y el desarrollo integral de cada pequeño." },
   { name: "Lic. Andrea López", role: "Pedagoga Especialista", desc: "Apasionada por descubrir y potenciar las capacidades únicas de cada niño." },
-  { name: "Lic. Carlos Ruiz", role: "Logopeda", desc: "Dedicado a abrir puertas de comunicación para cada niño con paciencia y amor." },
+  { name: "Lic. Guadalupe Ruiz", role: "Logopeda", desc: "Dedicado a abrir puertas de comunicación para cada niño con paciencia y amor." },
   { name: "Lic. María Flores", role: "Fisioterapeuta", desc: "Con manos expertas y corazón generoso guía el desarrollo motor infantil." },
 ];
 
@@ -51,10 +51,10 @@ const FAQS = [
 ];
 
 const STATS = [
-  { value: 850, suffix: "+", label: "Familias atendidas" },
+  { value: 70, suffix: "+", label: "Familias atendidas" },
   { value: 12, suffix: "+", label: "Años de experiencia" },
   { value: 8, suffix: "", label: "Especialistas certificados" },
-  { value: 98, suffix: "%", label: "Satisfacción familiar" },
+  { value: 98, suffix: "%", label: "Satisfacción familiar!" },
 ];
 
 // ─── Animated Counter ────────────────────────────────────────────────────────
@@ -292,7 +292,7 @@ function Hero() {
             </motion.button>
           </motion.div>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }} className="flex items-center gap-6 pt-4">
-            {[["850+","Familias"],["12+","Años"],["98%","Satisfacción"]].map(([v,l]) => (
+            {[["70+","Familias"],["12+","Años"],["98%","Satisfacción"]].map(([v,l]) => (
               <div key={l} className="text-center">
                 <div className="text-2xl font-black text-white" style={{ fontFamily: "Poppins" }}>{v}</div>
                 <div className="text-xs text-white/70" style={{ fontFamily: "Nunito" }}>{l}</div>
@@ -305,7 +305,7 @@ function Hero() {
           <div className="relative w-full max-w-md">
             <div className="absolute -inset-4 rounded-3xl blur-2xl opacity-30" style={{ background: COLORS.orange }} />
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white/20" style={{ aspectRatio: "4/5" }}>
-              <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?w=600&q=80" alt="Niño sonriendo feliz" className="w-full h-full object-cover" />
+              <img src="/grande.jpg" alt="Niño sonriendo feliz" className="w-full h-full object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-teal-900/40 to-transparent" />
             </div>
             {/* Floating badge */}
@@ -322,7 +322,7 @@ function Hero() {
             <motion.div animate={{ y: [4, -4, 4] }} transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
               className="absolute -top-4 -right-4 bg-white rounded-2xl p-3 shadow-2xl flex items-center gap-2">
               <div className="flex -space-x-1">{[0,1,2].map(i=><div key={i} className="w-6 h-6 rounded-full border-2 border-white overflow-hidden"><img src={`https://i.pravatar.cc/40?img=${i+10}`} alt="" className="w-full h-full object-cover"/></div>)}</div>
-              <div className="text-xs font-bold" style={{ fontFamily: "Poppins", color: COLORS.dark }}>+850 familias</div>
+              <div className="text-xs font-bold" style={{ fontFamily: "Poppins", color: COLORS.dark }}>+70 familias</div>
             </motion.div>
           </div>
         </motion.div>
@@ -376,11 +376,11 @@ function ServicesSection() {
   const ref = useRef();
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const images = [
-    "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=500&q=80",
-    "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&q=80",
-    "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=500&q=80",
-    "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=500&q=80",
-    "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=500&q=80",
+    "/psicologia.jpg",
+    "/pedagogia.jpg",
+    "reforzamiento.jpg",
+    "/logopedia.jpg",
+    "/fisioterapia.jpg",
   ];
   return (
     <section className="py-24 relative overflow-hidden" style={{ background: "linear-gradient(180deg, #f0fdfe 0%, white 100%)" }}>
@@ -422,10 +422,17 @@ function ServicesSection() {
             <Heart size={40} fill="white" color="white" className="mb-4 opacity-90" />
             <h3 className="font-black text-2xl mb-3" style={{ fontFamily: "Poppins" }}>¿No sabes por dónde empezar?</h3>
             <p className="text-white/80 mb-6 text-sm" style={{ fontFamily: "Nunito" }}>Contáctanos y te ayudamos a encontrar el servicio ideal para tu hijo.</p>
-            <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}
-              className="px-6 py-3 bg-white rounded-full font-bold text-sm shadow-lg" style={{ color: COLORS.tealDark, fontFamily: "Poppins" }}>
-              Consulta gratuita
-            </motion.button>
+         <motion.a
+  href="https://wa.me/50586577616?text=Hola%20PsicoLuz,%20me%20gustaría%20recibir%20información."
+  target="_blank"
+  rel="noopener noreferrer"
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.97 }}
+  className="px-6 py-3 bg-white rounded-full font-bold text-sm shadow-lg inline-flex items-center justify-center"
+  style={{ color: COLORS.tealDark, fontFamily: "Poppins" }}
+>
+  ¡Consultar ahora!
+</motion.a>
           </motion.div>
         </div>
       </div>
@@ -458,7 +465,7 @@ function StatsSection() {
 function TeamSection() {
   const ref = useRef();
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const imgs = ["https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80","https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=400&q=80","https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=80","https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80"];
+  const imgs = ["/equipo1.jpg","/equipo2.jpg","/equipo3.jpg","/equipo4.jpg"];
   return (
     <section id="equipo" className="py-24" style={{ background: COLORS.white }}>
       <div className="max-w-7xl mx-auto px-6">

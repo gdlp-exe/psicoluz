@@ -158,3 +158,48 @@ Playwright lo reutiliza; si las pruebas lo inician, gestionan su propio servidor
 SUS, Likert, inspección formal de accesibilidad y análisis profesional de utilidad siguen
 pendientes del piloto. Los escaneos automáticos no certifican conformidad WCAG completa.
 Auth/RLS, portal por código y restricciones de servidor conservan los pendientes previos.
+
+## Portal familiar y documentación de beta — 8 de noviembre de 2026
+
+- Se revisaron los 40 requerimientos y las fuentes de protocolo, arquitectura, diagnóstico
+  y comunicación. Se actualizaron evidencias/pendientes sin modificar el ERS ni los Word.
+- Documentación de beta: `beta-apoyo.pdf`, **3 páginas revisadas visualmente**, con origen
+  de los casos, entrenamiento, evaluación, uso, controles, límites y anexo reproducible.
+  Versiones editables en `beta-apoyo.md` y `anexo-beta-apoyo.md`. Las cifras de 13/42 en
+  ese documento corresponden a la entrega previa de la beta entrenada; esta entrega amplía
+  la suite con el portal.
+- `npm run verify:ers`, build y **19 pruebas unitarias**: correctos.
+- Edge: **55 pruebas de navegador aprobadas, 1.1 min**.
+- Chrome: **55 pruebas de navegador aprobadas, 58.5 s**.
+- Después del ajuste final de bordes de controles y bitácora de consultas, los **13 escenarios
+  del portal pasaron de nuevo en Edge, 38.4 s**; Chrome ya verificó el ajuste en la suite completa.
+- Cobertura del portal: código ficticio sin cuenta, error genérico, alcance de un expediente,
+  notas/actividades/archivos internos omitidos, archivo autorizado y descarga denegada después
+  de revocar, enlaces HTTPS y confirmación profesional, borradores pendientes privados,
+  texto del apoyo editado/aceptado y retiro al cambiar contexto, próxima cita discreta,
+  cierre de sesión y rutas públicas cerradas sin consumir Supabase.
+- Comentario familiar probado de extremo a extremo: envío desde actividad visible,
+  recepción en resumen profesional, rechazo de actividad interna/ajena y conservación
+  del estado profesional de cumplimiento.
+- Accesibilidad: tres tamaños, cuatro temas, letra, espaciado, vista sencilla, preferencias
+  al recargar, datos corruptos y almacenamiento bloqueado, teclado y reflujo 320–1440 px.
+  Inspección axe de acceso/ajustes, actividades con formulario de comentario, cuatro temas,
+  orientaciones y recursos sin incidencias detectadas. Ensayo adicional de espaciado
+  personalizado y texto muy grande sin desbordamiento horizontal.
+- Voz: API ausente, voz local ausente, segmentación de texto largo, pausa/continuación,
+  cancelación y salida comprobados con dobles controlados. Se verifica que el texto leído
+  proviene de la actividad autorizada. No equivale a comprobar audio o voces reales del equipo.
+- Revisión visual: acceso y actividades en escritorio; 360 px, alto contraste, texto muy
+  grande y espaciado. Sin errores de página en el recorrido inicial.
+
+La demo utiliza IndexedDB y códigos conocidos para datos ficticios; no es una frontera de
+seguridad. `/expediente` y `/portal` permanecen cerrados para expedientes reales hasta integrar
+autorización en servidor, sesión segura, revocación/caducidad, límites de intentos y Storage/RLS.
+La selección de criterios WCAG propuesta en `modulo-portal.md` debe formalizarse antes del
+piloto. No se certifica conformidad completa ni se inventan resultados SUS, Likert, voz real,
+lector de pantalla o comprensión con familias/niños. Los métodos D/I/A requieren además
+demostraciones, inspección y análisis formales según el ERS.
+
+Control final del portal: después de ordenar los botones de navegación a 360 px y evitar
+que la búsqueda oculta filtre la vista sencilla, se repitieron los 13 escenarios en Edge
+(41.2 s) y Chrome (33.1 s), todos aprobados. La compilación final también fue correcta.

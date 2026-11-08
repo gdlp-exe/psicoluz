@@ -2,7 +2,7 @@
   "fuente": "ERS_Psicoluz_iso.docx",
   "sha256_fuente": "39c85ad055ba23c7dab4ff7f147e751ac3dbd3576cd89907058a82a500e8cf6f",
   "fecha_revision": "2026-11-08",
-  "modulo_revisado": "Expedientes, Agenda y Seguimiento, vistas de desarrollo locales",
+  "modulo_revisado": "Expedientes, Agenda, Seguimiento y Portal familiar, frontend con datos ficticios",
   "cierre_integral": false,
   "nota": "Se revisaron los 40 requerimientos; resultados de mocks no acreditan cumplimiento en producción ni resultados del pilotaje.",
   "requerimientos": [
@@ -49,9 +49,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un código de acceso válido, cuando el tutor consulte el portal, entonces el sistema debe mostrar únicamente los contenidos marcados como visibles para ese expediente y denegar cualquier intento de acceder a información no autorizada o de otro expediente.",
-      "estado": "pendiente",
-      "observacion": "Pendiente portal real y denegación de contenido no autorizado en backend. Seguimiento incorpora aislamiento, proyección autorizada e historial local; servidor y portal reales pendientes.",
-      "evidencia_actual": null,
+      "estado": "parcial",
+      "observacion": "Portal de demostración entrega solo el DTO autorizado por expediente; archivos ocultos y borradores se rechazan/omiten. Rutas públicas cerradas hasta disponer de servidor; falta autorización real y pruebas negativas sobre Supabase.",
+      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -62,7 +62,7 @@
       "metodo_ERS": "I",
       "criterio_aceptacion": "Dado un acceso o modificación sobre un dato sensible del expediente, cuando la acción finalice, entonces el sistema debe registrar quién realizó la acción, qué acción realizó y cuándo ocurrió.",
       "estado": "parcial",
-      "observacion": "Historial local con actor/acción/fecha; falta bitácora de servidor no modificable por clientes. Seguimiento incorpora aislamiento, proyección autorizada e historial local; servidor y portal reales pendientes.",
+      "observacion": "Historial local con actor/acción/fecha; falta bitácora de servidor no modificable por clientes. Seguimiento incorpora aislamiento, proyección autorizada e historial local; servidor y portal reales pendientes. Consultas del portal y comentarios familiares registrados localmente con actor de acceso por código; bitácora protegida/identificación institucional pendientes.",
       "evidencia_actual": "tests/expedientes.spec.js y docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
@@ -133,9 +133,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dada una nota marcada «solo psicóloga», cuando el tutor abra el portal de seguimiento, entonces el sistema no debe mostrar ni un extracto de esa nota. Dada una nota marcada «visible al tutor», cuando el tutor abra el portal, entonces el sistema debe mostrar únicamente el texto autorizado y no los campos internos anexos.",
-      "estado": "parcial",
-      "observacion": "Niveles y autorización explícita del frontend; no se ejecutó todavía el escenario tutor/portal exigido por el ERS.",
-      "evidencia_actual": "tests/expedientes.spec.js y docs/resultados-verificacion.md",
+      "estado": "frontend_verificado_integracion_pendiente",
+      "observacion": "Portal local muestra únicamente título, fecha y texto de notas paciente_tutor; sin extractos privados, campos internos ni evaluaciones. Escenario T comprobado en demo, pendiente repetir con autorización real.",
+      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -157,9 +157,9 @@
       "prioridad": "Media",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un expediente autorizado, cuando la profesional adjunte un archivo y lo marque como visible en el portal, entonces el sistema debe almacenarlo vinculado al expediente y permitir su consulta desde el portal; si no está marcado como visible, el portal no debe mostrarlo.",
-      "estado": "parcial",
-      "observacion": "Archivo local, descarga y visibilidad comprobables; Storage privado y consumo/denegación desde portal pendientes.",
-      "evidencia_actual": "tests/expedientes.spec.js y docs/resultados-verificacion.md",
+      "estado": "frontend_verificado_integracion_pendiente",
+      "observacion": "Archivo local autorizado descargable por la sesión de su expediente; revocación bloquea nueva descarga. Archivos internos omitidos. Storage privado y autorización de servidor pendientes.",
+      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -241,9 +241,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un código de acceso válido, cuando el tutor consulte las actividades, entonces el sistema debe mostrar únicamente las actividades marcadas como visibles para la familia y pertenecientes al expediente asociado.",
-      "estado": "parcial",
-      "observacion": "Proyección solo de actividades autorizadas del mismo expediente, sin notas internas. Es vista previa profesional; portal por código y denegaciones de servidor pendientes.",
-      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
+      "estado": "frontend_verificado_integracion_pendiente",
+      "observacion": "Código ficticio limita el DTO a actividades expresamente visibles de un expediente; internas/ajenas rechazadas en reportes. Portal real, sesión segura y RLS pendientes.",
+      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -265,9 +265,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un código de acceso válido, cuando el usuario lo introduzca en el portal, entonces el sistema debe permitir la consulta únicamente del contenido autorizado del expediente asociado, sin solicitar registro ni mostrar listados de otros expedientes.",
-      "estado": "pendiente",
-      "observacion": "Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.",
-      "evidencia_actual": null,
+      "estado": "parcial",
+      "observacion": "Acceso por código ficticio sin crear cuenta, sesión opaca en memoria y salida comprobados. Los códigos conocidos de demostración no autentican personas; validación, revocación y límites de intentos de servidor pendientes.",
+      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -277,9 +277,9 @@
       "prioridad": "Media",
       "metodo_ERS": "D",
       "criterio_aceptacion": "Dado un expediente con actividades, notas y archivos autorizados y una cita próxima registrada, cuando el tutor acceda con su código, entonces el sistema debe mostrar únicamente esos contenidos autorizados y una alerta discreta con la fecha y hora de la próxima cita. El portal no debe mostrar resúmenes de consultas ni información profesional restringida.",
-      "estado": "pendiente",
-      "observacion": "Agenda prepara citas vinculadas al expediente; la alerta discreta y su autorización en el portal familiar siguen pendientes.",
-      "evidencia_actual": null,
+      "estado": "frontend_verificado_integracion_pendiente",
+      "observacion": "Portal local muestra actividades, notas, archivos, enlaces HTTPS autorizados y próxima cita confirmada/futura solo fecha/hora. No expone resumen de consulta ni evaluación. Demostración formal e integración institucional pendientes.",
+      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -289,9 +289,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un código inválido, cuando el tutor intente acceder, entonces el sistema debe rechazar el acceso sin revelar si existe un expediente relacionado. Dado un código válido, cuando el tutor intente consultar otro expediente, entonces el sistema debe impedir el acceso y no revelar su existencia.",
-      "estado": "pendiente",
-      "observacion": "Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.",
-      "evidencia_actual": null,
+      "estado": "parcial",
+      "observacion": "Códigos inválidos/número de expediente y sesiones inventadas o cerradas rechazados con mensaje genérico. No acepta cambiar expediente desde la llamada. Servidor, códigos reales y protección de intentos pendientes.",
+      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -301,9 +301,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "D",
       "criterio_aceptacion": "Dado el portal de seguimiento destinado al uso por niños, cuando el usuario cambie el tamaño de fuente, entonces el sistema debe ofrecer y aplicar al menos tres niveles disponibles sin ocultar el contenido de la actividad.",
-      "estado": "pendiente",
-      "observacion": "Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.",
-      "evidencia_actual": null,
+      "estado": "frontend_verificado_integracion_pendiente",
+      "observacion": "Tres tamaños de texto aplicados y conservados sin recortar contenido; recorridos de 320–1440 px y texto grande comprobados. Demostración formal y comprensión con usuarios pendientes.",
+      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -313,9 +313,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "D",
       "criterio_aceptacion": "Dado el portal de seguimiento, cuando el usuario seleccione el tema de alto contraste, entonces el sistema debe aplicarlo a la interfaz del portal y mantener legible el contenido de las actividades.",
-      "estado": "pendiente",
-      "observacion": "Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.",
-      "evidencia_actual": null,
+      "estado": "frontend_verificado_integracion_pendiente",
+      "observacion": "Tema institucional, alto contraste, oscuro y cálido implementados; contraste automático y estados legibles ensayados. Inspección/demostración manual formal pendientes.",
+      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -325,9 +325,9 @@
       "prioridad": "Media",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado el portal de seguimiento dentro de una sesión activa, cuando el usuario cambie una preferencia de accesibilidad, entonces el sistema debe mantenerla durante esa sesión sin solicitar registro ni asociarla a una cuenta de tutor.",
-      "estado": "pendiente",
-      "observacion": "Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.",
-      "evidencia_actual": null,
+      "estado": "frontend_verificado_integracion_pendiente",
+      "observacion": "Preferencias de lectura en sessionStorage sin cuenta ni datos clínicos; recarga y navegación comprobadas. Datos corruptos o almacenamiento bloqueado conservan funcionamiento con aviso; pilotaje pendiente.",
+      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -337,9 +337,9 @@
       "prioridad": "Media",
       "metodo_ERS": "D",
       "criterio_aceptacion": "Dada una actividad marcada como visible en el portal de seguimiento, cuando el usuario active el control de lectura, entonces el sistema debe sintetizar su título, descripción e instrucciones y no debe leer contenido restringido. Dado un navegador sin Web Speech API, cuando se active el control, entonces el sistema debe informar la limitación y no fallar el resto del portal.",
-      "estado": "pendiente",
-      "observacion": "Iteración posterior prevista en el ERS: lectura de contenido autorizado y fallback sin Web Speech API pendientes.",
-      "evidencia_actual": null,
+      "estado": "frontend_verificado_integracion_pendiente",
+      "observacion": "Lectura explícita de título/descripción/instrucciones autorizadas con voz local en español, pausa/continuación/detención, cancelación al salir/cambiar sección y fallback sin API/voz. Contrato automatizado comprobado; audio real en dispositivos y demostración formal pendientes.",
+      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -350,8 +350,8 @@
       "metodo_ERS": "I",
       "criterio_aceptacion": "Dado el portal de seguimiento, cuando se realice la inspección documentada de accesibilidad, entonces debe cumplir el subconjunto de criterios subconjunto de criterios de accesibilidad acordado por el proyecto para contraste, redimensionado, espaciado, formularios y lectura de actividades cuando exista.",
       "estado": "parcial",
-      "observacion": "Escaneo automático WCAG 2 A/AA en pantallas/formularios de Seguimiento sin incidencias detectadas en escenarios cubiertos. No acredita conformidad integral; criterios aplicables a RF23–RF26 y portal pendientes de formalización/inspección.",
-      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
+      "observacion": "Portal incluye controles de lectura, teclado, foco, temas y espaciado. Escaneo automático y reflujo ensayados; criterios WCAG 2.2 propuestos en modulo-portal.md por formalizar. No acredita conformidad integral ni inspección real con usuarios/lector de pantalla.",
+      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -386,7 +386,7 @@
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un borrador en estado «pendiente», cuando el tutor consulte el portal, entonces el sistema no debe mostrar ninguna tarjeta de evolución o predicción. Dado un texto editado y aceptado por la profesional y marcado como visible, cuando el tutor consulte el portal, entonces el sistema debe mostrar el texto aceptado y no el borrador original del motor.",
       "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Aceptar/editar/descartar, confirmaciones y texto familiar revisado comprobados. Cambios del contexto retiran publicación. Portal real y servidor pendientes. Cambio de versión del motor invalida autorización anterior; ejemplo sintético independiente no persiste ni publica.",
+      "observacion": "Aceptar/editar/descartar, confirmaciones y texto familiar revisado comprobados. Cambios del contexto retiran publicación. Portal real y servidor pendientes. Cambio de versión del motor invalida autorización anterior; ejemplo sintético independiente no persiste ni publica. Texto editado autorizado y retiro al cambiar datos comprobados también en el portal local.",
       "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md; tests-unit/trained-model.test.mjs; tests/apoyo-entrenado.spec.js; data/synthetic/training-report.json",
       "cumplimiento_integral_acreditado": false
     },
@@ -470,8 +470,8 @@
       "metodo_ERS": "D",
       "criterio_aceptacion": "Dado un escritorio con Chrome o Edge y un portal de seguimiento en un ancho de 360 px, cuando se utilice el sistema, entonces las funciones previstas deben operar y la interfaz debe seguir siendo utilizable sin crear una cuenta.",
       "estado": "parcial",
-      "observacion": "Expedientes, Agenda y Seguimiento revisados en Edge y Chrome; Seguimiento a 360, 390, 768, 1024 y 1440 px. Portal familiar real pendiente.",
-      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
+      "observacion": "Frontend completo comprobado en Edge y Chrome; portal a 320, 360, 390, 768, 1024 y 1440 px con texto grande y espaciado. Dispositivos, lector de pantalla y demostración institucional pendientes.",
+      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {

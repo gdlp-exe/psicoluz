@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowRight, CalendarDays, CheckCircle2, ChevronRight, FolderOpen, Menu, ShieldCheck, X } from 'lucide-react';
+import { BookOpen, ArrowRight, CalendarDays, CheckCircle2, ChevronRight, FolderOpen, Menu, ShieldCheck, X } from 'lucide-react';
 import { DEMO_IDENTITIES } from '../expedientes/repository';
 import '../expedientes/expedientes.css';
 
@@ -24,6 +24,7 @@ export default function DevelopmentShell({ children, identity, onIdentityChange,
         <a href="/desarrollo/expedientes" aria-current={active === 'expedientes' ? 'page' : undefined}><FolderOpen size={20} />Expedientes{active === 'expedientes' && <span>{count}</span>}</a>
         <a href="/desarrollo/agenda" aria-current={active === 'agenda' ? 'page' : undefined}><CalendarDays size={20} />Agenda y citas{active === 'agenda' && <span>{count}</span>}</a>
         <a href="/desarrollo/seguimiento" aria-current={active === 'seguimiento' ? 'page' : undefined}><CheckCircle2 size={20} />Seguimiento{active === 'seguimiento' && <span>{count}</span>}</a>
+        <a href="/desarrollo/portal" target="_blank" rel="noopener noreferrer"><BookOpen size={20} />Portal familiar (otra pestaña)</a>
       </nav>
       <div className="exp-sidebar-note"><ShieldCheck size={26} /><h4>Información del paciente</h4><p>Información organizada para dar continuidad al acompañamiento.</p><i /><i /></div>
       <div className="exp-sidebar-bottom"><span className="exp-person-dot">{identity.name[0]}</span><div><strong>{identity.name}</strong><small>{identity.role === 'psicologa' ? 'Psicóloga responsable' : identity.role === 'administracion' ? 'Administración' : 'Desarrollo'}</small></div></div>

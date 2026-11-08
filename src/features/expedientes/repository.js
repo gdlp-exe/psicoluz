@@ -82,4 +82,10 @@ export const expedientesRepository = {
 };
 
 // Shared fictional store for the isolated development modules; never an authorization boundary.
-export const developmentStore = { read, mutate, requireRecord, log };
+async function readFileBlob(fileId) {
+  const database = await db();
+  const blob = await new Promise((resolve, reject) => { const request = database.transaction('files').objectStore('files').get(fileId); request.onsuccess = () => resolve(request.result); request.onerror = () => reject(request.error); });
+  if (!blob) throw new Error('El archivo no está disponible.');
+  return blob;
+}
+export const developmentStore = { read, mutate, requireRecord, log, readFileBlob };

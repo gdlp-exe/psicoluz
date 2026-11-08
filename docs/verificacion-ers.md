@@ -7,18 +7,18 @@ Actualización de autenticación: Supabase Auth y lectura del propio perfil impl
 
 - **RF01 · T · parcial**: Supabase Auth individual implementado; acceso y recarga local observados. Titular confirmó ingreso en Vercel después de configurar Production y redesplegar (Ready). Recuperación por correo e inspección institucional pendientes.
 - **RF02 · T · parcial**: Roles canónicos y contrato de perfil comprobados contra SQL; perfil Administración activo en Supabase, sin escalamiento por metadatos. Falta matriz operativa de permisos de módulos conectados.
-- **RF03 · T · parcial**: Aislamiento y nota privada ensayados localmente; falta RLS y escenario de portal por código. Seguimiento incorpora aislamiento, proyección autorizada e historial local; servidor y portal reales pendientes.
+- **RF03 · T · parcial**: Registro real limita consultas a la profesional responsable y permite identificación/apertura a Administración. No devuelve notas, evaluaciones, archivos ni códigos; Desarrollo/anon rechazados en SQL. Escenarios clínicos y portal completos pendientes.
 - **RF04 · T · parcial**: Portal de demostración entrega solo el DTO autorizado por expediente; archivos ocultos y borradores se rechazan/omiten. Rutas públicas cerradas hasta disponer de servidor; falta autorización real y pruebas negativas sobre Supabase.
-- **RF05 · I · parcial**: Bitácora SQL de lectura del perfil con actor autenticado y solo anexado comprobada. Historial de módulos todavía local; inspección integral institucional pendiente.
+- **RF05 · I · parcial**: Consultas de perfil, índice, pacientes y detalle y cambios del registro generan actor/acción/fecha en servidor. Bitácora protegida localmente comprobada; inspección institucional y demás APIs pendientes.
 - **RNF02 · I · pendiente**: Pendiente inspección de HTTPS, credenciales, autorización por código y controles de servidor.
 - **RNF03 · I · pendiente**: Pendiente inspección y pruebas negativas de todas las entidades con RLS/Storage reales.
-- **RF06 · T · frontend_verificado_integracion_pendiente**: Creación y numeración local, paciente existente y responsable; falta unicidad transaccional/concurrencia en PostgreSQL.
-- **RF07 · I · parcial**: Inspección del formulario de mínimos; el centro debe confirmar el conjunto definitivo de datos necesario.
-- **RF08 · T · frontend_verificado_integracion_pendiente**: Motivo y cinco estados comprobables en frontend; repetir integración con restricciones de base de datos.
+- **RF06 · T · parcial**: Apertura transaccional de paciente/expediente, reutilización autorizada y secuencia única comprobadas contra SQL local. API aplicada en Supabase; listado y responsable real leídos con JWT de Administración. Escritura remota y concurrencia pendientes.
+- **RF07 · I · parcial**: Formulario real de identificación mínima preparado y conectado: nombres/apellidos obligatorios, nacimiento/contacto opcionales. Límites SQL probados; el centro debe confirmar suficiencia del conjunto mínimo.
+- **RF08 · T · parcial**: Motivo y cinco estados conservados por API y pantalla; edición compara versiones de paciente y expediente. Pruebas locales y controladas; falta escritura real autorizada.
 - **RF9 · T · frontend_verificado_integracion_pendiente**: Portal local muestra únicamente título, fecha y texto de notas paciente_tutor; sin extractos privados, campos internos ni evaluaciones. Escenario T comprobado en demo, pendiente repetir con autorización real.
 - **RF10 · D · frontend_verificado_integracion_pendiente**: Registro local de tipo/fecha/resumen y recarga comprobables; demostración formal e integración pendientes.
 - **RF11 · T · frontend_verificado_integracion_pendiente**: Archivo local autorizado descargable por la sesión de su expediente; revocación bloquea nueva descarga. Archivos internos omitidos. Storage privado y autorización de servidor pendientes.
-- **RF12 · T · frontend_verificado_integracion_pendiente**: Búsqueda por nombre y número dentro del perfil local; falta verificar consultas con identidad y políticas reales.
+- **RF12 · T · parcial**: Búsqueda por nombre sin acentos y número dentro del alcance, filtro y paginación comprobados en SQL y navegador. Listado vacío real verificado; datos no vacíos remotos pendientes.
 - **RF13 · T · frontend_verificado_integracion_pendiente**: Registro local de paciente/expediente, profesional, fecha/hora de Nicaragua, modalidad y estado; recarga comprobada. Falta persistencia y autorización reales en Supabase.
 - **RF14 · D · frontend_verificado_integracion_pendiente**: Semana/lista y filtros comprobados para administración y profesional sobre el mismo registro local. Demostración e integración institucional pendientes.
 - **RF15 · T · frontend_verificado_integracion_pendiente**: Reprogramación y cancelación probadas; cruces exactos/parciales rechazados, contigüidad y distintas profesionales permitidas. Cola local comprobada; falta restricción transaccional en PostgreSQL y concurrencia real.

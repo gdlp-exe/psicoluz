@@ -2,7 +2,7 @@
   "fuente": "ERS_Psicoluz_iso.docx",
   "sha256_fuente": "39c85ad055ba23c7dab4ff7f147e751ac3dbd3576cd89907058a82a500e8cf6f",
   "fecha_revision": "2026-11-08",
-  "modulo_revisado": "Autenticación real y contrato de perfil; Expedientes, Agenda, Seguimiento y Portal con datos ficticios",
+  "modulo_revisado": "Autenticación y registro de pacientes/expedientes conectados; contenido clínico y otros módulos pendientes",
   "cierre_integral": false,
   "nota": "Se revisaron los 40 requerimientos; resultados de mocks no acreditan cumplimiento en producción ni resultados del pilotaje.",
   "requerimientos": [
@@ -38,8 +38,8 @@
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dada una profesional autenticada, cuando consulte la lista de expedientes, entonces el sistema debe mostrar únicamente los expedientes asociados a su identificador, salvo que el centro defina un rol de coordinación explícito. Dado el rol administración, cuando intente leer una nota con visibilidad «solo psicóloga», entonces el sistema debe denegar la lectura. Dado un acceso al portal mediante código, cuando se consulte el contenido, entonces el sistema debe limitarlo al expediente asociado al código.",
       "estado": "parcial",
-      "observacion": "Aislamiento y nota privada ensayados localmente; falta RLS y escenario de portal por código. Seguimiento incorpora aislamiento, proyección autorizada e historial local; servidor y portal reales pendientes.",
-      "evidencia_actual": "tests/expedientes.spec.js y docs/resultados-verificacion.md",
+      "observacion": "Registro real limita consultas a la profesional responsable y permite identificación/apertura a Administración. No devuelve notas, evaluaciones, archivos ni códigos; Desarrollo/anon rechazados en SQL. Escenarios clínicos y portal completos pendientes.",
+      "evidencia_actual": "scripts/test-db-registry.mjs; tests/registry.spec.js; docs/conexion-registro-expedientes.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -62,8 +62,8 @@
       "metodo_ERS": "I",
       "criterio_aceptacion": "Dado un acceso o modificación sobre un dato sensible del expediente, cuando la acción finalice, entonces el sistema debe registrar quién realizó la acción, qué acción realizó y cuándo ocurrió.",
       "estado": "parcial",
-      "observacion": "Bitácora SQL de lectura del perfil con actor autenticado y solo anexado comprobada. Historial de módulos todavía local; inspección integral institucional pendiente.",
-      "evidencia_actual": "tests/auth.spec.js; scripts/test-db-auth.mjs; docs/modulo-autenticacion.md; docs/resultados-verificacion.md",
+      "observacion": "Consultas de perfil, índice, pacientes y detalle y cambios del registro generan actor/acción/fecha en servidor. Bitácora protegida localmente comprobada; inspección institucional y demás APIs pendientes.",
+      "evidencia_actual": "scripts/test-db-registry.mjs; tests/registry.spec.js; docs/conexion-registro-expedientes.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -97,9 +97,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un paciente y una profesional responsable válidos, cuando se cree el expediente, entonces el sistema debe asignarle un número único y asociarlo con ambos registros.",
-      "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Creación y numeración local, paciente existente y responsable; falta unicidad transaccional/concurrencia en PostgreSQL.",
-      "evidencia_actual": "tests/expedientes.spec.js y docs/resultados-verificacion.md",
+      "estado": "parcial",
+      "observacion": "Apertura transaccional de paciente/expediente, reutilización autorizada y secuencia única comprobadas contra SQL local. API aplicada en Supabase; listado y responsable real leídos con JWT de Administración. Escritura remota y concurrencia pendientes.",
+      "evidencia_actual": "scripts/test-db-registry.mjs; tests/registry.spec.js; docs/conexion-registro-expedientes.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -110,8 +110,8 @@
       "metodo_ERS": "I",
       "criterio_aceptacion": "Dado el formulario de creación o actualización del paciente, cuando se guarden los datos, entonces el sistema debe solicitar y conservar únicamente los datos de identificación definidos como necesarios para la atención.",
       "estado": "parcial",
-      "observacion": "Inspección del formulario de mínimos; el centro debe confirmar el conjunto definitivo de datos necesario.",
-      "evidencia_actual": "tests/expedientes.spec.js y docs/resultados-verificacion.md",
+      "observacion": "Formulario real de identificación mínima preparado y conectado: nombres/apellidos obligatorios, nacimiento/contacto opcionales. Límites SQL probados; el centro debe confirmar suficiencia del conjunto mínimo.",
+      "evidencia_actual": "scripts/test-db-registry.mjs; tests/registry.spec.js; docs/conexion-registro-expedientes.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -121,9 +121,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un expediente registrado, cuando la profesional consulte o actualice su estado, entonces el sistema debe permitir únicamente los estados activo, en espera, suspendido, alta o archivado y conservar el motivo de consulta.",
-      "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Motivo y cinco estados comprobables en frontend; repetir integración con restricciones de base de datos.",
-      "evidencia_actual": "tests/expedientes.spec.js y docs/resultados-verificacion.md",
+      "estado": "parcial",
+      "observacion": "Motivo y cinco estados conservados por API y pantalla; edición compara versiones de paciente y expediente. Pruebas locales y controladas; falta escritura real autorizada.",
+      "evidencia_actual": "scripts/test-db-registry.mjs; tests/registry.spec.js; docs/conexion-registro-expedientes.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -169,9 +169,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un usuario con un universo autorizado de expedientes, cuando busque por nombre del paciente o número de expediente, entonces el sistema debe mostrar solo coincidencias pertenecientes a ese universo.",
-      "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Búsqueda por nombre y número dentro del perfil local; falta verificar consultas con identidad y políticas reales.",
-      "evidencia_actual": "tests/expedientes.spec.js y docs/resultados-verificacion.md",
+      "estado": "parcial",
+      "observacion": "Búsqueda por nombre sin acentos y número dentro del alcance, filtro y paginación comprobados en SQL y navegador. Listado vacío real verificado; datos no vacíos remotos pendientes.",
+      "evidencia_actual": "scripts/test-db-registry.mjs; tests/registry.spec.js; docs/conexion-registro-expedientes.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -488,21 +488,28 @@
     }
   ],
   "modulos_revisados": [
-    "Expedientes RF06–RF12",
-    "Agenda RF13–RF15"
+    "Autenticación RF01/RF02",
+    "Registro RF06/RF07/RF08/RF12",
+    "Expedientes RF9/RF10/RF11: integración pendiente",
+    "Agenda RF13–RF15: demo",
+    "Seguimiento: demo",
+    "Portal familiar: demo"
   ],
   "avances_backend": {
-    "fase": "fundacion_privada_aplicada",
+    "fase": "autenticacion_y_registro_parcial_conectados",
     "fecha": "2026-11-08",
     "proyecto": "krrurcjowhgrkenkgtpf",
     "tablas": 15,
     "tablas_con_rls": 15,
     "politicas_permisivas": 0,
-    "frontend_conectado": false,
-    "api_autorizada_implementada": false,
+    "frontend_conectado": true,
+    "api_autorizada_implementada": true,
     "evidencia": "docs/backend-fase1.md; scripts/test-db-foundation.mjs; supabase/checks/verify_foundation.sql",
     "autenticacion_personal_conectada": true,
     "api_perfil_propio_implementada": true,
-    "api_clinica_conectada": false
+    "api_clinica_conectada": false,
+    "api_registro_expedientes_implementada": true,
+    "cobertura_api_completa": false,
+    "alcance_frontend_conectado": "Auth y registro básico; contenido clínico y otros módulos pendientes"
   }
 }

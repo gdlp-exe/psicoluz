@@ -217,3 +217,10 @@ Las pruebas de navegador de Auth usan respuestas controladas sin correos reales.
 No se acredita todavía entrega real de recuperación por correo, configuración de producción en Vercel, matriz operativa completa de permisos clínicos, Storage, concurrencia remota, SUS, Likert ni conformidad WCAG integral. Ver `modulo-autenticacion.md` para correspondencia de campos, permisos y pendientes.
 
 Producción de autenticación: Vercel Ready (`HmxxomAxtxYK6qvKGeNjviiGNhzz`), landing/login observados sin error de variables. Titular confirmó ingreso en `https://psicoluz.vercel.app`. Variables públicas guardadas en Production y retornos exactos de recuperación local/publicado configurados. Entrega real de correo, módulos clínicos y validación institucional pendientes.
+
+## Registro de pacientes y apertura de expedientes — 8 de noviembre de 2026
+
+Permisos autorizados por la titular. Migración `20261108000300` aplicada en Supabase; índice vacío y primera profesional activa observados desde sesión real de Administración en el preview. No se insertaron pacientes ficticios en producción. La prueba de inicio de la cuenta profesional y la escritura remota quedan pendientes.
+
+Suite final de navegador: 73 aprobados en Edge y 73 en Chrome. Lógica: 25 aprobados. Compilación y matriz de 40 IDs correctas. Pruebas SQL: migraciones completas en PGlite con Auth mínimo simulado, permisos, separación por responsable, transacción, campos, cinco estados, versiones, bitácora y paginación. Ver `conexion-registro-expedientes.md`. No se declara cierre integral, concurrencia remota, Storage, SUS, Likert o conformidad WCAG por estos ensayos.
+Resultado final SQL: 41 comprobaciones aprobadas, incluidos tres contenedores; también se verifican los cinco estados del ERS con lectura posterior. No equivale a concurrencia o escritura remota.

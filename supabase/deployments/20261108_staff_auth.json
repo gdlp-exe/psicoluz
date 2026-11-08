@@ -12,10 +12,18 @@
     "public_signup_enabled": false,
     "anonymous_signin_enabled": false,
     "email_confirmation_enabled": true,
-    "recovery_redirect": "http://127.0.0.1:5180/actualizar-clave"
+    "recovery_redirect": "http://127.0.0.1:5180/actualizar-clave",
+    "site_url": "https://psicoluz.vercel.app",
+    "production_recovery_redirect": "https://psicoluz.vercel.app/actualizar-clave"
   },
   "real_preview_login_observed": true,
   "clinical_frontend_connected": false,
   "production_ready": false,
-  "real_preview_session_reload_observed": true
+  "real_preview_session_reload_observed": true,
+  "production_login_confirmed_by_user": true,
+  "production_login_observed_by_agent": false,
+  "vercel_source_commit": "4cd9df4b67bcab53d21d54e839a75a15645d6289",
+  "vercel_deployment": "HmxxomAxtxYK6qvKGeNjviiGNhzz",
+  "vercel_status": "Ready",
+  "production_url": "https://psicoluz.vercel.app"
 }

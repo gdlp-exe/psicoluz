@@ -14,7 +14,7 @@
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un usuario de personal registrado, cuando ingrese sus credenciales individuales válidas, entonces el sistema debe autenticar únicamente esa cuenta y no permitir el uso de una cuenta compartida.",
       "estado": "parcial",
-      "observacion": "Login individual implementado con Supabase Auth. La titular ingresó con su contraseña; se observó Administración y restauración tras recarga en el preview real. Pruebas controladas positivas/negativas aprobadas; falta validación institucional y despliegue de producción.",
+      "observacion": "Supabase Auth individual implementado; acceso y recarga local observados. Titular confirmó ingreso en Vercel después de configurar Production y redesplegar (Ready). Recuperación por correo e inspección institucional pendientes.",
       "evidencia_actual": "tests/auth.spec.js; scripts/test-db-auth.mjs; docs/modulo-autenticacion.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
@@ -500,6 +500,9 @@
     "politicas_permisivas": 0,
     "frontend_conectado": false,
     "api_autorizada_implementada": false,
-    "evidencia": "docs/backend-fase1.md; scripts/test-db-foundation.mjs; supabase/checks/verify_foundation.sql"
+    "evidencia": "docs/backend-fase1.md; scripts/test-db-foundation.mjs; supabase/checks/verify_foundation.sql",
+    "autenticacion_personal_conectada": true,
+    "api_perfil_propio_implementada": true,
+    "api_clinica_conectada": false
   }
 }

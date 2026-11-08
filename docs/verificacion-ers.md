@@ -5,7 +5,7 @@ Los 40 registros conservan enunciados, aceptación, métodos T/I/D/A e identific
 Actualización de autenticación: Supabase Auth y lectura del propio perfil implementados; primera cuenta Administración habilitada. El acceso real y la restauración tras recarga se observaron en el preview con la cuenta de la titular. Ver `modulo-autenticacion.md`.
 ## Estado de cada requerimiento
 
-- **RF01 · T · parcial**: Login individual implementado con Supabase Auth. La titular ingresó con su contraseña; se observó Administración y restauración tras recarga en el preview real. Pruebas controladas positivas/negativas aprobadas; falta validación institucional y despliegue de producción.
+- **RF01 · T · parcial**: Supabase Auth individual implementado; acceso y recarga local observados. Titular confirmó ingreso en Vercel después de configurar Production y redesplegar (Ready). Recuperación por correo e inspección institucional pendientes.
 - **RF02 · T · parcial**: Roles canónicos y contrato de perfil comprobados contra SQL; perfil Administración activo en Supabase, sin escalamiento por metadatos. Falta matriz operativa de permisos de módulos conectados.
 - **RF03 · T · parcial**: Aislamiento y nota privada ensayados localmente; falta RLS y escenario de portal por código. Seguimiento incorpora aislamiento, proyección autorizada e historial local; servidor y portal reales pendientes.
 - **RF04 · T · parcial**: Portal de demostración entrega solo el DTO autorizado por expediente; archivos ocultos y borradores se rechazan/omiten. Rutas públicas cerradas hasta disponer de servidor; falta autorización real y pruebas negativas sobre Supabase.

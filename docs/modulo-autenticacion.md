@@ -47,3 +47,9 @@ Dominio comunicado por la titular: `https://psicoluz.vercel.app`. El error de la
 En Settings → Environment Variables configurar `VITE_SUPABASE_URL` con la URL del proyecto nuevo y `VITE_SUPABASE_PUBLISHABLE_KEY` con su clave pública publishable. Vite incorpora estos valores durante la compilación: actualizar variables requiere un despliegue nuevo. No usar service_role ni claves secretas en variables VITE. El código admite `VITE_SUPABASE_ANON_KEY` como alternativa, siempre que corresponda al proyecto nuevo.
 
 `vercel.json` ya contiene la reescritura de rutas a `/`; `/login`, `/personal` y `/actualizar-clave` no requieren páginas HTML separadas. Cada dominio mantiene su propia sesión: haber ingresado en localhost no inicia sesión en Vercel. El retorno de recuperación de producción debe añadirse explícitamente a Supabase; no se permiten dominios arbitrarios ni comodines. La conexión de los módulos clínicos y la validación institucional continúan pendientes.
+
+### Comprobación de producción
+
+Se guardaron ambas variables públicas en el entorno Production de Vercel y se redesplegó `4cd9df4b67bcab53d21d54e839a75a15645d6289` sin reutilizar caché de build. Despliegue `HmxxomAxtxYK6qvKGeNjviiGNhzz`: Ready, dominio `https://psicoluz.vercel.app`. Landing y formulario de acceso observados sin el error anterior. La titular confirmó que pudo ingresar desde la versión publicada; no se leyó ni se reutilizó su contraseña. En el navegador del agente solo se observó el formulario público; la confirmación de ingreso publicado proviene de la titular.
+
+Supabase Site URL quedó en `https://psicoluz.vercel.app`; retornos exactos permitidos: `https://psicoluz.vercel.app/actualizar-clave` y `http://127.0.0.1:5180/actualizar-clave`. No se enviaron mensajes reales de recuperación ni se verificó SMTP institucional. Los despliegues Preview de Vercel no tienen todavía variables propias; esta configuración corresponde a Production. La conexión clínica sigue pendiente.

@@ -23,4 +23,3 @@ test('Seguimiento: revisión automática de etiquetas, estructura y contraste en
   await page.locator('.sf-recommendation').first().getByRole('button', { name: 'Revisar o editar', exact: true }).click(); await scan('Revisión profesional', 'dialog[open]');
   // No automated scan certifies full WCAG conformity or replaces the agreed pilot inspection.
 });
-

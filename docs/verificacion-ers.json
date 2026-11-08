@@ -490,5 +490,16 @@
   "modulos_revisados": [
     "Expedientes RF06–RF12",
     "Agenda RF13–RF15"
-  ]
+  ],
+  "avances_backend": {
+    "fase": "fundacion_privada_aplicada",
+    "fecha": "2026-11-08",
+    "proyecto": "krrurcjowhgrkenkgtpf",
+    "tablas": 15,
+    "tablas_con_rls": 15,
+    "politicas_permisivas": 0,
+    "frontend_conectado": false,
+    "api_autorizada_implementada": false,
+    "evidencia": "docs/backend-fase1.md; scripts/test-db-foundation.mjs; supabase/checks/verify_foundation.sql"
+  }
 }

@@ -1,0 +1,19 @@
+{
+  "project_ref": "krrurcjowhgrkenkgtpf",
+  "project_name": "psicoluz.ni",
+  "region": "us-east-1",
+  "date": "2026-11-08",
+  "migration_version": "20261108000100",
+  "migration_sha256": "f38de364dca96e616fb6b2ece00699d8cec9af4dcf108750a85f27540d474852",
+  "applied_via": "Supabase SQL Editor; success observed",
+  "verification": {
+    "tables": 15,
+    "rls_enabled": 15,
+    "anon_schema_usage": false,
+    "authenticated_schema_usage": false,
+    "allow_policies": 0
+  },
+  "frontend_connected": false,
+  "production_ready": false,
+  "cli_history_repair_pending": true
+}

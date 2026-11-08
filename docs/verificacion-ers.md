@@ -66,3 +66,7 @@ Los instrumentos de pilotaje no se consideran aplicados en el diagnóstico.
 3. Verificar autorización real, restricciones y concurrencia después de conectar Supabase.
 4. Registrar entorno, fecha, resultado obtenido y evidencia; corregir fallos y repetir solo lo afectado.
 5. Separar cierre frontend, integración y pilotaje. No anunciar resultados de instrumentos todavía no aplicados.
+
+## Inicio del backend
+
+Base privada aplicada en el proyecto nuevo: 15 tablas con RLS y acceso directo denegado. Se probaron restricciones SQL locales; faltan Auth, políticas por rol/API, Storage y conexión de módulos. Los estados de los 40 requerimientos no se convierten en cumplimiento integral por esta base. Ver `backend-fase1.md`.

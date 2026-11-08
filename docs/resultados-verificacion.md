@@ -203,3 +203,7 @@ demostraciones, inspección y análisis formales según el ERS.
 Control final del portal: después de ordenar los botones de navegación a 360 px y evitar
 que la búsqueda oculta filtre la vista sencilla, se repitieron los 13 escenarios en Edge
 (41.2 s) y Chrome (33.1 s), todos aprobados. La compilación final también fue correcta.
+
+## Fundación privada de Supabase — 8 de noviembre de 2026
+
+Migración inicial ejecutada en el proyecto nuevo `krrurcjowhgrkenkgtpf`. Consulta remota de metadatos: 15 tablas, 15 con RLS, acceso al esquema anon=false/authenticated=false y 0 políticas abiertas. `node --test scripts/test-db-foundation.mjs`: 19 pruebas aprobadas (18 casos y contenedor), PostgreSQL local PGlite 0.5.15 con Auth mínimo simulado. No acredita Auth real, autorización operativa por rol, Storage, concurrencia remota ni frontend conectado. Ver `backend-fase1.md` y la consulta reproducible en `supabase/checks/verify_foundation.sql`.

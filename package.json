@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "test:e2e": "playwright test",
     "verify:ers": "node scripts/verify-ers.mjs",
-    "verify": "npm run verify:ers && npm run build && npm run test:e2e"
+    "verify": "npm run verify:ers && npm run test:unit && npm run build && npm run test:e2e",
+    "test:unit": "node --test tests-unit/*.test.mjs",
+    "data:synthetic": "node scripts/export-synthetic-data.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.108.2",
@@ -27,6 +29,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
     "autoprefixer": "^10.5.0",
+    "axe-core": "^4.14.0",
     "eslint": "^10.3.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",

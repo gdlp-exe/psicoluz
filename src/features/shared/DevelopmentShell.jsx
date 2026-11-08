@@ -14,8 +14,8 @@ export function useDevelopmentIdentity() {
 
 export default function DevelopmentShell({ children, identity, onIdentityChange, active, count = 0 }) {
   const [navOpen, setNavOpen] = useState(false);
-  const title = active === 'agenda' ? 'Agenda y citas' : 'Expedientes';
-  return <div className="exp-app"><a href="#exp-content" className="exp-skip">Ir al contenido</a>
+  const title = active === 'seguimiento' ? 'Seguimiento' : active === 'agenda' ? 'Agenda y citas' : 'Expedientes';
+  return <div className={`exp-app ${active === 'seguimiento' ? 'sf-app' : ''}`}><a href="#exp-content" className="exp-skip">Ir al contenido</a>
     {navOpen && <button className="exp-nav-scrim" aria-label="Cerrar menú" onClick={() => setNavOpen(false)} />}
     <aside className={`exp-sidebar ${navOpen ? 'open' : ''}`}>
       <a href="/" className="exp-brand"><span><img src="/loguito.png" alt="" /></span><div>Psico<b>Luz</b><small>ESPACIO PROFESIONAL</small></div></a>
@@ -23,7 +23,7 @@ export default function DevelopmentShell({ children, identity, onIdentityChange,
       <nav aria-label="Navegación del sistema">
         <a href="/desarrollo/expedientes" aria-current={active === 'expedientes' ? 'page' : undefined}><FolderOpen size={20} />Expedientes{active === 'expedientes' && <span>{count}</span>}</a>
         <a href="/desarrollo/agenda" aria-current={active === 'agenda' ? 'page' : undefined}><CalendarDays size={20} />Agenda y citas{active === 'agenda' && <span>{count}</span>}</a>
-        <div className="exp-nav-future"><CheckCircle2 size={19} /><span>Seguimiento<small>Próximo módulo</small></span></div>
+        <a href="/desarrollo/seguimiento" aria-current={active === 'seguimiento' ? 'page' : undefined}><CheckCircle2 size={20} />Seguimiento{active === 'seguimiento' && <span>{count}</span>}</a>
       </nav>
       <div className="exp-sidebar-note"><ShieldCheck size={26} /><h4>Información del paciente</h4><p>Información organizada para dar continuidad al acompañamiento.</p><i /><i /></div>
       <div className="exp-sidebar-bottom"><span className="exp-person-dot">{identity.name[0]}</span><div><strong>{identity.name}</strong><small>{identity.role === 'psicologa' ? 'Psicóloga responsable' : identity.role === 'administracion' ? 'Administración' : 'Desarrollo'}</small></div></div>

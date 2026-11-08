@@ -84,3 +84,45 @@ es Seguimiento; este avance no convierte los requerimientos pendientes en aproba
 
 Control final de adaptación ampliada en Chrome: 1 prueba focalizada aprobada en 4.0 s
 con los cinco anchos (360, 390, 768, 1024, 1440), teclado y demo sin llamadas a Supabase.
+
+## Entrega Seguimiento — noche del 7 al 8 de noviembre de 2026
+
+- ERS: 40 registros conservados; SHA256 del Word coincide con la fuente original.
+  Protocolo, diagnóstico, comunicación y arquitectura revisados; originales sin modificar.
+- `npm run verify:ers`, `npm run test:unit` y `npm run build`: correctos.
+- Pruebas de lógica: **8 aprobadas**. Incluyen el escenario 4 vigentes/3 vencidas,
+  falta de actividades, plantillas no diagnósticas, límite de borradores y corpus reproducible.
+- Edge: **39 pruebas de navegador aprobadas, 2.2 min**.
+- Chrome: **39 pruebas de navegador aprobadas, 2.2 min**.
+  Cada ejecución cubre 14 Agenda, 8 Expedientes, 16 Seguimiento y 1 inspección automática
+  de accesibilidad. No son 78 requerimientos: son dos ejecuciones de la misma suite.
+- Seguimiento: creación/edición de actividad, campos obligatorios y fechas imposibles,
+  cuatro estados, persistencia, nota del mismo expediente, perfiles aislados, autorización
+  familiar, rechazo de referencias ajenas y ausencia de llamadas a Supabase.
+- Apoyo: sin actividades no inventa borradores; contexto reciente seleccionado en pantalla;
+  revisión/editado/descarte; confirmaciones obligatorias; borradores pendientes privados;
+  cambio de datos invalida publicación; desactivación por expediente; máximo tres activos;
+  valoración válida después de revisión y exportación sintética independiente de los expedientes.
+- Axe-core: sin incidencias detectadas con reglas WCAG 2 A/AA en el área principal de
+  actividades, resumen, vista familiar y apoyo vacío/con borrador, formulario de actividad
+  y revisión. Se espera la terminación de las transiciones para inspeccionar el estado estable.
+  No cubre todas las pantallas, condiciones o criterios; no certifica conformidad WCAG.
+- Revisión visual: escritorio y 390 px; controles de ancho a 360, 390, 768, 1024 y 1440 px,
+  navegación de pestañas por teclado. Sin errores de página en el recorrido visual.
+- Comprobación adicional del enlace Expedientes → Seguimiento y URL directa con expediente:
+  selección conservada y navegación correcta en Edge.
+- `npm audit --omit=dev`: **0 vulnerabilidades reportadas**.
+
+El kNN experimental usa 96 referencias sintéticas y 24 casos artificiales separados.
+Acertar las etiquetas construidas por código solo verifica el funcionamiento del selector;
+no acredita generalización, utilidad profesional, entrenamiento de LLM ni eficacia clínica.
+No se han enviado datos a Google ni a proveedores externos.
+
+La vista familiar es una proyección profesional local, no el portal autenticado por código.
+Auth, RLS, bitácora protegida, restricciones transaccionales, concurrencia entre clientes y
+pruebas institucionales siguen pendientes. SUS, Likert y métricas de pilotaje no se aplicaron.
+Los métodos A/I/D del ERS requieren además análisis, inspección o demostración formal,
+sin sustituirlos por la suite automatizada.
+
+La previsualización solicitada permanece activa en el puerto 5180. Si ya existe ese servidor,
+Playwright lo reutiliza; si las pruebas lo inician, gestionan su propio servidor.

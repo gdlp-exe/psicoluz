@@ -1,15 +1,14 @@
 # Revisión completa del ERS — 7 de noviembre de 2026
 
-Se contrastaron los 40 registros originales, conservando métodos T/I/D/A y aceptación en `verificacion-ers.json`.
-Los módulos Expedientes y Agenda cuentan con frontend local y datos ficticios. **No está cerrado integralmente**: servidor, portal y pilotaje conservan pendientes.
+Los 40 registros conservan enunciados, aceptación, métodos T/I/D/A e identificadores originales. Frontend local con datos ficticios de Expedientes, Agenda y Seguimiento. No acredita cierre integral ni resultados de pilotaje.
 
 ## Estado de cada requerimiento
 
 - **RF01 · T · pendiente**: Autenticación real y cuentas individuales pendientes. El selector de la demo no autentica.
 - **RF02 · T · parcial**: Selector de perfiles y restricciones de la demo comprobables; falta Auth y matriz de permisos de servidor.
-- **RF03 · T · parcial**: Aislamiento y nota privada ensayados localmente; falta RLS y escenario de portal por código.
-- **RF04 · T · pendiente**: Pendiente portal real y denegación de contenido no autorizado en backend.
-- **RF05 · I · parcial**: Historial local con actor/acción/fecha; falta bitácora de servidor no modificable por clientes.
+- **RF03 · T · parcial**: Aislamiento y nota privada ensayados localmente; falta RLS y escenario de portal por código. Seguimiento incorpora aislamiento, proyección autorizada e historial local; servidor y portal reales pendientes.
+- **RF04 · T · pendiente**: Pendiente portal real y denegación de contenido no autorizado en backend. Seguimiento incorpora aislamiento, proyección autorizada e historial local; servidor y portal reales pendientes.
+- **RF05 · I · parcial**: Historial local con actor/acción/fecha; falta bitácora de servidor no modificable por clientes. Seguimiento incorpora aislamiento, proyección autorizada e historial local; servidor y portal reales pendientes.
 - **RNF02 · I · pendiente**: Pendiente inspección de HTTPS, credenciales, autorización por código y controles de servidor.
 - **RNF03 · I · pendiente**: Pendiente inspección y pruebas negativas de todas las entidades con RLS/Storage reales.
 - **RF06 · T · frontend_verificado_integracion_pendiente**: Creación y numeración local, paciente existente y responsable; falta unicidad transaccional/concurrencia en PostgreSQL.
@@ -22,10 +21,10 @@ Los módulos Expedientes y Agenda cuentan con frontend local y datos ficticios. 
 - **RF13 · T · frontend_verificado_integracion_pendiente**: Registro local de paciente/expediente, profesional, fecha/hora de Nicaragua, modalidad y estado; recarga comprobada. Falta persistencia y autorización reales en Supabase.
 - **RF14 · D · frontend_verificado_integracion_pendiente**: Semana/lista y filtros comprobados para administración y profesional sobre el mismo registro local. Demostración e integración institucional pendientes.
 - **RF15 · T · frontend_verificado_integracion_pendiente**: Reprogramación y cancelación probadas; cruces exactos/parciales rechazados, contigüidad y distintas profesionales permitidas. Cola local comprobada; falta restricción transaccional en PostgreSQL y concurrencia real.
-- **RF16 · T · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
-- **RF17 · T · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
-- **RF18 · T · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
-- **RF19 · T · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
+- **RF16 · T · frontend_verificado_integracion_pendiente**: Asignación/edición con título, descripción, instrucciones, prioridad y fecha; persistencia y negativos comprobados. Integración y autorización de servidor pendientes.
+- **RF17 · T · frontend_verificado_integracion_pendiente**: Cuatro estados originales registrados y conservados. La fecha no cambia el estado automáticamente. Integración pendiente.
+- **RF18 · T · parcial**: Proyección solo de actividades autorizadas del mismo expediente, sin notas internas. Es vista previa profesional; portal por código y denegaciones de servidor pendientes.
+- **RF19 · T · frontend_verificado_integracion_pendiente**: Nota opcional del mismo expediente; referencias ajenas rechazadas. Restricciones de servidor pendientes.
 - **RF20 · T · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
 - **RF21 · D · pendiente**: Agenda prepara citas vinculadas al expediente; la alerta discreta y su autorización en el portal familiar siguen pendientes.
 - **RF22 · T · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
@@ -33,18 +32,18 @@ Los módulos Expedientes y Agenda cuentan con frontend local y datos ficticios. 
 - **RF24 · D · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
 - **RF25 · T · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
 - **RF26 · D · pendiente**: Iteración posterior prevista en el ERS: lectura de contenido autorizado y fallback sin Web Speech API pendientes.
-- **RNF05 · I · pendiente**: Criterios WCAG aplicables por formalizar; inspección documentada del portal pendiente.
-- **RF-AP01 · A · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
-- **RF-AP02 · I · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
-- **RF-AP03 · T · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
-- **RF-AP04 · I · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
-- **RF-AP05 · T · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
-- **RF-AP06 · T · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
-- **RF-AP7 · T · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
+- **RNF05 · I · parcial**: Escaneo automático WCAG 2 A/AA en pantallas/formularios de Seguimiento sin incidencias detectadas en escenarios cubiertos. No acredita conformidad integral; criterios aplicables a RF23–RF26 y portal pendientes de formalización/inspección.
+- **RF-AP01 · A · parcial**: Reglas transparentes y selector kNN sintético secundario. Caso 4 vigentes/3 vencidas y ausencia de actividades comprobados. Evaluaciones etiquetadas son extensión solicitada, sin interpretación clínica automática. Análisis formal profesional pendiente.
+- **RF-AP02 · I · parcial**: Catálogo orientado al plan y posibilidad, con revisión y guardia de texto. Inspección formal pendiente; filtro no garantiza seguridad de un futuro generador abierto.
+- **RF-AP03 · T · frontend_verificado_integracion_pendiente**: Aceptar/editar/descartar, confirmaciones y texto familiar revisado comprobados. Cambios del contexto retiran publicación. Portal real y servidor pendientes.
+- **RF-AP04 · I · parcial**: Aviso literal persistente en área de apoyo y contenido familiar del apoyo; inspección formal pendiente.
+- **RF-AP05 · T · frontend_verificado_integracion_pendiente**: Desactivación por expediente impide generar y retira textos familiares del apoyo. Integración pendiente.
+- **RF-AP06 · T · frontend_verificado_integracion_pendiente**: Máximo tres recomendaciones activas ante regeneraciones; contexto anterior archivado. Restricción transaccional multiusuario pendiente.
+- **RF-AP7 · T · frontend_verificado_integracion_pendiente**: Útil/parcial/no útil después de revisión, persistencia y rechazo de valor inválido comprobados. Valoración profesional real pendiente.
 - **RNF01 · T · pendiente**: Pendiente medir cada operación en entorno de piloto (<3 s); no extrapolar desde la demo local.
 - **RNF04 · D · pendiente**: SUS >=70/100 para interfaz profesional: aplicación y puntuación con participantes pendientes; no garantizadas.
-- **RNF06 · D · parcial**: Expedientes y Agenda internos revisados con Edge y Chrome; Agenda inspeccionada a 360–1440 px. El portal familiar real a 360 px permanece pendiente.
-- **RNF-ET01 · I · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
+- **RNF06 · D · parcial**: Expedientes, Agenda y Seguimiento revisados en Edge y Chrome; Seguimiento a 360, 390, 768, 1024 y 1440 px. Portal familiar real pendiente.
+- **RNF-ET01 · I · parcial**: Sin diagnóstico, pronóstico ni puntuación clínica automática. Reglas limitadas y etiquetas explícitas; selector artificial experimental. Inspección ética formal pendiente.
 
 ## Cadena de comprobación
 
@@ -59,16 +58,6 @@ Los instrumentos de pilotaje no se consideran aplicados en el diagnóstico.
 - RNF01: medir operaciones del software bajo las condiciones del piloto; objetivo de menos de 3 segundos.
 - Medidas operacionales: comparar búsqueda de expediente con 18.5 min, coordinación con 12 min, cruces con 4/mes, reporte familiar con 35 % e incidencias con 8.5 %. Conservar períodos y denominadores; no afirmar causalidad.
 - Observación, entrevistas y retroalimentación: tareas y guías durante el pilotaje. No inventar respuestas, tamaños alcanzados o resultados.
-
-## Agenda implementada y siguiente etapa
-
-Agenda RF13–RF15 está implementada como frontend de desarrollo y usa pacientes y expedientes compartidos.
-Consultar `modulo-agenda.md`: propone duraciones, estados, intervalos y hora Nicaragua para confirmar con el centro.
-La protección de servidor y la concurrencia multiusuario permanecen pendientes.
-
-La siguiente etapa funcional será Seguimiento de actividades (RF16–RF19); el contenido familiar
-se verificará después con RF18/RF20–RF25. No se considera que esos requerimientos estén satisfechos
-por haber construido Agenda. La alerta de próxima cita del portal (RF21) sigue pendiente.
 
 ## Criterio para cerrar módulos
 

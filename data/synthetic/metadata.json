@@ -1,0 +1,21 @@
+{
+  "modelVersion": "synthetic-knn-v1",
+  "synthetic": true,
+  "origin": "Generated deterministically by code. No patient records, external APIs or clinical text.",
+  "features": [
+    "recorded_overdue_ratio",
+    "completed_ratio",
+    "recent_cancelled_appointments_scaled",
+    "tag_organizacion",
+    "tag_instrucciones",
+    "tag_comunicacion",
+    "tag_lectura",
+    "tag_escritura",
+    "tag_autonomia"
+  ],
+  "trainingReferenceCases": 96,
+  "heldOutSoftwareTestCases": 24,
+  "clinicalValidation": false,
+  "llmTrained": false,
+  "intendedUse": "Experimental local skill selection and software verification. Not a clinical dataset or efficacy evidence."
+}

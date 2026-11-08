@@ -2,7 +2,7 @@
   "fuente": "ERS_Psicoluz_iso.docx",
   "sha256_fuente": "39c85ad055ba23c7dab4ff7f147e751ac3dbd3576cd89907058a82a500e8cf6f",
   "fecha_revision": "2026-11-07",
-  "modulo_revisado": "Expedientes y Agenda, vistas de desarrollo locales",
+  "modulo_revisado": "Expedientes, Agenda y Seguimiento, vistas de desarrollo locales",
   "cierre_integral": false,
   "nota": "Se revisaron los 40 requerimientos; resultados de mocks no acreditan cumplimiento en producción ni resultados del pilotaje.",
   "requerimientos": [
@@ -38,7 +38,7 @@
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dada una profesional autenticada, cuando consulte la lista de expedientes, entonces el sistema debe mostrar únicamente los expedientes asociados a su identificador, salvo que el centro defina un rol de coordinación explícito. Dado el rol administración, cuando intente leer una nota con visibilidad «solo psicóloga», entonces el sistema debe denegar la lectura. Dado un acceso al portal mediante código, cuando se consulte el contenido, entonces el sistema debe limitarlo al expediente asociado al código.",
       "estado": "parcial",
-      "observacion": "Aislamiento y nota privada ensayados localmente; falta RLS y escenario de portal por código.",
+      "observacion": "Aislamiento y nota privada ensayados localmente; falta RLS y escenario de portal por código. Seguimiento incorpora aislamiento, proyección autorizada e historial local; servidor y portal reales pendientes.",
       "evidencia_actual": "tests/expedientes.spec.js y docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
@@ -50,7 +50,7 @@
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un código de acceso válido, cuando el tutor consulte el portal, entonces el sistema debe mostrar únicamente los contenidos marcados como visibles para ese expediente y denegar cualquier intento de acceder a información no autorizada o de otro expediente.",
       "estado": "pendiente",
-      "observacion": "Pendiente portal real y denegación de contenido no autorizado en backend.",
+      "observacion": "Pendiente portal real y denegación de contenido no autorizado en backend. Seguimiento incorpora aislamiento, proyección autorizada e historial local; servidor y portal reales pendientes.",
       "evidencia_actual": null,
       "cumplimiento_integral_acreditado": false
     },
@@ -62,7 +62,7 @@
       "metodo_ERS": "I",
       "criterio_aceptacion": "Dado un acceso o modificación sobre un dato sensible del expediente, cuando la acción finalice, entonces el sistema debe registrar quién realizó la acción, qué acción realizó y cuándo ocurrió.",
       "estado": "parcial",
-      "observacion": "Historial local con actor/acción/fecha; falta bitácora de servidor no modificable por clientes.",
+      "observacion": "Historial local con actor/acción/fecha; falta bitácora de servidor no modificable por clientes. Seguimiento incorpora aislamiento, proyección autorizada e historial local; servidor y portal reales pendientes.",
       "evidencia_actual": "tests/expedientes.spec.js y docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
@@ -217,9 +217,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un expediente seleccionado por la profesional, cuando registre una actividad, entonces el sistema debe guardar título, descripción, instrucciones, prioridad y fecha de seguimiento.",
-      "estado": "pendiente",
-      "observacion": "Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.",
-      "evidencia_actual": null,
+      "estado": "frontend_verificado_integracion_pendiente",
+      "observacion": "Asignación/edición con título, descripción, instrucciones, prioridad y fecha; persistencia y negativos comprobados. Integración y autorización de servidor pendientes.",
+      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -229,9 +229,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dada una actividad registrada, cuando se actualice su cumplimiento, entonces el sistema debe permitir únicamente los estados pendiente, en proceso, cumplida o vencida.",
-      "estado": "pendiente",
-      "observacion": "Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.",
-      "evidencia_actual": null,
+      "estado": "frontend_verificado_integracion_pendiente",
+      "observacion": "Cuatro estados originales registrados y conservados. La fecha no cambia el estado automáticamente. Integración pendiente.",
+      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -241,9 +241,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un código de acceso válido, cuando el tutor consulte las actividades, entonces el sistema debe mostrar únicamente las actividades marcadas como visibles para la familia y pertenecientes al expediente asociado.",
-      "estado": "pendiente",
-      "observacion": "Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.",
-      "evidencia_actual": null,
+      "estado": "parcial",
+      "observacion": "Proyección solo de actividades autorizadas del mismo expediente, sin notas internas. Es vista previa profesional; portal por código y denegaciones de servidor pendientes.",
+      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -253,9 +253,9 @@
       "prioridad": "Media",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dada una actividad y una nota de sesión pertenecientes al mismo expediente, cuando la profesional indique la asociación, entonces el sistema debe conservar el vínculo entre ambas.",
-      "estado": "pendiente",
-      "observacion": "Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.",
-      "evidencia_actual": null,
+      "estado": "frontend_verificado_integracion_pendiente",
+      "observacion": "Nota opcional del mismo expediente; referencias ajenas rechazadas. Restricciones de servidor pendientes.",
+      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -349,9 +349,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "I",
       "criterio_aceptacion": "Dado el portal de seguimiento, cuando se realice la inspección documentada de accesibilidad, entonces debe cumplir el subconjunto de criterios subconjunto de criterios de accesibilidad acordado por el proyecto para contraste, redimensionado, espaciado, formularios y lectura de actividades cuando exista.",
-      "estado": "pendiente",
-      "observacion": "Criterios WCAG aplicables por formalizar; inspección documentada del portal pendiente.",
-      "evidencia_actual": null,
+      "estado": "parcial",
+      "observacion": "Escaneo automático WCAG 2 A/AA en pantallas/formularios de Seguimiento sin incidencias detectadas en escenarios cubiertos. No acredita conformidad integral; criterios aplicables a RF23–RF26 y portal pendientes de formalización/inspección.",
+      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -361,9 +361,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "A",
       "criterio_aceptacion": "Dado un expediente de prueba con 4 actividades vigentes y 3 vencidas, cuando la profesional abra el apartado de apoyo, entonces el sistema debe ofrecer un borrador que aluda al incumplimiento del plan y sugiera revisar dificultad, frecuencia o acompañamiento en casa, sin afirmar un retraso del desarrollo. Dado un expediente sin actividades, cuando se abra el apartado, entonces el sistema no debe inventar recomendaciones y debe indicar que faltan datos del plan de trabajo. Dado un expediente real, cuando se genere un borrador, entonces el sistema no debe persistirlo como visible al tutor hasta que se cumpla RF-AP03.",
-      "estado": "pendiente",
-      "observacion": "Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.",
-      "evidencia_actual": null,
+      "estado": "parcial",
+      "observacion": "Reglas transparentes y selector kNN sintético secundario. Caso 4 vigentes/3 vencidas y ausencia de actividades comprobados. Evaluaciones etiquetadas son extensión solicitada, sin interpretación clínica automática. Análisis formal profesional pendiente.",
+      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -373,9 +373,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "I",
       "criterio_aceptacion": "Dado el catálogo de reglas, cuando se inspeccione, entonces ningún texto tipo debe contener lenguaje diagnóstico o de pronóstico. Dado un texto tipo, cuando se muestre, entonces debe incluir un verbo de posibilidad y no de certeza clínica.",
-      "estado": "pendiente",
-      "observacion": "Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.",
-      "evidencia_actual": null,
+      "estado": "parcial",
+      "observacion": "Catálogo orientado al plan y posibilidad, con revisión y guardia de texto. Inspección formal pendiente; filtro no garantiza seguridad de un futuro generador abierto.",
+      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -385,9 +385,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un borrador en estado «pendiente», cuando el tutor consulte el portal, entonces el sistema no debe mostrar ninguna tarjeta de evolución o predicción. Dado un texto editado y aceptado por la profesional y marcado como visible, cuando el tutor consulte el portal, entonces el sistema debe mostrar el texto aceptado y no el borrador original del motor.",
-      "estado": "pendiente",
-      "observacion": "Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.",
-      "evidencia_actual": null,
+      "estado": "frontend_verificado_integracion_pendiente",
+      "observacion": "Aceptar/editar/descartar, confirmaciones y texto familiar revisado comprobados. Cambios del contexto retiran publicación. Portal real y servidor pendientes.",
+      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -397,9 +397,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "I",
       "criterio_aceptacion": "Dado que la profesional abra el apartado de apoyo, cuando se muestre su contenido, entonces el sistema debe mantener visible el aviso «Herramienta de apoyo. No diagnostica ni reemplaza el criterio de la profesional».",
-      "estado": "pendiente",
-      "observacion": "Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.",
-      "evidencia_actual": null,
+      "estado": "parcial",
+      "observacion": "Aviso literal persistente en área de apoyo y contenido familiar del apoyo; inspección formal pendiente.",
+      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -409,9 +409,9 @@
       "prioridad": "Media",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un expediente con el apartado de apoyo activo, cuando la profesional lo desactive, entonces el sistema debe dejar el apartado deshabilitado únicamente para ese expediente.",
-      "estado": "pendiente",
-      "observacion": "Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.",
-      "evidencia_actual": null,
+      "estado": "frontend_verificado_integracion_pendiente",
+      "observacion": "Desactivación por expediente impide generar y retira textos familiares del apoyo. Integración pendiente.",
+      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -421,9 +421,9 @@
       "prioridad": "Media",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un expediente con recomendaciones existentes, cuando el sistema genere nuevas recomendaciones, entonces no debe mantener más de tres recomendaciones simultáneas en ese expediente.",
-      "estado": "pendiente",
-      "observacion": "Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.",
-      "evidencia_actual": null,
+      "estado": "frontend_verificado_integracion_pendiente",
+      "observacion": "Máximo tres recomendaciones activas ante regeneraciones; contexto anterior archivado. Restricción transaccional multiusuario pendiente.",
+      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -433,9 +433,9 @@
       "prioridad": "Baja",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dada una recomendación revisada por la profesional, cuando ella indique su valoración, entonces el sistema debe registrar una de las opciones útil, parcial o no útil.",
-      "estado": "pendiente",
-      "observacion": "Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.",
-      "evidencia_actual": null,
+      "estado": "frontend_verificado_integracion_pendiente",
+      "observacion": "Útil/parcial/no útil después de revisión, persistencia y rechazo de valor inválido comprobados. Valoración profesional real pendiente.",
+      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -470,8 +470,8 @@
       "metodo_ERS": "D",
       "criterio_aceptacion": "Dado un escritorio con Chrome o Edge y un portal de seguimiento en un ancho de 360 px, cuando se utilice el sistema, entonces las funciones previstas deben operar y la interfaz debe seguir siendo utilizable sin crear una cuenta.",
       "estado": "parcial",
-      "observacion": "Expedientes y Agenda internos revisados con Edge y Chrome; Agenda inspeccionada a 360–1440 px. El portal familiar real a 360 px permanece pendiente.",
-      "evidencia_actual": "tests/expedientes.spec.js y docs/resultados-verificacion.md",
+      "observacion": "Expedientes, Agenda y Seguimiento revisados en Edge y Chrome; Seguimiento a 360, 390, 768, 1024 y 1440 px. Portal familiar real pendiente.",
+      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -481,9 +481,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "I",
       "criterio_aceptacion": "Dada cualquier salida automática del apartado de apoyo, cuando se inspeccione o demuestre su presentación, entonces ninguna salida debe presentarse como evaluación psicológica, diagnóstico o pronóstico del desarrollo.",
-      "estado": "pendiente",
-      "observacion": "Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.",
-      "evidencia_actual": null,
+      "estado": "parcial",
+      "observacion": "Sin diagnóstico, pronóstico ni puntuación clínica automática. Reglas limitadas y etiquetas explícitas; selector artificial experimental. Inspección ética formal pendiente.",
+      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     }
   ],

@@ -1,13 +1,16 @@
 import { lazy, Suspense } from 'react';
 
 const ExpedientesWorkspace = lazy(() => import('./features/expedientes/ExpedientesWorkspace'));
+const AgendaWorkspace = lazy(() => import('./features/agenda/AgendaWorkspace'));
 const LegacyApp = lazy(() => import('./LegacyApp'));
 
 export default function App() {
-  const development = window.location.pathname.startsWith('/desarrollo/expedientes');
+  const path = window.location.pathname;
+  const development = path.startsWith('/desarrollo/expedientes');
+  const agenda = path.startsWith('/desarrollo/agenda');
   return (
     <Suspense fallback={<div role="status" style={{ padding: 40, color: '#008794', fontFamily: 'Segoe UI, sans-serif' }}>Cargando PsicoLuz…</div>}>
-      {development ? <ExpedientesWorkspace /> : <LegacyApp />}
+      {agenda ? <AgendaWorkspace /> : development ? <ExpedientesWorkspace /> : <LegacyApp />}
     </Suspense>
   );
 }

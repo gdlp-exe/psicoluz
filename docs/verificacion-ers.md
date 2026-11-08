@@ -1,7 +1,7 @@
 # Revisión completa del ERS — 7 de noviembre de 2026
 
 Se contrastaron los 40 registros originales, conservando métodos T/I/D/A y aceptación en `verificacion-ers.json`.
-El módulo Expedientes cuenta con frontend local y datos ficticios. **No está cerrado integralmente**: servidor, portal y pilotaje conservan pendientes.
+Los módulos Expedientes y Agenda cuentan con frontend local y datos ficticios. **No está cerrado integralmente**: servidor, portal y pilotaje conservan pendientes.
 
 ## Estado de cada requerimiento
 
@@ -19,15 +19,15 @@ El módulo Expedientes cuenta con frontend local y datos ficticios. **No está c
 - **RF10 · D · frontend_verificado_integracion_pendiente**: Registro local de tipo/fecha/resumen y recarga comprobables; demostración formal e integración pendientes.
 - **RF11 · T · parcial**: Archivo local, descarga y visibilidad comprobables; Storage privado y consumo/denegación desde portal pendientes.
 - **RF12 · T · frontend_verificado_integracion_pendiente**: Búsqueda por nombre y número dentro del perfil local; falta verificar consultas con identidad y políticas reales.
-- **RF13 · T · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
-- **RF14 · D · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
-- **RF15 · T · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
+- **RF13 · T · frontend_verificado_integracion_pendiente**: Registro local de paciente/expediente, profesional, fecha/hora de Nicaragua, modalidad y estado; recarga comprobada. Falta persistencia y autorización reales en Supabase.
+- **RF14 · D · frontend_verificado_integracion_pendiente**: Semana/lista y filtros comprobados para administración y profesional sobre el mismo registro local. Demostración e integración institucional pendientes.
+- **RF15 · T · frontend_verificado_integracion_pendiente**: Reprogramación y cancelación probadas; cruces exactos/parciales rechazados, contigüidad y distintas profesionales permitidas. Cola local comprobada; falta restricción transaccional en PostgreSQL y concurrencia real.
 - **RF16 · T · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
 - **RF17 · T · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
 - **RF18 · T · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
 - **RF19 · T · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
 - **RF20 · T · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
-- **RF21 · D · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
+- **RF21 · D · pendiente**: Agenda prepara citas vinculadas al expediente; la alerta discreta y su autorización en el portal familiar siguen pendientes.
 - **RF22 · T · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
 - **RF23 · D · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
 - **RF24 · D · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
@@ -43,7 +43,7 @@ El módulo Expedientes cuenta con frontend local y datos ficticios. **No está c
 - **RF-AP7 · T · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
 - **RNF01 · T · pendiente**: Pendiente medir cada operación en entorno de piloto (<3 s); no extrapolar desde la demo local.
 - **RNF04 · D · pendiente**: SUS >=70/100 para interfaz profesional: aplicación y puntuación con participantes pendientes; no garantizadas.
-- **RNF06 · D · parcial**: Demo interna revisada con Edge y tamaños 360–1440 px; Chrome y portal real a 360 px pendientes.
+- **RNF06 · D · parcial**: Expedientes y Agenda internos revisados con Edge y Chrome; Agenda inspeccionada a 360–1440 px. El portal familiar real a 360 px permanece pendiente.
 - **RNF-ET01 · I · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
 
 ## Cadena de comprobación
@@ -60,11 +60,15 @@ Los instrumentos de pilotaje no se consideran aplicados en el diagnóstico.
 - Medidas operacionales: comparar búsqueda de expediente con 18.5 min, coordinación con 12 min, cruces con 4/mes, reporte familiar con 35 % e incidencias con 8.5 %. Conservar períodos y denominadores; no afirmar causalidad.
 - Observación, entrevistas y retroalimentación: tareas y guías durante el pilotaje. No inventar respuestas, tamaños alcanzados o resultados.
 
-## Siguiente módulo: Agenda y citas
+## Agenda implementada y siguiente etapa
 
-RF13: paciente, profesional, fecha/hora, modalidad y estado. RF14: agenda oficial consultable por administración y profesional. RF15: reprogramación, cancelación y rechazo de cruces de la misma profesional.
-Dependencias: RF01–RF05, RF06/RF12, RNF01–RNF03/RNF06. La alerta de próxima cita del portal se integra después mediante RF21.
-La disponibilidad real requiere definir duración/intervalos, estados que ocupan horario y zona horaria; el criterio explícito del ERS ya exige impedir otra cita confirmada de la misma profesional a igual fecha/hora.
+Agenda RF13–RF15 está implementada como frontend de desarrollo y usa pacientes y expedientes compartidos.
+Consultar `modulo-agenda.md`: propone duraciones, estados, intervalos y hora Nicaragua para confirmar con el centro.
+La protección de servidor y la concurrencia multiusuario permanecen pendientes.
+
+La siguiente etapa funcional será Seguimiento de actividades (RF16–RF19); el contenido familiar
+se verificará después con RF18/RF20–RF25. No se considera que esos requerimientos estén satisfechos
+por haber construido Agenda. La alerta de próxima cita del portal (RF21) sigue pendiente.
 
 ## Criterio para cerrar módulos
 

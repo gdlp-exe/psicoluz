@@ -22,3 +22,8 @@
 - Auth y autorización reales se comprobarán en servidor; un selector de rol es solo demo.
 - Mantener la identidad visual de la landing. No alterar fuentes Word salvo petición expresa.
 - Nunca publicar archivos `.env`, tokens privados, credenciales o datos clínicos reales.
+
+- Para entregas frontend, mantener preview local activo en el puerto 5180 y abrirlo en Codex.
+  Las rutas `/desarrollo/*` deben funcionar con datos ficticios sin login ni Supabase activo.
+- El usuario pidió push a GitHub después de cada módulo verificado: revisar el diff, no publicar
+  secretos, hacer commit/push normal y comunicar el hash y el enlace de preview.

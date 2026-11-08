@@ -80,3 +80,6 @@ export const expedientesRepository = {
   async setFileVisibility(identity, id, fileId, visible, confirmed) { return mutate(state => { requireRecord(state, identity, id, true); if (visible && !confirmed) throw new Error('Confirmá la visibilidad para la familia.'); const f = state.attachments.find(f => f.id === fileId && f.recordId === id); if (!f) throw new Error('No se encontró el archivo.'); f.visiblePortal = visible; log(state, identity, id, `Visibilidad de archivo cambiada · ${visible ? 'Familia' : 'Interno'}`); }); },
   async file(identity, id, fileId) { const state = await read(); requireRecord(state, identity, id); if (!state.attachments.some(f => f.id === fileId && f.recordId === id)) throw new Error('No se encontró el archivo en este expediente.'); const database = await db(); const blob = await new Promise((resolve, reject) => { const r = database.transaction('files').objectStore('files').get(fileId); r.onsuccess = () => resolve(r.result); r.onerror = () => reject(r.error); }); if (!blob) throw new Error('El contenido del archivo no está disponible.'); await mutate(s => { log(s, identity, id, 'Archivo descargado'); }); return blob; },
 };
+
+// Shared fictional store for the isolated development modules; never an authorization boundary.
+export const developmentStore = { read, mutate, requireRecord, log };

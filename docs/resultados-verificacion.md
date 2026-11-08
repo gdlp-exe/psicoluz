@@ -57,5 +57,30 @@ trazas quedan en `playwright-report/` y `test-results/`, excluidos de Git.
 - SUS con participantes (RNF04, meta >=70/100), Likert complementario y evaluación WCAG
   con criterios previamente formalizados. No se garantiza ni inventa el resultado.
 
-La siguiente implementación prevista es Agenda y citas (RF13–RF15), sin dar por cerrados
-los pendientes anteriores ni afirmar que los restantes módulos ya cumplen el ERS.
+La entrega inicial dejó Agenda y citas (RF13–RF15) como siguiente implementación.
+La actualización de esa entrega y sus verificaciones se registra a continuación.
+
+## Entrega Agenda — misma revisión documental, 7 de noviembre de 2026
+
+- ERS completo: 40 registros revisados otra vez; SHA de la fuente coincide con la matriz.
+  Se revisaron también protocolo, arquitectura, diagnóstico y comunicación. No se alteraron Word.
+- Build de Agenda y navegación compartida: correcto.
+- Edge: 20 pruebas aprobadas en 30.5 s (12 Agenda + 8 Expedientes). Después se añadieron
+  dos escenarios de interfaz; se verificaron ambos y la adaptación ampliada a cinco anchos
+  en una ejecución focalizada de 3 pruebas aprobadas en 7.1 s.
+- Chrome: 22 pruebas aprobadas en 32.3 s (14 Agenda + 8 Expedientes).
+- Cobertura nueva: registro completo, fechas imposibles, semana/lista, filtros, cruces exactos
+  y parciales, contigüidad, distintas profesionales, reprogramación, cancelación con conservación
+  y liberación del horario, pendientes, doble alta simultánea en la misma instancia, denegación
+  entre perfiles, integración con pacientes nuevos, teclado y ausencia de llamadas a Supabase.
+- La revisión visual incluyó escritorio y móvil. El control de ancho se amplió a
+  360, 390, 768, 1024 y 1440 px; calendario semanal con desplazamiento interno.
+- No se midió RNF01 en entorno de piloto ni se aplicaron SUS, Likert o WCAG al producto final.
+  No se consideran aprobadas RLS, Storage, Auth, disponibilidad transaccional multiusuario
+  ni alerta de próxima cita del portal (RF21).
+
+Ver `modulo-agenda.md` para decisiones provisionales y límites. El siguiente módulo previsto
+es Seguimiento; este avance no convierte los requerimientos pendientes en aprobados.
+
+Control final de adaptación ampliada en Chrome: 1 prueba focalizada aprobada en 4.0 s
+con los cinco anchos (360, 390, 768, 1024, 1440), teclado y demo sin llamadas a Supabase.

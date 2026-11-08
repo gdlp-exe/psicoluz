@@ -2,13 +2,14 @@
 
 Los 40 registros conservan enunciados, aceptación, métodos T/I/D/A e identificadores originales. Frontend local con datos ficticios de Expedientes, Agenda, Seguimiento y Portal familiar. No acredita cierre integral ni resultados de pilotaje.
 
+Actualización de autenticación: Supabase Auth y lectura del propio perfil implementados; primera cuenta Administración habilitada. El acceso real y la restauración tras recarga se observaron en el preview con la cuenta de la titular. Ver `modulo-autenticacion.md`.
 ## Estado de cada requerimiento
 
-- **RF01 · T · pendiente**: Autenticación real y cuentas individuales pendientes. El selector de la demo no autentica.
-- **RF02 · T · parcial**: Selector de perfiles y restricciones de la demo comprobables; falta Auth y matriz de permisos de servidor.
+- **RF01 · T · parcial**: Login individual implementado con Supabase Auth. La titular ingresó con su contraseña; se observó Administración y restauración tras recarga en el preview real. Pruebas controladas positivas/negativas aprobadas; falta validación institucional y despliegue de producción.
+- **RF02 · T · parcial**: Roles canónicos y contrato de perfil comprobados contra SQL; perfil Administración activo en Supabase, sin escalamiento por metadatos. Falta matriz operativa de permisos de módulos conectados.
 - **RF03 · T · parcial**: Aislamiento y nota privada ensayados localmente; falta RLS y escenario de portal por código. Seguimiento incorpora aislamiento, proyección autorizada e historial local; servidor y portal reales pendientes.
 - **RF04 · T · parcial**: Portal de demostración entrega solo el DTO autorizado por expediente; archivos ocultos y borradores se rechazan/omiten. Rutas públicas cerradas hasta disponer de servidor; falta autorización real y pruebas negativas sobre Supabase.
-- **RF05 · I · parcial**: Historial local con actor/acción/fecha; falta bitácora de servidor no modificable por clientes. Seguimiento incorpora aislamiento, proyección autorizada e historial local; servidor y portal reales pendientes. Consultas del portal y comentarios familiares registrados localmente con actor de acceso por código; bitácora protegida/identificación institucional pendientes.
+- **RF05 · I · parcial**: Bitácora SQL de lectura del perfil con actor autenticado y solo anexado comprobada. Historial de módulos todavía local; inspección integral institucional pendiente.
 - **RNF02 · I · pendiente**: Pendiente inspección de HTTPS, credenciales, autorización por código y controles de servidor.
 - **RNF03 · I · pendiente**: Pendiente inspección y pruebas negativas de todas las entidades con RLS/Storage reales.
 - **RF06 · T · frontend_verificado_integracion_pendiente**: Creación y numeración local, paciente existente y responsable; falta unicidad transaccional/concurrencia en PostgreSQL.

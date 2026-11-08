@@ -2,7 +2,7 @@
   "fuente": "ERS_Psicoluz_iso.docx",
   "sha256_fuente": "39c85ad055ba23c7dab4ff7f147e751ac3dbd3576cd89907058a82a500e8cf6f",
   "fecha_revision": "2026-11-08",
-  "modulo_revisado": "Expedientes, Agenda, Seguimiento y Portal familiar, frontend con datos ficticios",
+  "modulo_revisado": "Autenticación real y contrato de perfil; Expedientes, Agenda, Seguimiento y Portal con datos ficticios",
   "cierre_integral": false,
   "nota": "Se revisaron los 40 requerimientos; resultados de mocks no acreditan cumplimiento en producción ni resultados del pilotaje.",
   "requerimientos": [
@@ -13,9 +13,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un usuario de personal registrado, cuando ingrese sus credenciales individuales válidas, entonces el sistema debe autenticar únicamente esa cuenta y no permitir el uso de una cuenta compartida.",
-      "estado": "pendiente",
-      "observacion": "Autenticación real y cuentas individuales pendientes. El selector de la demo no autentica.",
-      "evidencia_actual": null,
+      "estado": "parcial",
+      "observacion": "Login individual implementado con Supabase Auth. La titular ingresó con su contraseña; se observó Administración y restauración tras recarga en el preview real. Pruebas controladas positivas/negativas aprobadas; falta validación institucional y despliegue de producción.",
+      "evidencia_actual": "tests/auth.spec.js; scripts/test-db-auth.mjs; docs/modulo-autenticacion.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -26,8 +26,8 @@
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un usuario de personal registrado, cuando se consulte su configuración de acceso, entonces el sistema debe reconocer exactamente uno de los roles definidos y aplicar la matriz de permisos correspondiente.",
       "estado": "parcial",
-      "observacion": "Selector de perfiles y restricciones de la demo comprobables; falta Auth y matriz de permisos de servidor.",
-      "evidencia_actual": "tests/expedientes.spec.js y docs/resultados-verificacion.md",
+      "observacion": "Roles canónicos y contrato de perfil comprobados contra SQL; perfil Administración activo en Supabase, sin escalamiento por metadatos. Falta matriz operativa de permisos de módulos conectados.",
+      "evidencia_actual": "tests/auth.spec.js; scripts/test-db-auth.mjs; docs/modulo-autenticacion.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -62,8 +62,8 @@
       "metodo_ERS": "I",
       "criterio_aceptacion": "Dado un acceso o modificación sobre un dato sensible del expediente, cuando la acción finalice, entonces el sistema debe registrar quién realizó la acción, qué acción realizó y cuándo ocurrió.",
       "estado": "parcial",
-      "observacion": "Historial local con actor/acción/fecha; falta bitácora de servidor no modificable por clientes. Seguimiento incorpora aislamiento, proyección autorizada e historial local; servidor y portal reales pendientes. Consultas del portal y comentarios familiares registrados localmente con actor de acceso por código; bitácora protegida/identificación institucional pendientes.",
-      "evidencia_actual": "tests/expedientes.spec.js y docs/resultados-verificacion.md",
+      "observacion": "Bitácora SQL de lectura del perfil con actor autenticado y solo anexado comprobada. Historial de módulos todavía local; inspección integral institucional pendiente.",
+      "evidencia_actual": "tests/auth.spec.js; scripts/test-db-auth.mjs; docs/modulo-autenticacion.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {

@@ -1,0 +1,21 @@
+{
+  "project_ref": "krrurcjowhgrkenkgtpf",
+  "date": "2026-11-08",
+  "migration_version": "20261108000200",
+  "migration_sha256": "778414ced9bfc69842e4a8d5809482de0d2eda94cd9690acd8a857bd7231cf6b",
+  "applied_via": "Supabase SQL Editor; success observed",
+  "verification": {
+    "active_administration_profile": true,
+    "authenticated_rpc_execute": true,
+    "anon_rpc_execute": false,
+    "authenticated_private_schema_usage": false,
+    "public_signup_enabled": false,
+    "anonymous_signin_enabled": false,
+    "email_confirmation_enabled": true,
+    "recovery_redirect": "http://127.0.0.1:5180/actualizar-clave"
+  },
+  "real_preview_login_observed": true,
+  "clinical_frontend_connected": false,
+  "production_ready": false,
+  "real_preview_session_reload_observed": true
+}

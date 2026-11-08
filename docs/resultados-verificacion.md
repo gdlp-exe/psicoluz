@@ -207,3 +207,11 @@ que la búsqueda oculta filtre la vista sencilla, se repitieron los 13 escenario
 ## Fundación privada de Supabase — 8 de noviembre de 2026
 
 Migración inicial ejecutada en el proyecto nuevo `krrurcjowhgrkenkgtpf`. Consulta remota de metadatos: 15 tablas, 15 con RLS, acceso al esquema anon=false/authenticated=false y 0 políticas abiertas. `node --test scripts/test-db-foundation.mjs`: 19 pruebas aprobadas (18 casos y contenedor), PostgreSQL local PGlite 0.5.15 con Auth mínimo simulado. No acredita Auth real, autorización operativa por rol, Storage, concurrencia remota ni frontend conectado. Ver `backend-fase1.md` y la consulta reproducible en `supabase/checks/verify_foundation.sql`.
+
+## Autenticación y perfil de personal — 8 de noviembre de 2026
+
+Resultado final: 40 registros del ERS íntegros; 22 pruebas de lógica, 27 comprobaciones SQL (incluidos contenedores) y compilación aprobados. Suite completa: 64 escenarios aprobados en Edge y 64 en Chrome. Nueve escenarios nuevos cubren acceso individual, contrato exacto de campos/roles, denegación de perfil ausente/inactivo/antiguo, metadatos falsificados, restauración, cierre, rutas antiguas, recuperación, cambio de contraseña, teclado, móvil y revisión automática axe.
+
+Las pruebas de navegador de Auth usan respuestas controladas sin correos reales. La función SQL se comprueba contra ambas migraciones en PGlite con Auth mínimo simulado. En el Supabase real se observó la migración exitosa, perfil Administración activo, ejecución propia authenticated=true/anon=false y acceso al esquema privado=false. Registro público cerrado y enlace local de recuperación guardado. La titular confirmó el inicio real con su propia contraseña y se observó «Hola, Guadalupe» / Administración en el preview; la contraseña no se leyó ni se guardó.
+
+No se acredita todavía entrega real de recuperación por correo, configuración de producción en Vercel, matriz operativa completa de permisos clínicos, Storage, concurrencia remota, SUS, Likert ni conformidad WCAG integral. Ver `modulo-autenticacion.md` para correspondencia de campos, permisos y pendientes.

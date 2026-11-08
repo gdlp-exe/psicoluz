@@ -1,7 +1,7 @@
 {
   "fuente": "ERS_Psicoluz_iso.docx",
   "sha256_fuente": "39c85ad055ba23c7dab4ff7f147e751ac3dbd3576cd89907058a82a500e8cf6f",
-  "fecha_revision": "2026-11-07",
+  "fecha_revision": "2026-11-08",
   "modulo_revisado": "Expedientes, Agenda y Seguimiento, vistas de desarrollo locales",
   "cierre_integral": false,
   "nota": "Se revisaron los 40 requerimientos; resultados de mocks no acreditan cumplimiento en producción ni resultados del pilotaje.",
@@ -362,8 +362,8 @@
       "metodo_ERS": "A",
       "criterio_aceptacion": "Dado un expediente de prueba con 4 actividades vigentes y 3 vencidas, cuando la profesional abra el apartado de apoyo, entonces el sistema debe ofrecer un borrador que aluda al incumplimiento del plan y sugiera revisar dificultad, frecuencia o acompañamiento en casa, sin afirmar un retraso del desarrollo. Dado un expediente sin actividades, cuando se abra el apartado, entonces el sistema no debe inventar recomendaciones y debe indicar que faltan datos del plan de trabajo. Dado un expediente real, cuando se genere un borrador, entonces el sistema no debe persistirlo como visible al tutor hasta que se cumpla RF-AP03.",
       "estado": "parcial",
-      "observacion": "Reglas transparentes y selector kNN sintético secundario. Caso 4 vigentes/3 vencidas y ausencia de actividades comprobados. Evaluaciones etiquetadas son extensión solicitada, sin interpretación clínica automática. Análisis formal profesional pendiente.",
-      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
+      "observacion": "Reglas transparentes y clasificador softmax entrenado con 96 casos sintéticos, evaluado con 24 reservados; parámetros, hashes y reporte versionados. Caso 4 vigentes/3 vencidas, ausencia de actividades y etiquetas elegidas comprobados. No interpreta texto clínico ni acredita utilidad profesional; análisis formal pendiente.",
+      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md; tests-unit/trained-model.test.mjs; tests/apoyo-entrenado.spec.js; data/synthetic/training-report.json",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -375,7 +375,7 @@
       "criterio_aceptacion": "Dado el catálogo de reglas, cuando se inspeccione, entonces ningún texto tipo debe contener lenguaje diagnóstico o de pronóstico. Dado un texto tipo, cuando se muestre, entonces debe incluir un verbo de posibilidad y no de certeza clínica.",
       "estado": "parcial",
       "observacion": "Catálogo orientado al plan y posibilidad, con revisión y guardia de texto. Inspección formal pendiente; filtro no garantiza seguridad de un futuro generador abierto.",
-      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
+      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md; tests-unit/trained-model.test.mjs; tests/apoyo-entrenado.spec.js; data/synthetic/training-report.json",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -386,8 +386,8 @@
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un borrador en estado «pendiente», cuando el tutor consulte el portal, entonces el sistema no debe mostrar ninguna tarjeta de evolución o predicción. Dado un texto editado y aceptado por la profesional y marcado como visible, cuando el tutor consulte el portal, entonces el sistema debe mostrar el texto aceptado y no el borrador original del motor.",
       "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Aceptar/editar/descartar, confirmaciones y texto familiar revisado comprobados. Cambios del contexto retiran publicación. Portal real y servidor pendientes.",
-      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
+      "observacion": "Aceptar/editar/descartar, confirmaciones y texto familiar revisado comprobados. Cambios del contexto retiran publicación. Portal real y servidor pendientes. Cambio de versión del motor invalida autorización anterior; ejemplo sintético independiente no persiste ni publica.",
+      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md; tests-unit/trained-model.test.mjs; tests/apoyo-entrenado.spec.js; data/synthetic/training-report.json",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -399,7 +399,7 @@
       "criterio_aceptacion": "Dado que la profesional abra el apartado de apoyo, cuando se muestre su contenido, entonces el sistema debe mantener visible el aviso «Herramienta de apoyo. No diagnostica ni reemplaza el criterio de la profesional».",
       "estado": "parcial",
       "observacion": "Aviso literal persistente en área de apoyo y contenido familiar del apoyo; inspección formal pendiente.",
-      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
+      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md; tests-unit/trained-model.test.mjs; tests/apoyo-entrenado.spec.js; data/synthetic/training-report.json",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -411,7 +411,7 @@
       "criterio_aceptacion": "Dado un expediente con el apartado de apoyo activo, cuando la profesional lo desactive, entonces el sistema debe dejar el apartado deshabilitado únicamente para ese expediente.",
       "estado": "frontend_verificado_integracion_pendiente",
       "observacion": "Desactivación por expediente impide generar y retira textos familiares del apoyo. Integración pendiente.",
-      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
+      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md; tests-unit/trained-model.test.mjs; tests/apoyo-entrenado.spec.js; data/synthetic/training-report.json",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -423,7 +423,7 @@
       "criterio_aceptacion": "Dado un expediente con recomendaciones existentes, cuando el sistema genere nuevas recomendaciones, entonces no debe mantener más de tres recomendaciones simultáneas en ese expediente.",
       "estado": "frontend_verificado_integracion_pendiente",
       "observacion": "Máximo tres recomendaciones activas ante regeneraciones; contexto anterior archivado. Restricción transaccional multiusuario pendiente.",
-      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
+      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md; tests-unit/trained-model.test.mjs; tests/apoyo-entrenado.spec.js; data/synthetic/training-report.json",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -435,7 +435,7 @@
       "criterio_aceptacion": "Dada una recomendación revisada por la profesional, cuando ella indique su valoración, entonces el sistema debe registrar una de las opciones útil, parcial o no útil.",
       "estado": "frontend_verificado_integracion_pendiente",
       "observacion": "Útil/parcial/no útil después de revisión, persistencia y rechazo de valor inválido comprobados. Valoración profesional real pendiente.",
-      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
+      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md; tests-unit/trained-model.test.mjs; tests/apoyo-entrenado.spec.js; data/synthetic/training-report.json",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -482,8 +482,8 @@
       "metodo_ERS": "I",
       "criterio_aceptacion": "Dada cualquier salida automática del apartado de apoyo, cuando se inspeccione o demuestre su presentación, entonces ninguna salida debe presentarse como evaluación psicológica, diagnóstico o pronóstico del desarrollo.",
       "estado": "parcial",
-      "observacion": "Sin diagnóstico, pronóstico ni puntuación clínica automática. Reglas limitadas y etiquetas explícitas; selector artificial experimental. Inspección ética formal pendiente.",
-      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
+      "observacion": "Sin diagnóstico, pronóstico ni puntuación clínica automática. Reglas limitadas, etiquetas elegidas y revisión obligatoria. Modelo entrenado exclusivamente con casos artificiales; resultados de test sintético no acreditan validez clínica. Inspección ética formal pendiente.",
+      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md; tests-unit/trained-model.test.mjs; tests/apoyo-entrenado.spec.js; data/synthetic/training-report.json",
       "cumplimiento_integral_acreditado": false
     }
   ],

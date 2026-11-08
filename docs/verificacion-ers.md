@@ -1,4 +1,4 @@
-# Revisión completa del ERS — 7 de noviembre de 2026
+# Revisión completa del ERS — 8 de noviembre de 2026
 
 Los 40 registros conservan enunciados, aceptación, métodos T/I/D/A e identificadores originales. Frontend local con datos ficticios de Expedientes, Agenda y Seguimiento. No acredita cierre integral ni resultados de pilotaje.
 
@@ -33,9 +33,9 @@ Los 40 registros conservan enunciados, aceptación, métodos T/I/D/A e identific
 - **RF25 · T · pendiente**: Fuera del primer módulo reconstruido. Implementación, integración y verificación aún pendientes.
 - **RF26 · D · pendiente**: Iteración posterior prevista en el ERS: lectura de contenido autorizado y fallback sin Web Speech API pendientes.
 - **RNF05 · I · parcial**: Escaneo automático WCAG 2 A/AA en pantallas/formularios de Seguimiento sin incidencias detectadas en escenarios cubiertos. No acredita conformidad integral; criterios aplicables a RF23–RF26 y portal pendientes de formalización/inspección.
-- **RF-AP01 · A · parcial**: Reglas transparentes y selector kNN sintético secundario. Caso 4 vigentes/3 vencidas y ausencia de actividades comprobados. Evaluaciones etiquetadas son extensión solicitada, sin interpretación clínica automática. Análisis formal profesional pendiente.
+- **RF-AP01 · A · parcial**: Reglas transparentes y clasificador softmax entrenado con 96 casos sintéticos, evaluado con 24 reservados; parámetros, hashes y reporte versionados. Caso 4 vigentes/3 vencidas, ausencia de actividades y etiquetas elegidas comprobados. No interpreta texto clínico ni acredita utilidad profesional; análisis formal pendiente.
 - **RF-AP02 · I · parcial**: Catálogo orientado al plan y posibilidad, con revisión y guardia de texto. Inspección formal pendiente; filtro no garantiza seguridad de un futuro generador abierto.
-- **RF-AP03 · T · frontend_verificado_integracion_pendiente**: Aceptar/editar/descartar, confirmaciones y texto familiar revisado comprobados. Cambios del contexto retiran publicación. Portal real y servidor pendientes.
+- **RF-AP03 · T · frontend_verificado_integracion_pendiente**: Aceptar/editar/descartar, confirmaciones y texto familiar revisado comprobados. Cambios del contexto retiran publicación. Portal real y servidor pendientes. Cambio de versión del motor invalida autorización anterior; ejemplo sintético independiente no persiste ni publica.
 - **RF-AP04 · I · parcial**: Aviso literal persistente en área de apoyo y contenido familiar del apoyo; inspección formal pendiente.
 - **RF-AP05 · T · frontend_verificado_integracion_pendiente**: Desactivación por expediente impide generar y retira textos familiares del apoyo. Integración pendiente.
 - **RF-AP06 · T · frontend_verificado_integracion_pendiente**: Máximo tres recomendaciones activas ante regeneraciones; contexto anterior archivado. Restricción transaccional multiusuario pendiente.
@@ -43,7 +43,7 @@ Los 40 registros conservan enunciados, aceptación, métodos T/I/D/A e identific
 - **RNF01 · T · pendiente**: Pendiente medir cada operación en entorno de piloto (<3 s); no extrapolar desde la demo local.
 - **RNF04 · D · pendiente**: SUS >=70/100 para interfaz profesional: aplicación y puntuación con participantes pendientes; no garantizadas.
 - **RNF06 · D · parcial**: Expedientes, Agenda y Seguimiento revisados en Edge y Chrome; Seguimiento a 360, 390, 768, 1024 y 1440 px. Portal familiar real pendiente.
-- **RNF-ET01 · I · parcial**: Sin diagnóstico, pronóstico ni puntuación clínica automática. Reglas limitadas y etiquetas explícitas; selector artificial experimental. Inspección ética formal pendiente.
+- **RNF-ET01 · I · parcial**: Sin diagnóstico, pronóstico ni puntuación clínica automática. Reglas limitadas, etiquetas elegidas y revisión obligatoria. Modelo entrenado exclusivamente con casos artificiales; resultados de test sintético no acreditan validez clínica. Inspección ética formal pendiente.
 
 ## Cadena de comprobación
 

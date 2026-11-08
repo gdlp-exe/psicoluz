@@ -126,3 +126,35 @@ sin sustituirlos por la suite automatizada.
 
 La previsualización solicitada permanece activa en el puerto 5180. Si ya existe ese servidor,
 Playwright lo reutiliza; si las pruebas lo inician, gestionan su propio servidor.
+
+## Beta entrenada y guía de uso — 8 de noviembre de 2026
+
+- Se revisaron de nuevo los 40 requerimientos y las fuentes originales; hashes de ERS,
+  protocolo y arquitectura conservados. Estados integrales y pendientes de pilotaje no se cerraron.
+- `npm run train:support`: ejecutado. Aprende 54 pesos y seis sesgos mediante softmax,
+  entropía cruzada, regularización L2 y descenso de gradiente sobre los 96 casos train originales.
+  El navegador usa el artefacto guardado; no entrena con expedientes.
+- Test reservado: 24/24 etiquetas sintéticas. Pérdida regularizada de entrenamiento
+  1.7917594692 → 0.0951625078; log-loss de test 0.0307554949.
+  Casos de una etiqueta, construidos por código: no son evidencia de eficacia, calidad
+  clínica ni generalización a usuarios reales. No se entrenó un LLM.
+- `training-report.json` conserva matriz de confusión, curva de pérdida, parámetros y hashes.
+  Las pruebas reproducen los parámetros aprendidos, recalculan las métricas y comprueban
+  que no se compartan IDs ni vectores entre entrenamiento y test.
+- `npm run verify` en Edge: integridad ERS, **13 pruebas unitarias**, build correcto y
+  **42 pruebas de navegador aprobadas (1.5 min)**.
+- Chrome: **42 pruebas de navegador aprobadas (1.3 min)**.
+- Ampliación posterior de verificaciones: **2 pruebas focalizadas aprobadas en Edge (14.2 s)**
+  y **2 en Chrome (10.0 s)**. Cubren guía beta a 360–1440 px, caso sintético modificable,
+  ausencia de escrituras en expediente, contraste/estructura de contexto, ejemplo interactivo
+  y datos de evaluación del modelo expandidos.
+- El recorrido completo conserva aprobación, edición, descarte, aislamiento por expediente,
+  máximo tres, desactivación, proyección familiar y rechazo de texto diagnóstico.
+- Se comprobó que cambiar la versión del modelo invalida textos autorizados hasta actualizar
+  y revisar. El ejemplo no persiste ni publica; sin actividades no genera propuestas.
+- Revisión visual de la nueva guía: escritorio; capturas y recorrido sin errores de página.
+  No se añadieron proveedores externos, credenciales ni dependencias de entrenamiento.
+
+SUS, Likert, inspección formal de accesibilidad y análisis profesional de utilidad siguen
+pendientes del piloto. Los escaneos automáticos no certifican conformidad WCAG completa.
+Auth/RLS, portal por código y restricciones de servidor conservan los pendientes previos.

@@ -19,6 +19,12 @@ test('Seguimiento: revisión automática de etiquetas, estructura y contraste en
   await page.getByLabel('Expediente de seguimiento').selectOption('record-1');
   for (const tab of ['Resumen del plan', 'Vista previa familiar']) { await page.getByRole('tab', { name: tab, exact: true }).click(); await scan(tab); }
   await page.getByRole('tab', { name: /Apoyo experimental/ }).click(); await scan('Apoyo vacío');
+  await page.getByText('Prueba local con datos sintéticos', { exact: true }).click(); await scan('Modelo y evaluación sintética');
+  await page.getByRole('button', { name: 'Seleccionar contexto', exact: true }).click();
+  await scan('Selección del contexto profesional', 'dialog[open]'); await page.keyboard.press('Escape');
+  await page.getByRole('button', { name: 'Probar con un caso sintético', exact: true }).click();
+  await page.getByRole('button', { name: 'Generar ejemplo', exact: true }).click();
+  await scan('Ejemplo sintético interactivo', 'dialog[open]'); await page.keyboard.press('Escape');
   await page.getByRole('button', { name: 'Preparar borradores', exact: true }).click(); await expect(page.locator('.sf-recommendation').first()).toBeVisible(); await scan('Apoyo con borrador');
   await page.locator('.sf-recommendation').first().getByRole('button', { name: 'Revisar o editar', exact: true }).click(); await scan('Revisión profesional', 'dialog[open]');
   // No automated scan certifies full WCAG conformity or replaces the agreed pilot inspection.

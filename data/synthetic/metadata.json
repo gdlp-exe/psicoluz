@@ -1,5 +1,5 @@
 {
-  "modelVersion": "synthetic-knn-v1",
+  "modelVersion": "synthetic-softmax-v2",
   "synthetic": true,
   "origin": "Generated deterministically by code. No patient records, external APIs or clinical text.",
   "features": [

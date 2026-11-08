@@ -1,5 +1,5 @@
 import { mkdir, writeFile } from 'node:fs/promises';
-import { syntheticCases, MODEL_VERSION } from '../src/features/seguimiento/supportEngine.js';
+import { syntheticCases, MODEL_VERSION } from '../src/features/seguimiento/syntheticData.js';
 
 const folder = new URL('../data/synthetic/', import.meta.url);
 await mkdir(folder, { recursive: true });

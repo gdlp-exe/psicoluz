@@ -24,3 +24,9 @@ dist-ssr
 *.sw?
 
 .env
+
+# Local configuration and browser-test artifacts
+.env.*
+!.env.example
+/playwright-report/
+/test-results/

@@ -1,0 +1,9 @@
+---
+description: Verificación completa del ERS y evidencia antes de cerrar módulos PsicoLuz
+alwaysApply: true
+---
+
+Aplicar las instrucciones de `AGENTS.md` en la raíz del proyecto.
+Antes de dar un módulo por terminado, revisar los 40 requerimientos vigentes y sus
+criterios/métodos, actualizar `docs/verificacion-ers.json` y registrar pruebas reales.
+Separar frontend, integración y pilotaje; no garantizar resultados de SUS, Likert o WCAG.

@@ -19,5 +19,9 @@
   "scope": "patient identification and record registry only",
   "clinical_content_api_connected": false,
   "production_ready_complete": false,
-  "cli_history_repair_pending": true
+  "cli_history_repair_pending": true,
+  "vercel_source_commit": "32a8a8cead4c23f63412e6bc9802d8a42b0a303d",
+  "vercel_deployment": "23vHvZW1Ph3nxSscMDr8xMtzBr54",
+  "vercel_status": "Ready",
+  "production_url": "https://psicoluz.vercel.app"
 }

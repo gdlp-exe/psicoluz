@@ -1,6 +1,6 @@
 # Conexión de pacientes y apertura de expedientes
 
-Estado: permisos confirmados por la titular y migración `supabase/migrations/20261108000300_records_registry.sql` aplicada en Supabase con éxito observado. Listado vacío y responsable real verificados desde la sesión local autenticada. Publicación de la pantalla en Vercel en curso al registrar esta evidencia.
+Estado: permisos confirmados por la titular y migración `supabase/migrations/20261108000300_records_registry.sql` aplicada en Supabase con éxito observado. Listado vacío y responsable real verificados desde la sesión local autenticada. Código 32a8a8c publicado en Vercel: despliegue 23vHvZW1Ph3nxSscMDr8xMtzBr54 en estado Ready. La ruta publicada exige sesión y carga el acceso sin errores de configuración.
 
 ## Alcance de esta etapa
 

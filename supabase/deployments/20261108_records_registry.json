@@ -14,7 +14,8 @@
     "real_professional_choice_observed": true,
     "visible_record_count": 0,
     "remote_record_writes_tested": false,
-    "professional_login_tested": false
+    "professional_login_tested": false,
+    "remote_create_edit_confirmed_by_user": true
   },
   "scope": "patient identification and record registry only",
   "clinical_content_api_connected": false,

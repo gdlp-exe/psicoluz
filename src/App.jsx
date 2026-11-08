@@ -17,7 +17,7 @@ export default function App() {
   const portalPublic = /^\/(?:expediente|portal)(?:\/|$)/.test(path);
   return (
     <Suspense fallback={<div role="status" style={{ padding: 40, color: '#008794', fontFamily: 'Segoe UI, sans-serif' }}>Cargando PsicoLuz…</div>}>
-      {portalDemo ? <PortalWorkspace development /> : portalPublic ? <PortalWorkspace /> : seguimiento ? <SeguimientoWorkspace /> : agenda ? <AgendaWorkspace /> : development ? <ExpedientesWorkspace /> : staff ? <AuthWorkspace area={path.startsWith('/personal/expedientes') ? 'registry' : 'account'} /> : path === '/' ? <Landing /> : <main style={{ padding: 40 }}><h1>Página no encontrada</h1><a href="/">Volver al inicio</a></main>}
+      {portalDemo ? <PortalWorkspace development /> : portalPublic ? <PortalWorkspace /> : seguimiento ? <SeguimientoWorkspace /> : agenda ? <AgendaWorkspace /> : development ? <ExpedientesWorkspace /> : staff ? <AuthWorkspace area={path.startsWith('/personal/expedientes') ? 'registry' : path.startsWith('/personal/agenda') ? 'agenda' : 'account'} /> : path === '/' ? <Landing /> : <main style={{ padding: 40 }}><h1>Página no encontrada</h1><a href="/">Volver al inicio</a></main>}
     </Suspense>
   );
 }

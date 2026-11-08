@@ -224,3 +224,10 @@ Permisos autorizados por la titular. Migración `20261108000300` aplicada en Sup
 
 Suite final de navegador: 73 aprobados en Edge y 73 en Chrome. Lógica: 25 aprobados. Compilación y matriz de 40 IDs correctas. Pruebas SQL: migraciones completas en PGlite con Auth mínimo simulado, permisos, separación por responsable, transacción, campos, cinco estados, versiones, bitácora y paginación. Ver `conexion-registro-expedientes.md`. No se declara cierre integral, concurrencia remota, Storage, SUS, Likert o conformidad WCAG por estos ensayos.
 Resultado final SQL: 41 comprobaciones aprobadas, incluidos tres contenedores; también se verifican los cinco estados del ERS con lectura posterior. No equivale a concurrencia o escritura remota.
+
+## Agenda conectada — 8 de noviembre de 2026
++
++Migración 20261108000400 aplicada con éxito observado en Supabase. Permisos: ejecución authenticated=true, anon=false; uso del esquema privado=false y borrado de bitácora=false. Lectura semanal real observada con la sesión de Administración, sin citas registradas en la semana. No se insertaron citas ficticias en producción ni se leyó una contraseña. Acceso profesional restringido a las citas de sus expedientes; Administración coordina la agenda del centro.
++
++Resultado final: 78 escenarios aprobados en Edge y 78 en Chrome, 27 pruebas de lógica y 53 comprobaciones SQL (incluidos contenedores), compilación correcta y matriz íntegra de 40 requerimientos. La suite de Agenda aporta 11 casos SQL y su contenedor, además de cinco recorridos de navegador sobre respuestas controladas. Verifica registro, contrato, fechas, cruces exactos/parciales, intervalos contiguos, diferentes profesionales, reprogramación, versiones, cancelación sin borrar, aislamiento, historial, contraste del formulario y 360 px. No acredita todavía concurrencia/escritura remota de citas, SUS, Likert, WCAG integral ni resultados operacionales de pilotaje. La titular sí confirmó creación y edición remotas del registro básico de Expedientes en esta sesión.
++

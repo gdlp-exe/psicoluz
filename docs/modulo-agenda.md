@@ -1,3 +1,5 @@
+Actualización: Agenda real conectada en `/personal/agenda`; ver [conexión y permisos](conexion-agenda.md). El documento siguiente conserva la primera entrega de demostración.
+
 # Agenda y citas — frontend de desarrollo
 
 ## Abrir y recorrer

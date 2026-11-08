@@ -1,0 +1,20 @@
+{
+  "project_ref": "krrurcjowhgrkenkgtpf",
+  "date": "2026-11-08",
+  "migration_version": "20261108000400",
+  "migration_sha256": "05123fe2a3a9af00fc68363bc257e99d82d3b9d3039965dfeaea9777a42aed1b",
+  "applied_via": "Supabase SQL Editor; success observed",
+  "authorized_by_owner": true,
+  "verification": {
+    "authenticated_execute": true,
+    "anon_execute": false,
+    "authenticated_private_schema_usage": false,
+    "authenticated_delete_audit": false,
+    "admin_jwt_read_observed": true,
+    "remote_writes_tested": false,
+    "remote_concurrency_tested": false
+  },
+  "clinical_notes_api_connected": false,
+  "full_requirements_closed": false,
+  "cli_history_repair_pending": true
+}

@@ -2,7 +2,7 @@
   "fuente": "ERS_Psicoluz_iso.docx",
   "sha256_fuente": "39c85ad055ba23c7dab4ff7f147e751ac3dbd3576cd89907058a82a500e8cf6f",
   "fecha_revision": "2026-11-08",
-  "modulo_revisado": "Autenticación y registro de pacientes/expedientes conectados; contenido clínico y otros módulos pendientes",
+  "modulo_revisado": "Auth, registro de expedientes y Agenda conectados; notas/evaluaciones/archivos, Seguimiento y Portal pendientes",
   "cierre_integral": false,
   "nota": "Se revisaron los 40 requerimientos; resultados de mocks no acreditan cumplimiento en producción ni resultados del pilotaje.",
   "requerimientos": [
@@ -98,7 +98,7 @@
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un paciente y una profesional responsable válidos, cuando se cree el expediente, entonces el sistema debe asignarle un número único y asociarlo con ambos registros.",
       "estado": "parcial",
-      "observacion": "Apertura transaccional de paciente/expediente, reutilización autorizada y secuencia única comprobadas contra SQL local. API aplicada en Supabase; listado y responsable real leídos con JWT de Administración. Escritura remota y concurrencia pendientes.",
+      "observacion": "Apertura transaccional de paciente/expediente, reutilización autorizada y secuencia única comprobadas contra SQL local. API aplicada en Supabase; listado y responsable real leídos con JWT de Administración. Escritura remota y concurrencia pendientes. La titular confirmó creación y edición en Vercel; ese ensayo fue informado por ella, no observado por el agente.",
       "evidencia_actual": "scripts/test-db-registry.mjs; tests/registry.spec.js; docs/conexion-registro-expedientes.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
@@ -181,9 +181,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dada una cita nueva, cuando se registre, entonces el sistema debe guardar paciente, profesional, fecha-hora, modalidad y estado.",
-      "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Registro local de paciente/expediente, profesional, fecha/hora de Nicaragua, modalidad y estado; recarga comprobada. Falta persistencia y autorización reales en Supabase.",
-      "evidencia_actual": "tests/agenda.spec.js y docs/resultados-verificacion.md",
+      "estado": "parcial",
+      "observacion": "Agenda conectada: servidor deriva paciente/profesional del expediente y guarda fecha-hora Nicaragua, modalidad y estado. Contrato real SQL/adaptador probado; API aplicada y lectura remota observada. Escritura remota de citas pendiente de ensayo autorizado.",
+      "evidencia_actual": "scripts/test-db-agenda.mjs; tests/agenda-real.spec.js; docs/conexion-agenda.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -193,9 +193,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "D",
       "criterio_aceptacion": "Dado un usuario con rol de administración o profesional, cuando abra la agenda, entonces el sistema debe mostrar las citas registradas como fuente oficial de consulta.",
-      "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Semana/lista y filtros comprobados para administración y profesional sobre el mismo registro local. Demostración e integración institucional pendientes.",
-      "evidencia_actual": "tests/agenda.spec.js y docs/resultados-verificacion.md",
+      "estado": "parcial",
+      "observacion": "Semana/lista conservadas sobre PostgreSQL con consulta por rango y alcance del rol. Interfaz real y catálogo autorizado conectados; demostración institucional y medición de piloto pendientes.",
+      "evidencia_actual": "scripts/test-db-agenda.mjs; tests/agenda-real.spec.js; docs/conexion-agenda.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -205,9 +205,9 @@
       "prioridad": "Media",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dada una cita existente, cuando se reprograme o cancele, entonces el sistema debe actualizar su estado o fecha. Dada una nueva fecha y hora que coincide con otra cita confirmada de la misma profesional, cuando se intente confirmar, entonces el sistema debe impedir la colisión y solicitar otra disponibilidad.",
-      "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Reprogramación y cancelación probadas; cruces exactos/parciales rechazados, contigüidad y distintas profesionales permitidas. Cola local comprobada; falta restricción transaccional en PostgreSQL y concurrencia real.",
-      "evidencia_actual": "tests/agenda.spec.js y docs/resultados-verificacion.md",
+      "estado": "parcial",
+      "observacion": "GiST rechaza cruces exactos/parciales; admite contigüidad y distintas profesionales. Reprogramación con versión, cancelación sin borrar y horario liberado probados en SQL y navegador controlados. Concurrencia entre conexiones remotas pendiente.",
+      "evidencia_actual": "scripts/test-db-agenda.mjs; tests/agenda-real.spec.js; docs/conexion-agenda.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -496,7 +496,7 @@
     "Portal familiar: demo"
   ],
   "avances_backend": {
-    "fase": "autenticacion_y_registro_parcial_conectados",
+    "fase": "autenticacion_registro_y_agenda_conectados",
     "fecha": "2026-11-08",
     "proyecto": "krrurcjowhgrkenkgtpf",
     "tablas": 15,
@@ -510,6 +510,7 @@
     "api_clinica_conectada": false,
     "api_registro_expedientes_implementada": true,
     "cobertura_api_completa": false,
-    "alcance_frontend_conectado": "Auth y registro básico; contenido clínico y otros módulos pendientes"
+    "alcance_frontend_conectado": "Auth, registro básico y Agenda; contenido clínico y otros módulos pendientes",
+    "api_agenda_implementada": true
   }
 }

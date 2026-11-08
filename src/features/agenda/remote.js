@@ -1,0 +1,19 @@
+export const AGENDA_RPC='psicoluz_agenda';
+const columns=['id','record_id','patient_id','professional_id','start_at','end_at','duration','modality','status','created_at','updated_at','patient_name','record_number','professional_name'];
+function check(v,keys){if(!v||Array.isArray(v)||Object.keys(v).sort().join()!==[...keys].sort().join())throw new Error('La respuesta de Agenda no coincide con los campos esperados.');}
+export function mapAppointment(r){check(r,columns);if(!['pendiente','confirmada','atendida','cancelada'].includes(r.status)||!['presencial','virtual'].includes(r.modality)||![15,30,45,60,90].includes(r.duration))throw new Error('Los valores de la cita no son válidos.');return {id:r.id,recordId:r.record_id,patientId:r.patient_id,professionalId:r.professional_id,startAt:r.start_at,endAt:r.end_at,duration:r.duration,modality:r.modality,status:r.status,createdAt:r.created_at,updatedAt:r.updated_at,patientName:r.patient_name,recordNumber:r.record_number,professionalName:r.professional_name};}
+export function agendaPayload(v){return {date:v.date,time:v.time,duration:Number(v.duration),modality:v.modality,status:v.status};}
+export function agendaError(e,writing=false){if(e?.code==='23P01')return 'Hay un cruce de horario. Elegí otra disponibilidad.';if(e?.code==='40001')return 'Otra persona actualizó esta cita. Cerrá el formulario y volvé a abrirla antes de guardar.';if(e?.code==='42501')return 'Tu cuenta no tiene acceso a esta cita o a su responsable.';if(['22023','22007','22008','22P02','23502','23514'].includes(e?.code))return 'Revisá fecha, hora, duración, modalidad y estado. La cita debe terminar el mismo día.';if(['PGRST202','42883'].includes(e?.code))return 'La conexión de Agenda todavía no está habilitada.';return writing?'No se pudo confirmar el guardado. Revisá la agenda antes de intentarlo otra vez.':'No se pudo cargar la agenda. Revisá tu conexión y volvé a intentar.';}
+export function createRemoteAgenda(client){let pending;
+ async function rpc(action,payload={},write=false){const {data,error}=await client.rpc(AGENDA_RPC,{p_action:action,p_payload:payload});if(error){const failure=new Error(agendaError(error,write));failure.code=error.code;throw failure;}return data;}
+ function catalog(){if(!pending)pending=rpc('catalog').then(d=>{check(d,['records','professionals']);if(!Array.isArray(d.records)||!Array.isArray(d.professionals))throw new Error('Catálogo de Agenda no válido.');return d;}).finally(()=>{pending=null;});return pending;}
+ return {
+  async list(_identity,range){const rows=await rpc('index',{start_date:range.start,end_date:range.end});if(!Array.isArray(rows))throw new Error('Agenda no válida.');return rows.map(mapAppointment);},
+  async records(){return (await catalog()).records.map(r=>{check(r,['id','number','patient_id','professional_id','patient_name']);return {id:r.id,number:r.number,patientId:r.patient_id,professionalId:r.professional_id,patientName:r.patient_name};});},
+  async professionals(){return (await catalog()).professionals.map(p=>{check(p,['id','name']);return p;});},
+  async open(_identity,id){const d=await rpc('detail',{appointment_id:id});check(d,['appointment','history']);if(!Array.isArray(d.history))throw new Error('Historial no válido.');return {...mapAppointment(d.appointment),history:d.history.map(h=>{check(h,['id','action','actor','at']);return h;})};},
+  async create(_identity,input){return mapAppointment(await rpc('create',{...agendaPayload(input),record_id:input.recordId},true)).id;},
+  async update(_identity,id,input){return mapAppointment(await rpc('update',{...agendaPayload(input),appointment_id:id,expected_updated_at:input.expectedUpdatedAt},true));},
+  async cancel(_identity,id,version){return mapAppointment(await rpc('cancel',{appointment_id:id,expected_updated_at:version},true));},
+ };
+}

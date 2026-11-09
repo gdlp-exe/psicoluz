@@ -1,7 +1,7 @@
 {
   "fuente": "ERS_Psicoluz_iso.docx",
   "sha256_fuente": "39c85ad055ba23c7dab4ff7f147e751ac3dbd3576cd89907058a82a500e8cf6f",
-  "fecha_revision": "2026-11-08",
+  "fecha_revision": "2026-11-09",
   "modulo_revisado": "Auth, registro, Agenda, Seguimiento, archivos privados y portal familiar conectados; pruebas positivas remotas de archivos/códigos y pilotaje pendientes",
   "cierre_integral": false,
   "nota": "Se revisaron los 40 requerimientos; resultados de mocks no acreditan cumplimiento en producción ni resultados del pilotaje.",
@@ -302,8 +302,8 @@
       "metodo_ERS": "D",
       "criterio_aceptacion": "Dado el portal de seguimiento destinado al uso por niños, cuando el usuario cambie el tamaño de fuente, entonces el sistema debe ofrecer y aplicar al menos tres niveles disponibles sin ocultar el contenido de la actividad.",
       "estado": "parcial",
-      "observacion": "Tres tamaños conservados en el portal conectado, sin recortar instrucciones en pruebas de reflujo. Demostración y comprensión con participantes pendientes.",
-      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md",
+      "observacion": "Tres tamaños conservados en el portal conectado, sin recortar instrucciones en pruebas de reflujo. Demostración y comprensión con participantes pendientes. Se conservaron tres niveles de texto en las presentaciones familiar e infantil; reflujo 360/768/1440 y cuatro temas comprobados.",
+      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md; tests/portal-personalization.spec.js; tests-unit/portal-personalization.test.mjs; docs/personalizacion-portal.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -314,8 +314,8 @@
       "metodo_ERS": "D",
       "criterio_aceptacion": "Dado el portal de seguimiento, cuando el usuario seleccione el tema de alto contraste, entonces el sistema debe aplicarlo a la interfaz del portal y mantener legible el contenido de las actividades.",
       "estado": "parcial",
-      "observacion": "Temas institucional, alto contraste, oscuro y cálido conservados en el portal conectado. Contraste automatizado ensayado; inspección manual formal pendiente.",
-      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md",
+      "observacion": "Temas institucional, alto contraste, oscuro y cálido conservados en el portal conectado. Contraste automatizado ensayado; inspección manual formal pendiente. Presentación infantil respeta los cuatro temas y contraste automático; inspección manual pendiente.",
+      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md; tests/portal-personalization.spec.js; tests-unit/portal-personalization.test.mjs; docs/personalizacion-portal.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -326,8 +326,8 @@
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado el portal de seguimiento dentro de una sesión activa, cuando el usuario cambie una preferencia de accesibilidad, entonces el sistema debe mantenerla durante esa sesión sin solicitar registro ni asociarla a una cuenta de tutor.",
       "estado": "parcial",
-      "observacion": "Preferencias de accesibilidad conservadas durante sesión sin cuenta. Token familiar solo en memoria; no se almacena con las preferencias. Recarga cierra el acceso familiar y exige volver a ingresar código; preferencias persisten. Pilotaje pendiente.",
-      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md",
+      "observacion": "Preferencias de accesibilidad conservadas durante sesión sin cuenta. Token familiar solo en memoria; no se almacena con las preferencias. Recarga cierra el acceso familiar y exige volver a ingresar código; preferencias persisten. Pilotaje pendiente. Preferencias de presentación y voz local añadidas a la misma sesión, sin cuenta ni datos clínicos.",
+      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md; tests/portal-personalization.spec.js; tests-unit/portal-personalization.test.mjs; docs/personalizacion-portal.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -338,8 +338,8 @@
       "metodo_ERS": "D",
       "criterio_aceptacion": "Dada una actividad marcada como visible en el portal de seguimiento, cuando el usuario active el control de lectura, entonces el sistema debe sintetizar su título, descripción e instrucciones y no debe leer contenido restringido. Dado un navegador sin Web Speech API, cuando se active el control, entonces el sistema debe informar la limitación y no fallar el resto del portal.",
       "estado": "parcial",
-      "observacion": "Lectura de título/descripción/instrucciones autorizadas con voz local; pausa, continuación, salida y fallback conservados. Actualizar contenido detiene texto retirado o modificado. Contrato automatizado probado; voz real y demostración pendientes.",
-      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md",
+      "observacion": "Lectura de título/descripción/instrucciones autorizadas con voz local; pausa, continuación, salida y fallback conservados. Actualizar contenido detiene texto retirado o modificado. Contrato automatizado probado; voz real y demostración pendientes. Selector de voces locales en español, muestra explícita, carga tardía y cortes por frase implementados. La calidad depende de las voces del dispositivo; escucha real con participantes pendiente.",
+      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md; tests/portal-personalization.spec.js; tests-unit/portal-personalization.test.mjs; docs/personalizacion-portal.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -350,8 +350,8 @@
       "metodo_ERS": "I",
       "criterio_aceptacion": "Dado el portal de seguimiento, cuando se realice la inspección documentada de accesibilidad, entonces debe cumplir el subconjunto de criterios subconjunto de criterios de accesibilidad acordado por el proyecto para contraste, redimensionado, espaciado, formularios y lectura de actividades cuando exista.",
       "estado": "parcial",
-      "observacion": "Controles de accesibilidad conservados al conectar el portal y recursos; revisión axe, teclado y reflujo aprobados. Los criterios WCAG aplicables deben formalizarse y verificarse manualmente; no se acredita conformidad integral.",
-      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md",
+      "observacion": "Controles de accesibilidad conservados al conectar el portal y recursos; revisión axe, teclado y reflujo aprobados. Los criterios WCAG aplicables deben formalizarse y verificarse manualmente; no se acredita conformidad integral. Refinamiento visual con iconos y tarjetas, reducción de movimiento y vuelta a la vista familiar; no se añadió un requerimiento de juegos. Comprensión por niños no lectores y evaluación manual pendientes.",
+      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md; tests/portal-personalization.spec.js; tests-unit/portal-personalization.test.mjs; docs/personalizacion-portal.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -470,7 +470,7 @@
       "metodo_ERS": "D",
       "criterio_aceptacion": "Dado un escritorio con Chrome o Edge y un portal de seguimiento en un ancho de 360 px, cuando se utilice el sistema, entonces las funciones previstas deben operar y la interfaz debe seguir siendo utilizable sin crear una cuenta.",
       "estado": "parcial",
-      "observacion": "Frontend completo comprobado en Edge y Chrome; portal a 320, 360, 390, 768, 1024 y 1440 px con texto grande y espaciado. Dispositivos, lector de pantalla y demostración institucional pendientes. Revisión de distribución: 89 escenarios cubiertos en Chrome/Edge; anchos 360/768/1024/1440, sin desbordamiento de página y cabecera sin menú superpuesto. No sustituye demostración institucional.",
+      "observacion": "Frontend completo comprobado en Edge y Chrome; portal a 320, 360, 390, 768, 1024 y 1440 px con texto grande y espaciado. Dispositivos, lector de pantalla y demostración institucional pendientes. Revisión de distribución: 89 escenarios cubiertos en Chrome/Edge; anchos 360/768/1024/1440, sin desbordamiento de página y cabecera sin menú superpuesto. No sustituye demostración institucional. Personalización final: 95 escenarios aprobados en Edge y 95 en Chrome; vista infantil en 360/768/1440 y cuatro temas comprobada.",
       "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md; tests/workspace-layout.spec.js; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },

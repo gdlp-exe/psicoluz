@@ -1,0 +1,31 @@
+{
+  "project_ref": "krrurcjowhgrkenkgtpf",
+  "date": "2026-11-08",
+  "migration_version": "20261108000600",
+  "migration_sha256": "2b38bb5d57f160067221998c8840361a2cc8d31576818e2357155262b068bd89",
+  "function": "psicoluz-files",
+  "function_sha256": "1dc752572ca9ebdb1d2f005783b60dd32b6f163dc09326039aa06efce3b3f4f4",
+  "migration_applied": true,
+  "function_deployed": true,
+  "owner_authorized_scope": true,
+  "owner_explicitly_authorized_custom_function_auth": true,
+  "verify_legacy_jwt": false,
+  "custom_auth": "staff JWT verified by PostgREST; family opaque session verified by SQL",
+  "verification": {
+    "project_tables": 16,
+    "rls_tables": 16,
+    "bucket_public": false,
+    "anon_private_schema_usage": false,
+    "anon_staff_api_execute": false,
+    "anon_scoped_portal_execute": true,
+    "authenticated_finalize_execute": false,
+    "storage_policies": [
+      "INSERT:psicoluz_private_upload:{authenticated}"
+    ],
+    "invalid_family_download_status": 404,
+    "remote_positive_upload_download_tested": false,
+    "remote_valid_family_code_tested": false
+  },
+  "full_requirements_closed": false,
+  "cli_history_repair_pending": true
+}

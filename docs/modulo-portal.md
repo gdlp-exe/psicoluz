@@ -1,5 +1,8 @@
 # Portal familiar — frontend de desarrollo
 
+**Estado actual:** archivos privados y portal familiar conectados. La sección siguiente conserva el alcance de la entrega previa; la conexión vigente y sus límites se documentan en [conexion-archivos-portal.md](conexion-archivos-portal.md).
+
+
 Revisión: 8 de noviembre de 2026. Se revisaron los 40 requerimientos del ERS y el protocolo, arquitectura, diagnóstico y comunicación. Se conservan los identificadores y métodos originales; fuentes Word sin modificar.
 
 ## Recorrido

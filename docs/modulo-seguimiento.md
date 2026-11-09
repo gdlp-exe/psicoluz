@@ -1,5 +1,8 @@
 # Seguimiento — entrega frontend
 
+**Estado actual:** archivos privados y portal familiar conectados. La sección siguiente conserva el alcance de la entrega previa; la conexión vigente y sus límites se documentan en [conexion-archivos-portal.md](conexion-archivos-portal.md).
+
+
 ## Fuentes y alcance
 
 Se revisaron ERS, protocolo actual, diagnóstico, comunicación y arquitectura de la carpeta CMMI v3. Los 40 requerimientos originales permanecen en `verificacion-ers.json`, con aceptación y método originales. Los Word no se modificaron.

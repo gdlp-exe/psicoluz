@@ -2,7 +2,7 @@
   "fuente": "ERS_Psicoluz_iso.docx",
   "sha256_fuente": "39c85ad055ba23c7dab4ff7f147e751ac3dbd3576cd89907058a82a500e8cf6f",
   "fecha_revision": "2026-11-08",
-  "modulo_revisado": "Auth, registro de expedientes, Agenda y Seguimiento conectados; Storage y portal externo pendientes",
+  "modulo_revisado": "Auth, registro, Agenda, Seguimiento, archivos privados y portal familiar conectados; pruebas positivas remotas de archivos/códigos y pilotaje pendientes",
   "cierre_integral": false,
   "nota": "Se revisaron los 40 requerimientos; resultados de mocks no acreditan cumplimiento en producción ni resultados del pilotaje.",
   "requerimientos": [
@@ -38,8 +38,8 @@
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dada una profesional autenticada, cuando consulte la lista de expedientes, entonces el sistema debe mostrar únicamente los expedientes asociados a su identificador, salvo que el centro defina un rol de coordinación explícito. Dado el rol administración, cuando intente leer una nota con visibilidad «solo psicóloga», entonces el sistema debe denegar la lectura. Dado un acceso al portal mediante código, cuando se consulte el contenido, entonces el sistema debe limitarlo al expediente asociado al código.",
       "estado": "parcial",
-      "observacion": "Seguimiento comprueba rol psicologa activo y expediente propio en servidor; Administración/Desarrollo/anon y expedientes ajenos rechazados en SQL. Permisos aplicados con autorización de la titular; portal externo y Storage pendientes.",
-      "evidencia_actual": "scripts/test-db-seguimiento.mjs; tests/seguimiento-real.spec.js; tests-unit/followup-remote.test.mjs; docs/conexion-seguimiento.md; docs/resultados-verificacion.md",
+      "observacion": "Cuenta profesional activa y expediente propio comprobados en Registro/Agenda/Seguimiento/archivos. Portal limitado a código y sesión del expediente; Administración/Desarrollo no tienen API clínica. SQL aplicado y permisos remotos verificados; ensayo positivo remoto de archivo/código pendiente.",
+      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -50,8 +50,8 @@
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un código de acceso válido, cuando el tutor consulte el portal, entonces el sistema debe mostrar únicamente los contenidos marcados como visibles para ese expediente y denegar cualquier intento de acceder a información no autorizada o de otro expediente.",
       "estado": "parcial",
-      "observacion": "Portal de demostración entrega solo el DTO autorizado por expediente; archivos ocultos y borradores se rechazan/omiten. Rutas públicas cerradas hasta disponer de servidor; falta autorización real y pruebas negativas sobre Supabase.",
-      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
+      "observacion": "Proyección familiar de servidor excluye contenido interno, evaluaciones, motivos, responsables y borradores. Descarga vuelve a verificar sesión y autorización. SQL y manejador probados; rechazo remoto observado. Pilotaje y recorrido positivo remoto pendientes.",
+      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -62,8 +62,8 @@
       "metodo_ERS": "I",
       "criterio_aceptacion": "Dado un acceso o modificación sobre un dato sensible del expediente, cuando la acción finalice, entonces el sistema debe registrar quién realizó la acción, qué acción realizó y cuándo ocurrió.",
       "estado": "parcial",
-      "observacion": "Auditoría de consultas y cambios de Registro, Agenda y Seguimiento con actor/acción/fecha, sin texto clínico en eventos; protección contra borrado comprobada en SQL. Inspección institucional pendiente.",
-      "evidencia_actual": "scripts/test-db-seguimiento.mjs; tests/seguimiento-real.spec.js; tests-unit/followup-remote.test.mjs; docs/conexion-seguimiento.md; docs/resultados-verificacion.md",
+      "observacion": "Consultas y cambios registran actor profesional o sesión familiar, operación y fecha. No se registran códigos, tokens ni textos clínicos en eventos. Un código no identifica individualmente a cada persona que lo posee. Inspección institucional pendiente.",
+      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -73,9 +73,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "I",
       "criterio_aceptacion": "Dado un intercambio de datos o credenciales, cuando se inspeccione la solución, entonces la transmisión debe realizarse mediante un canal seguro y las credenciales no deben almacenarse en texto plano. Dado un código de portal válido, cuando se consulte contenido, entonces solo debe accederse al expediente autorizado.",
-      "estado": "pendiente",
-      "observacion": "Pendiente inspección de HTTPS, credenciales, autorización por código y controles de servidor.",
-      "evidencia_actual": null,
+      "estado": "parcial",
+      "observacion": "Canales HTTPS y hashes de códigos/tokens implementados; credenciales de personal en Auth y clave privilegiada solo en servidor. Bucket privado sin enlaces públicos/firmados. Falta inspección institucional completa y ensayo positivo remoto de archivos/códigos.",
+      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -85,9 +85,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "I",
       "criterio_aceptacion": "Dadas las entidades sensibles y los roles definidos, cuando se intente leer o modificar información fuera del universo autorizado, entonces el sistema debe denegar la operación y no revelar datos de otros expedientes.",
-      "estado": "pendiente",
-      "observacion": "Pendiente inspección y pruebas negativas de todas las entidades con RLS/Storage reales.",
-      "evidencia_actual": null,
+      "estado": "parcial",
+      "observacion": "16 tablas propias con RLS observadas remotamente; esquema privado inaccesible para anon. Storage tiene solo política INSERT para reserva profesional propia; sin lecturas directas del navegador. Negativos SQL y servicio probados, inspección completa y prueba positiva real pendientes.",
+      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -134,8 +134,8 @@
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dada una nota marcada «solo psicóloga», cuando el tutor abra el portal de seguimiento, entonces el sistema no debe mostrar ni un extracto de esa nota. Dada una nota marcada «visible al tutor», cuando el tutor abra el portal, entonces el sistema debe mostrar únicamente el texto autorizado y no los campos internos anexos.",
       "estado": "parcial",
-      "observacion": "Registro/edición de notas y visibilidad explícita implementados en Seguimiento autenticado; SQL y navegador con Auth simulado comprobados. Publicación externa paciente_tutor y escritura remota clínica pendientes.",
-      "evidencia_actual": "scripts/test-db-seguimiento.mjs; tests/seguimiento-real.spec.js; tests-unit/followup-remote.test.mjs; docs/conexion-seguimiento.md; docs/resultados-verificacion.md",
+      "observacion": "Notas propias conectadas; portal devuelve solo texto de notas paciente_tutor con autorización registrada, sin extractos privados ni evaluaciones. SQL y navegación local probados; demostración remota formal pendiente.",
+      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -157,9 +157,9 @@
       "prioridad": "Media",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un expediente autorizado, cuando la profesional adjunte un archivo y lo marque como visible en el portal, entonces el sistema debe almacenarlo vinculado al expediente y permitir su consulta desde el portal; si no está marcado como visible, el portal no debe mostrarlo.",
-      "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Archivo local autorizado descargable por la sesión de su expediente; revocación bloquea nueva descarga. Archivos internos omitidos. Storage privado y autorización de servidor pendientes.",
-      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
+      "estado": "parcial",
+      "observacion": "Carga privada con reserva, verificación de firma/tamaño/MIME en servidor y autorización familiar separada. Descarga por función con permisos actuales, sin URL pública/firmada; retirada conserva bitácora. Supabase configurado; carga/descarga positiva real pendiente.",
+      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -242,8 +242,8 @@
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un código de acceso válido, cuando el tutor consulte las actividades, entonces el sistema debe mostrar únicamente las actividades marcadas como visibles para la familia y pertenecientes al expediente asociado.",
       "estado": "parcial",
-      "observacion": "Autorización explícita de actividades y proyección familiar filtrada comprobadas en servidor local; el portal externo sigue cerrado hasta conectar código/sesión seguros.",
-      "evidencia_actual": "scripts/test-db-seguimiento.mjs; tests/seguimiento-real.spec.js; tests-unit/followup-remote.test.mjs; docs/conexion-seguimiento.md; docs/resultados-verificacion.md",
+      "observacion": "Portal conectado proyecta solo actividades expresamente autorizadas del expediente del código. SQL y recorrido de navegador local verificados; prueba positiva remota con familia pendiente.",
+      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -266,8 +266,8 @@
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un código de acceso válido, cuando el usuario lo introduzca en el portal, entonces el sistema debe permitir la consulta únicamente del contenido autorizado del expediente asociado, sin solicitar registro ni mostrar listados de otros expedientes.",
       "estado": "parcial",
-      "observacion": "Acceso por código ficticio sin crear cuenta, sesión opaca en memoria y salida comprobados. Los códigos conocidos de demostración no autentican personas; validación, revocación y límites de intentos de servidor pendientes.",
-      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
+      "observacion": "Código aleatorio por expediente con hash, vigencia 1/7/30 días y sesión opaca de hasta 8 horas sin cuenta. Rotación/revocación y límites persistentes aplicados. Código real aún no emitido para un ensayo remoto.",
+      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -277,9 +277,9 @@
       "prioridad": "Media",
       "metodo_ERS": "D",
       "criterio_aceptacion": "Dado un expediente con actividades, notas y archivos autorizados y una cita próxima registrada, cuando el tutor acceda con su código, entonces el sistema debe mostrar únicamente esos contenidos autorizados y una alerta discreta con la fecha y hora de la próxima cita. El portal no debe mostrar resúmenes de consultas ni información profesional restringida.",
-      "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Portal local muestra actividades, notas, archivos, enlaces HTTPS autorizados y próxima cita confirmada/futura solo fecha/hora. No expone resumen de consulta ni evaluación. Demostración formal e integración institucional pendientes.",
-      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
+      "estado": "parcial",
+      "observacion": "Portal conectado incluye actividades/notas/archivos/enlaces autorizados, textos revisados actuales del apoyo y próxima cita confirmada futura solo fecha/hora. No incluye resumen de consulta. Recorrido local SQL/servicio probado; demostración institucional pendiente.",
+      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -290,8 +290,8 @@
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un código inválido, cuando el tutor intente acceder, entonces el sistema debe rechazar el acceso sin revelar si existe un expediente relacionado. Dado un código válido, cuando el tutor intente consultar otro expediente, entonces el sistema debe impedir el acceso y no revelar su existencia.",
       "estado": "parcial",
-      "observacion": "Códigos inválidos/número de expediente y sesiones inventadas o cerradas rechazados con mensaje genérico. No acepta cambiar expediente desde la llamada. Servidor, códigos reales y protección de intentos pendientes.",
-      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
+      "observacion": "Servidor rechaza código inválido/expirado/revocado, sesión falsa y expediente distinto con respuesta genérica; contadores persistentes de intentos. Rechazo de descarga con sesión inválida observado en función remota. Prueba positiva real y revisión operativa pendientes.",
+      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -301,9 +301,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "D",
       "criterio_aceptacion": "Dado el portal de seguimiento destinado al uso por niños, cuando el usuario cambie el tamaño de fuente, entonces el sistema debe ofrecer y aplicar al menos tres niveles disponibles sin ocultar el contenido de la actividad.",
-      "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Tres tamaños de texto aplicados y conservados sin recortar contenido; recorridos de 320–1440 px y texto grande comprobados. Demostración formal y comprensión con usuarios pendientes.",
-      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
+      "estado": "parcial",
+      "observacion": "Tres tamaños conservados en el portal conectado, sin recortar instrucciones en pruebas de reflujo. Demostración y comprensión con participantes pendientes.",
+      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -313,9 +313,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "D",
       "criterio_aceptacion": "Dado el portal de seguimiento, cuando el usuario seleccione el tema de alto contraste, entonces el sistema debe aplicarlo a la interfaz del portal y mantener legible el contenido de las actividades.",
-      "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Tema institucional, alto contraste, oscuro y cálido implementados; contraste automático y estados legibles ensayados. Inspección/demostración manual formal pendientes.",
-      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
+      "estado": "parcial",
+      "observacion": "Temas institucional, alto contraste, oscuro y cálido conservados en el portal conectado. Contraste automatizado ensayado; inspección manual formal pendiente.",
+      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -325,9 +325,9 @@
       "prioridad": "Media",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado el portal de seguimiento dentro de una sesión activa, cuando el usuario cambie una preferencia de accesibilidad, entonces el sistema debe mantenerla durante esa sesión sin solicitar registro ni asociarla a una cuenta de tutor.",
-      "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Preferencias de lectura en sessionStorage sin cuenta ni datos clínicos; recarga y navegación comprobadas. Datos corruptos o almacenamiento bloqueado conservan funcionamiento con aviso; pilotaje pendiente.",
-      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
+      "estado": "parcial",
+      "observacion": "Preferencias de accesibilidad conservadas durante sesión sin cuenta. Token familiar solo en memoria; no se almacena con las preferencias. Recarga cierra el acceso familiar y exige volver a ingresar código; preferencias persisten. Pilotaje pendiente.",
+      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -337,9 +337,9 @@
       "prioridad": "Media",
       "metodo_ERS": "D",
       "criterio_aceptacion": "Dada una actividad marcada como visible en el portal de seguimiento, cuando el usuario active el control de lectura, entonces el sistema debe sintetizar su título, descripción e instrucciones y no debe leer contenido restringido. Dado un navegador sin Web Speech API, cuando se active el control, entonces el sistema debe informar la limitación y no fallar el resto del portal.",
-      "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Lectura explícita de título/descripción/instrucciones autorizadas con voz local en español, pausa/continuación/detención, cancelación al salir/cambiar sección y fallback sin API/voz. Contrato automatizado comprobado; audio real en dispositivos y demostración formal pendientes.",
-      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
+      "estado": "parcial",
+      "observacion": "Lectura de título/descripción/instrucciones autorizadas con voz local; pausa, continuación, salida y fallback conservados. Actualizar contenido detiene texto retirado o modificado. Contrato automatizado probado; voz real y demostración pendientes.",
+      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -350,8 +350,8 @@
       "metodo_ERS": "I",
       "criterio_aceptacion": "Dado el portal de seguimiento, cuando se realice la inspección documentada de accesibilidad, entonces debe cumplir el subconjunto de criterios subconjunto de criterios de accesibilidad acordado por el proyecto para contraste, redimensionado, espaciado, formularios y lectura de actividades cuando exista.",
       "estado": "parcial",
-      "observacion": "Portal incluye controles de lectura, teclado, foco, temas y espaciado. Escaneo automático y reflujo ensayados; criterios WCAG 2.2 propuestos en modulo-portal.md por formalizar. No acredita conformidad integral ni inspección real con usuarios/lector de pantalla.",
-      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
+      "observacion": "Controles de accesibilidad conservados al conectar el portal y recursos; revisión axe, teclado y reflujo aprobados. Los criterios WCAG aplicables deben formalizarse y verificarse manualmente; no se acredita conformidad integral.",
+      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -386,8 +386,8 @@
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un borrador en estado «pendiente», cuando el tutor consulte el portal, entonces el sistema no debe mostrar ninguna tarjeta de evolución o predicción. Dado un texto editado y aceptado por la profesional y marcado como visible, cuando el tutor consulte el portal, entonces el sistema debe mostrar el texto aceptado y no el borrador original del motor.",
       "estado": "parcial",
-      "observacion": "Borradores internos, revisión/edición/descarte versionados; retirada por cambios de datos, envejecimiento de fuentes o artefacto del motor probada en SQL y navegador. Portal externo pendiente.",
-      "evidencia_actual": "scripts/test-db-seguimiento.mjs; tests/seguimiento-real.spec.js; tests-unit/followup-remote.test.mjs; docs/conexion-seguimiento.md; docs/resultados-verificacion.md",
+      "observacion": "Borradores internos; revisión y autorización antes de compartir. Portal conectado solo devuelve texto revisado vigente según huella/revisión y motor. Cambios retiran la proyección; validación profesional y prueba remota positiva pendientes.",
+      "evidencia_actual": "scripts/test-db-portal-files.mjs; tests-unit/files-gateway.test.mjs; tests/portal-files-real.spec.js; tests/portal.spec.js; docs/conexion-archivos-portal.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {

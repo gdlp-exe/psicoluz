@@ -1,5 +1,8 @@
 # Seguimiento conectado — 8 de noviembre de 2026
 
+**Estado actual:** archivos privados y portal familiar conectados. La sección siguiente conserva el alcance de la entrega previa; la conexión vigente y sus límites se documentan en [conexion-archivos-portal.md](conexion-archivos-portal.md).
+
+
 ## Alcance y permisos
 
 Ruta autenticada: `/personal/seguimiento`. La profesional activa consulta y modifica únicamente sus expedientes asignados. Administración, Desarrollo, cuentas inactivas y acceso anónimo se rechazan en el servidor. La interfaz no permite seleccionar una identidad ficticia. La demo `/desarrollo/seguimiento` permanece independiente con datos sintéticos.

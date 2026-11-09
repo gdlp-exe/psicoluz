@@ -1,6 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { ArrowRight, BookOpen, CalendarDays, Check, CheckCircle2, Download, ExternalLink, FileText, HeartHandshake, KeyRound, LogOut, Pause, Play, RefreshCw, Settings2, ShieldCheck, Square, Volume2 } from 'lucide-react';
 import { portalRepository, unavailablePortalRepository } from './repository';
+import {getRemotePortal} from './remote';
 import { DEFAULT_PREFERENCES, PREFERENCE_KEY, sanitizePreferences } from './preferences';
 import { createActivityReader } from './speech';
 import { FAMILY_OUTCOMES } from './contract';
@@ -19,22 +20,22 @@ function FamilyReport({ activity, report, submit }) {
 }
 
 export default function PortalWorkspace({ development = false }) {
-  const repository = development ? portalRepository : unavailablePortalRepository;
+  const [repository] = useState(()=>{if(development)return portalRepository;try{return getRemotePortal();}catch{return unavailablePortalRepository;}});
   const [preferences, setPreferences] = useState(() => { try { return sanitizePreferences(JSON.parse(sessionStorage.getItem(PREFERENCE_KEY))); } catch { return { ...DEFAULT_PREFERENCES }; } });
   const [storageError, setStorageError] = useState(false), [code, setCode] = useState(''), [token, setToken] = useState(null), [data, setData] = useState(null), [error, setError] = useState(''), [busy, setBusy] = useState(false), [tab, setTab] = useState('actividades'), [filter, setFilter] = useState('todas'), [query, setQuery] = useState(''), [speech, setSpeech] = useState({ mode: 'idle', message: '' });
-  const activeToken = useRef(null), heading = useRef(null), codeInput = useRef(null), reader = useRef(null);
+  const activeToken = useRef(null), heading = useRef(null), codeInput = useRef(null), reader = useRef(null), reading = useRef(null);
   if (!reader.current) reader.current = createActivityReader(window, setSpeech);
   const pref = (key, value) => setPreferences(p => ({ ...p, [key]: value }));
   useEffect(() => { try { sessionStorage.setItem(PREFERENCE_KEY, JSON.stringify(preferences)); setStorageError(false); } catch { setStorageError(true); } }, [preferences]);
   useEffect(() => { const old = document.documentElement.lang, title = document.title; document.documentElement.lang = 'es'; document.title = 'Mi seguimiento | PsicoLuz'; return () => { document.documentElement.lang = old; document.title = title; reader.current.stop(true); if (activeToken.current) repository.leave?.(activeToken.current); }; }, [repository]);
   useEffect(() => { if (data) heading.current?.focus(); }, [!!data]);
-  async function refresh(current = token) { if (!current) return; try { const next = await repository.view(current); if (activeToken.current === current) { setData(next); setError(''); } } catch (err) { if (activeToken.current === current) { reader.current.stop(); setData(null); setError(err.message); repository.leave?.(current); activeToken.current = null; setToken(null); } } }
-  useEffect(() => { const onFocus = () => { if (activeToken.current) refresh(activeToken.current); }; window.addEventListener('focus', onFocus); return () => window.removeEventListener('focus', onFocus); }, [repository, token]);
+  async function refresh(current = token) { if (!current) return; try { const next = await repository.view(current); if (activeToken.current === current) { if(reading.current){const activity=next.activities.find(a=>a.id===reading.current.id);if(!activity||`${activity.title}. ${activity.description}. ${activity.instructions}`!==reading.current.text){reader.current.stop();reading.current=null;}} setData(next); setError(''); } } catch (err) { if (activeToken.current === current) { reader.current.stop(); setData(null); setError(err.message); repository.leave?.(current); activeToken.current = null; setToken(null); } } }
+  useEffect(() => { const onFocus = () => { if (activeToken.current) refresh(activeToken.current); }; window.addEventListener('focus', onFocus); const timer=setInterval(onFocus,30000); return () => {clearInterval(timer);window.removeEventListener('focus', onFocus);}; }, [repository, token]);
   async function enter(e) { e.preventDefault(); setBusy(true); setError(''); try { const next = await repository.enter(code); activeToken.current = next; setToken(next); setCode(''); await refresh(next); } catch (err) { setError(err.message); codeInput.current?.focus(); } finally { setBusy(false); } }
   function leave() { reader.current.stop(); if (token) repository.leave?.(token); activeToken.current = null; setToken(null); setData(null); setCode(''); setError(''); setTab('actividades'); setQuery(''); setFilter('todas'); requestAnimationFrame(() => codeInput.current?.focus()); }
   async function download(file) { const current = token; try { const blob = await repository.file(current, file.id); if (current !== activeToken.current) return; const url = URL.createObjectURL(blob), a = document.createElement('a'); a.href = url; a.download = file.name; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); } catch (err) { setError(err.message); } }
   async function submit(activityId, input) { await repository.report(token, activityId, input); await refresh(); }
-  function readActivity(activity) { reader.current.start(`${activity.title}. ${activity.description}. ${activity.instructions}`, Number(preferences.rate)); }
+  function readActivity(activity) { const text=`${activity.title}. ${activity.description}. ${activity.instructions}`; reading.current={id:activity.id,text}; reader.current.start(text, Number(preferences.rate)); }
   const items = data?.activities.filter(a => (filter === 'todas' || (filter === 'por_hacer' ? a.status !== 'cumplida' : a.status === 'cumplida')) && (preferences.simple || `${a.title} ${a.description}`.toLocaleLowerCase('es').includes(query.toLocaleLowerCase('es')))) || [];
   const selectedTab = preferences.simple ? 'actividades' : tab;
   useEffect(() => { if (selectedTab !== 'actividades') reader.current.stop(); }, [selectedTab]);

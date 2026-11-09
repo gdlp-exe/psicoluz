@@ -71,10 +71,10 @@ test('RF-AP03: portal recibe solo texto aceptado; borradores y datos cambiados n
   await page.evaluate(async () => { const { seguimientoRepository: r } = await import('/src/features/seguimiento/repository.js'); const { DEMO_IDENTITIES: ids } = await import('/src/features/expedientes/repository.js'); await r.setStatus(ids[0], 'record-1', 'activity-demo-0', 'cumplida'); });
   await page.getByRole('button', { name: 'Actualizar contenido', exact: true }).click(); await expect(page.locator('.pf-approved')).toHaveCount(0);
 });
-test('Portal público permanece cerrado sin servidor, incluso en rutas antiguas', async ({ page }) => {
+test('Portal real falla cerrado sin servidor; los códigos demo no abren datos reales', async ({ page }) => {
   const requests = []; page.on('request', r => { if (/supabase\.(co|com)/.test(r.url())) requests.push(r.url()); });
-  for (const path of ['/expediente', '/expediente/record-1', '/portal']) { await page.goto(path); await page.getByLabel('Código de acceso', { exact: true }).fill('PL-DEMO-101'); await page.getByRole('button', { name: 'Abrir mi seguimiento', exact: true }).click(); await expect(page.getByRole('alert')).toContainText('todavía no está disponible'); await expect(page.locator('.pf-activity')).toHaveCount(0); await expect(page.locator('.pf-demo')).toHaveCount(0); }
-  expect(requests).toEqual([]);
+  for (const path of ['/expediente', '/expediente/record-1', '/portal']) { await page.goto(path); await page.getByLabel('Código de acceso', { exact: true }).fill('PL-DEMO-101'); await page.getByRole('button', { name: 'Abrir mi seguimiento', exact: true }).click(); await expect(page.getByRole('alert')).toContainText('No se pudo abrir el portal'); await expect(page.locator('.pf-activity')).toHaveCount(0); await expect(page.locator('.pf-demo')).toHaveCount(0); }
+  expect(requests).toHaveLength(3);
 });
 test('RNF05/RNF06: contraste, teclado y reflujo con texto grande y espaciado en cuatro temas', async ({ page }) => {
   await page.addScriptTag({ path: require.resolve('axe-core/axe.min.js') });

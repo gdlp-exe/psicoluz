@@ -1,0 +1,3 @@
+[functions.psicoluz-files]
+verify_jwt = false
+# The handler validates the staff JWT via PostgREST, or the hashed family session via SQL.

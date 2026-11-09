@@ -2,7 +2,7 @@
   "fuente": "ERS_Psicoluz_iso.docx",
   "sha256_fuente": "39c85ad055ba23c7dab4ff7f147e751ac3dbd3576cd89907058a82a500e8cf6f",
   "fecha_revision": "2026-11-08",
-  "modulo_revisado": "Auth, registro de expedientes y Agenda conectados; notas/evaluaciones/archivos, Seguimiento y Portal pendientes",
+  "modulo_revisado": "Auth, registro de expedientes, Agenda y Seguimiento conectados; Storage y portal externo pendientes",
   "cierre_integral": false,
   "nota": "Se revisaron los 40 requerimientos; resultados de mocks no acreditan cumplimiento en producción ni resultados del pilotaje.",
   "requerimientos": [
@@ -38,8 +38,8 @@
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dada una profesional autenticada, cuando consulte la lista de expedientes, entonces el sistema debe mostrar únicamente los expedientes asociados a su identificador, salvo que el centro defina un rol de coordinación explícito. Dado el rol administración, cuando intente leer una nota con visibilidad «solo psicóloga», entonces el sistema debe denegar la lectura. Dado un acceso al portal mediante código, cuando se consulte el contenido, entonces el sistema debe limitarlo al expediente asociado al código.",
       "estado": "parcial",
-      "observacion": "Registro real limita consultas a la profesional responsable y permite identificación/apertura a Administración. No devuelve notas, evaluaciones, archivos ni códigos; Desarrollo/anon rechazados en SQL. Escenarios clínicos y portal completos pendientes.",
-      "evidencia_actual": "scripts/test-db-registry.mjs; tests/registry.spec.js; docs/conexion-registro-expedientes.md; docs/resultados-verificacion.md",
+      "observacion": "Seguimiento comprueba rol psicologa activo y expediente propio en servidor; Administración/Desarrollo/anon y expedientes ajenos rechazados en SQL. Permisos aplicados con autorización de la titular; portal externo y Storage pendientes.",
+      "evidencia_actual": "scripts/test-db-seguimiento.mjs; tests/seguimiento-real.spec.js; tests-unit/followup-remote.test.mjs; docs/conexion-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -62,8 +62,8 @@
       "metodo_ERS": "I",
       "criterio_aceptacion": "Dado un acceso o modificación sobre un dato sensible del expediente, cuando la acción finalice, entonces el sistema debe registrar quién realizó la acción, qué acción realizó y cuándo ocurrió.",
       "estado": "parcial",
-      "observacion": "Consultas de perfil, índice, pacientes y detalle y cambios del registro generan actor/acción/fecha en servidor. Bitácora protegida localmente comprobada; inspección institucional y demás APIs pendientes.",
-      "evidencia_actual": "scripts/test-db-registry.mjs; tests/registry.spec.js; docs/conexion-registro-expedientes.md; docs/resultados-verificacion.md",
+      "observacion": "Auditoría de consultas y cambios de Registro, Agenda y Seguimiento con actor/acción/fecha, sin texto clínico en eventos; protección contra borrado comprobada en SQL. Inspección institucional pendiente.",
+      "evidencia_actual": "scripts/test-db-seguimiento.mjs; tests/seguimiento-real.spec.js; tests-unit/followup-remote.test.mjs; docs/conexion-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -133,9 +133,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dada una nota marcada «solo psicóloga», cuando el tutor abra el portal de seguimiento, entonces el sistema no debe mostrar ni un extracto de esa nota. Dada una nota marcada «visible al tutor», cuando el tutor abra el portal, entonces el sistema debe mostrar únicamente el texto autorizado y no los campos internos anexos.",
-      "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Portal local muestra únicamente título, fecha y texto de notas paciente_tutor; sin extractos privados, campos internos ni evaluaciones. Escenario T comprobado en demo, pendiente repetir con autorización real.",
-      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
+      "estado": "parcial",
+      "observacion": "Registro/edición de notas y visibilidad explícita implementados en Seguimiento autenticado; SQL y navegador con Auth simulado comprobados. Publicación externa paciente_tutor y escritura remota clínica pendientes.",
+      "evidencia_actual": "scripts/test-db-seguimiento.mjs; tests/seguimiento-real.spec.js; tests-unit/followup-remote.test.mjs; docs/conexion-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -145,9 +145,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "D",
       "criterio_aceptacion": "Dado un expediente existente, cuando se registre una evaluación psicopedagógica, entonces el sistema debe guardar su tipo, fecha y resumen como documento de trabajo del centro.",
-      "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Registro local de tipo/fecha/resumen y recarga comprobables; demostración formal e integración pendientes.",
-      "evidencia_actual": "tests/expedientes.spec.js y docs/resultados-verificacion.md",
+      "estado": "parcial",
+      "observacion": "Tipo, fecha y resumen de evaluación conectados a SQL; creación desde interfaz y persistencia verificadas con PGlite. Demostración formal y escritura remota clínica pendientes.",
+      "evidencia_actual": "scripts/test-db-seguimiento.mjs; tests/seguimiento-real.spec.js; tests-unit/followup-remote.test.mjs; docs/conexion-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -217,9 +217,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un expediente seleccionado por la profesional, cuando registre una actividad, entonces el sistema debe guardar título, descripción, instrucciones, prioridad y fecha de seguimiento.",
-      "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Asignación/edición con título, descripción, instrucciones, prioridad y fecha; persistencia y negativos comprobados. Integración y autorización de servidor pendientes.",
-      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
+      "estado": "parcial",
+      "observacion": "Actividades conectadas con título, descripción, instrucciones, prioridad, fecha y autorización explícita. Contrato SQL/adaptador, persistencia y negativos probados; escritura clínica remota pendiente.",
+      "evidencia_actual": "scripts/test-db-seguimiento.mjs; tests/seguimiento-real.spec.js; tests-unit/followup-remote.test.mjs; docs/conexion-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -229,9 +229,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dada una actividad registrada, cuando se actualice su cumplimiento, entonces el sistema debe permitir únicamente los estados pendiente, en proceso, cumplida o vencida.",
-      "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Cuatro estados originales registrados y conservados. La fecha no cambia el estado automáticamente. Integración pendiente.",
-      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
+      "estado": "parcial",
+      "observacion": "Cuatro estados originales conservados en SQL y pantalla; cambios versionados, sin estado automático por fecha y con historial. Prueba remota clínica pendiente.",
+      "evidencia_actual": "scripts/test-db-seguimiento.mjs; tests/seguimiento-real.spec.js; tests-unit/followup-remote.test.mjs; docs/conexion-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -241,9 +241,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un código de acceso válido, cuando el tutor consulte las actividades, entonces el sistema debe mostrar únicamente las actividades marcadas como visibles para la familia y pertenecientes al expediente asociado.",
-      "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Código ficticio limita el DTO a actividades expresamente visibles de un expediente; internas/ajenas rechazadas en reportes. Portal real, sesión segura y RLS pendientes.",
-      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
+      "estado": "parcial",
+      "observacion": "Autorización explícita de actividades y proyección familiar filtrada comprobadas en servidor local; el portal externo sigue cerrado hasta conectar código/sesión seguros.",
+      "evidencia_actual": "scripts/test-db-seguimiento.mjs; tests/seguimiento-real.spec.js; tests-unit/followup-remote.test.mjs; docs/conexion-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -253,9 +253,9 @@
       "prioridad": "Media",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dada una actividad y una nota de sesión pertenecientes al mismo expediente, cuando la profesional indique la asociación, entonces el sistema debe conservar el vínculo entre ambas.",
-      "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Nota opcional del mismo expediente; referencias ajenas rechazadas. Restricciones de servidor pendientes.",
-      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md",
+      "estado": "parcial",
+      "observacion": "Asociación opcional a nota del mismo expediente impuesta en servidor y probada contra SQL; referencias ajenas rechazadas. Ensayo clínico remoto pendiente.",
+      "evidencia_actual": "scripts/test-db-seguimiento.mjs; tests/seguimiento-real.spec.js; tests-unit/followup-remote.test.mjs; docs/conexion-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -362,8 +362,8 @@
       "metodo_ERS": "A",
       "criterio_aceptacion": "Dado un expediente de prueba con 4 actividades vigentes y 3 vencidas, cuando la profesional abra el apartado de apoyo, entonces el sistema debe ofrecer un borrador que aluda al incumplimiento del plan y sugiera revisar dificultad, frecuencia o acompañamiento en casa, sin afirmar un retraso del desarrollo. Dado un expediente sin actividades, cuando se abra el apartado, entonces el sistema no debe inventar recomendaciones y debe indicar que faltan datos del plan de trabajo. Dado un expediente real, cuando se genere un borrador, entonces el sistema no debe persistirlo como visible al tutor hasta que se cumpla RF-AP03.",
       "estado": "parcial",
-      "observacion": "Reglas transparentes y clasificador softmax entrenado con 96 casos sintéticos, evaluado con 24 reservados; parámetros, hashes y reporte versionados. Caso 4 vigentes/3 vencidas, ausencia de actividades y etiquetas elegidas comprobados. No interpreta texto clínico ni acredita utilidad profesional; análisis formal pendiente.",
-      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md; tests-unit/trained-model.test.mjs; tests/apoyo-entrenado.spec.js; data/synthetic/training-report.json",
+      "observacion": "Generación en PostgreSQL desde actividades y fuentes recientes etiquetadas; textos clínicos no son entrada del modelo. Sin actividades no se inventan borradores. Inferencia sintética remota observada; validación profesional pendiente.",
+      "evidencia_actual": "scripts/test-db-seguimiento.mjs; tests/seguimiento-real.spec.js; tests-unit/followup-remote.test.mjs; docs/conexion-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -374,8 +374,8 @@
       "metodo_ERS": "I",
       "criterio_aceptacion": "Dado el catálogo de reglas, cuando se inspeccione, entonces ningún texto tipo debe contener lenguaje diagnóstico o de pronóstico. Dado un texto tipo, cuando se muestre, entonces debe incluir un verbo de posibilidad y no de certeza clínica.",
       "estado": "parcial",
-      "observacion": "Catálogo orientado al plan y posibilidad, con revisión y guardia de texto. Inspección formal pendiente; filtro no garantiza seguridad de un futuro generador abierto.",
-      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md; tests-unit/trained-model.test.mjs; tests/apoyo-entrenado.spec.js; data/synthetic/training-report.json",
+      "observacion": "Beta sin diagnóstico ni pronóstico, aviso permanente y filtro de texto revisado en servidor; revisión profesional obligatoria. No acredita validación clínica ni eficacia.",
+      "evidencia_actual": "scripts/test-db-seguimiento.mjs; tests/seguimiento-real.spec.js; tests-unit/followup-remote.test.mjs; docs/conexion-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -385,9 +385,9 @@
       "prioridad": "Alta",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un borrador en estado «pendiente», cuando el tutor consulte el portal, entonces el sistema no debe mostrar ninguna tarjeta de evolución o predicción. Dado un texto editado y aceptado por la profesional y marcado como visible, cuando el tutor consulte el portal, entonces el sistema debe mostrar el texto aceptado y no el borrador original del motor.",
-      "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Aceptar/editar/descartar, confirmaciones y texto familiar revisado comprobados. Cambios del contexto retiran publicación. Portal real y servidor pendientes. Cambio de versión del motor invalida autorización anterior; ejemplo sintético independiente no persiste ni publica. Texto editado autorizado y retiro al cambiar datos comprobados también en el portal local.",
-      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md; tests-unit/trained-model.test.mjs; tests/apoyo-entrenado.spec.js; data/synthetic/training-report.json",
+      "estado": "parcial",
+      "observacion": "Borradores internos, revisión/edición/descarte versionados; retirada por cambios de datos, envejecimiento de fuentes o artefacto del motor probada en SQL y navegador. Portal externo pendiente.",
+      "evidencia_actual": "scripts/test-db-seguimiento.mjs; tests/seguimiento-real.spec.js; tests-unit/followup-remote.test.mjs; docs/conexion-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -398,8 +398,8 @@
       "metodo_ERS": "I",
       "criterio_aceptacion": "Dado que la profesional abra el apartado de apoyo, cuando se muestre su contenido, entonces el sistema debe mantener visible el aviso «Herramienta de apoyo. No diagnostica ni reemplaza el criterio de la profesional».",
       "estado": "parcial",
-      "observacion": "Aviso literal persistente en área de apoyo y contenido familiar del apoyo; inspección formal pendiente.",
-      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md; tests-unit/trained-model.test.mjs; tests/apoyo-entrenado.spec.js; data/synthetic/training-report.json",
+      "observacion": "Autorización familiar separada y proyección solo del texto revisado; pendientes/internos descartados. No se habilitó acceso externo; prueba real con familias pendiente.",
+      "evidencia_actual": "scripts/test-db-seguimiento.mjs; tests/seguimiento-real.spec.js; tests-unit/followup-remote.test.mjs; docs/conexion-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -409,9 +409,9 @@
       "prioridad": "Media",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un expediente con el apartado de apoyo activo, cuando la profesional lo desactive, entonces el sistema debe dejar el apartado deshabilitado únicamente para ese expediente.",
-      "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Desactivación por expediente impide generar y retira textos familiares del apoyo. Integración pendiente.",
-      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md; tests-unit/trained-model.test.mjs; tests/apoyo-entrenado.spec.js; data/synthetic/training-report.json",
+      "estado": "parcial",
+      "observacion": "Desactivación por expediente retira recomendaciones; reactivar no publica textos automáticamente. Aislamiento y persistencia comprobados contra SQL local.",
+      "evidencia_actual": "scripts/test-db-seguimiento.mjs; tests/seguimiento-real.spec.js; tests-unit/followup-remote.test.mjs; docs/conexion-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -421,9 +421,9 @@
       "prioridad": "Media",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dado un expediente con recomendaciones existentes, cuando el sistema genere nuevas recomendaciones, entonces no debe mantener más de tres recomendaciones simultáneas en ese expediente.",
-      "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Máximo tres recomendaciones activas ante regeneraciones; contexto anterior archivado. Restricción transaccional multiusuario pendiente.",
-      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md; tests-unit/trained-model.test.mjs; tests/apoyo-entrenado.spec.js; data/synthetic/training-report.json",
+      "estado": "parcial",
+      "observacion": "Generación servidor limitada a tres propuestas y revisión/descarte auditados, control de versiones y fuentes; pruebas SQL/navegador aprobadas, demostración institucional pendiente.",
+      "evidencia_actual": "scripts/test-db-seguimiento.mjs; tests/seguimiento-real.spec.js; tests-unit/followup-remote.test.mjs; docs/conexion-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {
@@ -433,9 +433,9 @@
       "prioridad": "Baja",
       "metodo_ERS": "T",
       "criterio_aceptacion": "Dada una recomendación revisada por la profesional, cuando ella indique su valoración, entonces el sistema debe registrar una de las opciones útil, parcial o no útil.",
-      "estado": "frontend_verificado_integracion_pendiente",
-      "observacion": "Útil/parcial/no útil después de revisión, persistencia y rechazo de valor inválido comprobados. Valoración profesional real pendiente.",
-      "evidencia_actual": "tests/seguimiento.spec.js; tests-unit/support-engine.test.mjs; tests/accesibilidad-seguimiento.spec.js; docs/modulo-seguimiento.md; docs/resultados-verificacion.md; tests-unit/trained-model.test.mjs; tests/apoyo-entrenado.spec.js; data/synthetic/training-report.json",
+      "estado": "parcial",
+      "observacion": "Valoración de utilidad de recomendaciones revisadas persistida en SQL; valores inválidos/recomendaciones pendientes rechazados. Resultados del piloto no disponibles.",
+      "evidencia_actual": "scripts/test-db-seguimiento.mjs; tests/seguimiento-real.spec.js; tests-unit/followup-remote.test.mjs; docs/conexion-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {

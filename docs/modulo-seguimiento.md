@@ -74,3 +74,7 @@ La evaluación de accesibilidad formalizará criterios concretos para controles,
 - No es una evaluación clínica independiente: etiquetas y casos proceden del mismo generador artificial. Falta evaluación profesional de pertinencia y pruebas con escenarios de uso representativos antes de uso institucional.
 
 El procedimiento matemático sigue el [clasificador softmax explicado por Stanford CS231n](https://cs231n.github.io/linear-classify/), adaptado aquí a características estructuradas de actividades. No se importaron datos de imágenes ni modelos del curso.
+
+## Actualización: conexión al servidor
+
+Seguimiento autenticado e inferencia de la beta en PostgreSQL implementados el 8 de noviembre de 2026. Se conserva la demo local. Alcance, correspondencia de campos, permisos, evidencia y pendientes en [conexion-seguimiento.md](conexion-seguimiento.md). El portal externo y Storage no están habilitados.

@@ -49,3 +49,7 @@ No se utilizaron datos clínicos reales ni se entrenó un LLM. La muestra no rep
 ## Mejoras previstas
 
 Formalizar escenarios representativos y criterios de pertinencia con la profesional; revisar motivos de edición/descarte; ampliar el corpus sintético con una especificación aprobada y mantener una evaluación separada. Las valoraciones de usuarios no reentrenan el modelo automáticamente.
+
+## Actualización: conexión al servidor
+
+Seguimiento autenticado e inferencia de la beta en PostgreSQL implementados el 8 de noviembre de 2026. Se conserva la demo local. Alcance, correspondencia de campos, permisos, evidencia y pendientes en [conexion-seguimiento.md](conexion-seguimiento.md). El portal externo y Storage no están habilitados.

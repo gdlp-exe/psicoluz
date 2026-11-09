@@ -1,0 +1,25 @@
+{
+  "project_ref": "krrurcjowhgrkenkgtpf",
+  "date": "2026-11-08",
+  "migration_version": "20261108000500",
+  "migration_sha256": "71f003c4d29e10118eb92e63e0600a303802f66d92e0e4c0df82cbc710cbf529",
+  "applied_via": "Supabase SQL Editor; success observed",
+  "authorized_by_owner": true,
+  "verification": {
+    "authenticated_execute": true,
+    "anon_execute": false,
+    "authenticated_private_schema_usage": false,
+    "synthetic_inference_rules": [
+      "plan",
+      "skill-lectura"
+    ],
+    "remote_clinical_writes_tested": false,
+    "remote_concurrency_tested": false
+  },
+  "role_scope": "active psicologa; assigned records only",
+  "admin_development_clinical_access": false,
+  "external_portal_connected": false,
+  "storage_connected": false,
+  "full_requirements_closed": false,
+  "cli_history_repair_pending": true
+}

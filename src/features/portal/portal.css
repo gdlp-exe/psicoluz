@@ -8,3 +8,6 @@
 .pf-app{--pf-control:#617f87}.pf-theme-contraste{--pf-control:#ddd}.pf-theme-oscuro{--pf-control:#87a8af}.pf-theme-calido{--pf-control:#80694c}.pf-app input,.pf-app select,.pf-app textarea{border-color:var(--pf-control)}
 
 @media(max-width:480px){.pf-tabs{flex-direction:column;align-items:stretch}.pf-tabs button{flex:auto;justify-content:flex-start}.pf-tabs button svg{display:block}}
+
+/* Personalization and long resources remain readable at all text sizes. */
+.pf-app .pf-container,.pf-app .pf-content,.pf-app .pf-settings>*{min-width:0}.pf-app .pf-header>*{min-width:0}.pf-app .pf-tabs button{white-space:normal;text-align:left;line-height:1.5}.pf-app .pf-tabs button svg{flex-shrink:0}.pf-app .pf-note,.pf-app .pf-approved,.pf-app .pf-resource,.pf-app .pf-activity{overflow-wrap:anywhere}.pf-app .pf-reader-controls{flex-wrap:wrap}.pf-app .pf-settings select{max-width:100%;min-width:0}.pf-app .pf-resource>svg{flex-shrink:0}.pf-app .pf-welcome h1{overflow-wrap:anywhere}

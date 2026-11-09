@@ -1,0 +1,55 @@
+/* Shared geometry: one navigation frame, predictable gutters and wrapping controls. */
+.au-workspace > main{min-width:0}
+.exp-app{--workspace-gutter:clamp(20px,2.4vw,36px)}
+.exp-app .exp-sidebar{padding:24px 18px 18px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+.exp-app .exp-brand{padding:0 6px 20px;flex-shrink:0}
+.exp-app .exp-brand>span,.exp-app .exp-brand svg,.exp-app nav svg{flex-shrink:0}
+.exp-app .exp-sidebar nav{display:grid;gap:6px;flex-shrink:0}
+.exp-app .exp-sidebar nav a{margin:0;min-height:48px;padding:12px;line-height:1.45}
+.exp-app .exp-nav-label{margin:10px 12px 12px;flex-shrink:0}
+.exp-app .exp-sidebar-note{margin:28px 2px 24px;padding:18px 14px;flex-shrink:0}
+.exp-app .exp-sidebar-note>svg{margin-bottom:8px}
+.exp-app .exp-sidebar-bottom{flex-shrink:0;min-width:0}
+.exp-app .exp-sidebar-bottom>div{min-width:0;overflow-wrap:anywhere}
+.exp-app .exp-main-shell{width:calc(100% - 246px)}
+.exp-app .exp-header{height:auto;min-height:64px;padding:14px var(--workspace-gutter);gap:16px}
+.exp-app .exp-header>div{min-width:0}
+.exp-app .exp-header>div>span{flex-wrap:wrap;gap:8px}
+.exp-app .exp-home-link{flex-shrink:0}
+.exp-app .exp-demo-banner{padding:10px var(--workspace-gutter);gap:10px 18px}
+.exp-app .exp-demo-banner>span{min-width:0;overflow-wrap:anywhere;font-size:11px}
+.exp-app .exp-demo-banner>.exp-secondary{min-height:36px;padding:7px 13px}
+.exp-app .exp-content{max-width:1600px;padding:28px var(--workspace-gutter) 40px;min-width:0}
+.exp-app .exp-page-heading{margin:0 0 24px;gap:20px}
+.exp-app .exp-page-heading>div{min-width:0}
+.exp-app .exp-page-heading h1{font-size:clamp(28px,2.5vw,36px)}
+.exp-app .exp-page-heading p{max-width:760px;line-height:1.65}
+.exp-app .exp-page-heading>.exp-primary{flex-shrink:0}
+.exp-app .exp-tabs{display:flex;flex-wrap:wrap;gap:6px;padding:6px;margin-bottom:24px;background:#edf4f5;border:1px solid #dae7e9;border-radius:12px;overflow:visible}
+.exp-app .exp-tabs button{white-space:normal;text-align:left;line-height:1.5;min-height:44px;border:1px solid transparent;border-radius:8px;padding:10px 13px;gap:8px;color:#42636c}
+.exp-app .exp-tabs button svg{flex-shrink:0}
+.exp-app .exp-tabs button[aria-selected=true]{background:#fff;color:#006773;border-color:#cce3e6;box-shadow:0 2px 5px #16444d0a}
+.exp-app .exp-tabs button:hover{background:#ffffffb3}
+.exp-app .exp-tabs button:focus-visible{outline-offset:1px}
+.exp-app .exp-tabs button>small{flex-shrink:0}
+.exp-app .exp-modal{max-height:calc(100dvh - 32px);margin:auto}
+.exp-app .exp-modal-body{overflow-wrap:anywhere}
+.exp-app .exp-modal form{display:flex;flex-direction:column;gap:14px}
+.exp-app .exp-modal .exp-field{margin-bottom:0}
+.exp-app .exp-modal input[type=checkbox],.exp-app .exp-modal input[type=radio]{flex:0 0 auto;width:18px;height:18px;min-height:18px;padding:0}
+.exp-app .exp-modal .sf-source label,.exp-app .exp-modal .sf-enable{flex-direction:row}
+.exp-app .exp-footer{padding:17px var(--workspace-gutter);flex-wrap:wrap}
+.exp-nav-close{display:none}
+.rg-in-shell.rg-workspace{padding:0;max-width:none;font-size:15px}
+.rg-in-shell .rg-heading{margin-bottom:24px;align-items:center}
+.rg-in-shell .rg-heading h1{font-size:clamp(28px,2.5vw,36px);margin:0 0 10px}
+.rg-in-shell .rg-heading p{font-size:14px;line-height:1.65}
+.rg-in-shell .rg-security{margin:0 0 24px;font-size:13px}
+.rg-in-shell .rg-panel,.rg-in-shell .rg-detail{padding:24px;border-radius:14px}
+.rg-in-shell .rg-filters{grid-template-columns:minmax(0,1fr) minmax(140px,210px) auto;gap:14px}
+.rg-in-shell .rg-filters label{min-width:0}
+.rg-in-shell .rg-filters .au-secondary{min-height:45px}
+@media(max-height:800px) and (min-width:801px){.exp-app .exp-sidebar-note{margin-top:18px;margin-bottom:18px;padding:14px}.exp-app .exp-sidebar-note p{line-height:1.65}.exp-app .exp-brand{padding-bottom:14px}}
+@media(max-width:1100px) and (min-width:801px){.exp-app .exp-main-shell{width:calc(100% - 218px)}.exp-app .exp-sidebar{padding-left:14px;padding-right:14px}}
+@media(max-width:800px){.exp-app .exp-main-shell{width:100%}.exp-app .exp-sidebar{padding-top:50px;max-width:calc(100vw - 48px)}.exp-nav-close{display:grid;position:absolute;right:12px;top:10px}.exp-app .exp-header{min-height:62px}.exp-app .exp-header>div>span{font-size:11px}.exp-app .exp-content{padding-top:24px}.rg-in-shell .rg-heading{align-items:flex-start;flex-direction:column}.rg-in-shell .rg-filters{grid-template-columns:1fr}}
+@media(max-width:520px){.exp-app{--workspace-gutter:16px}.exp-app .exp-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.exp-app .exp-tabs button{font-size:12px;padding:10px;gap:6px;flex-wrap:wrap}.exp-app .exp-home-link{font-size:10px}.exp-app .exp-header{gap:8px}.exp-app .exp-page-heading{gap:16px}.exp-app .exp-page-heading p{max-width:none}.exp-app .exp-demo-banner>span{font-size:10px}.exp-app .exp-demo-banner select{max-width:100%}.exp-app .exp-demo-banner>label{flex-wrap:wrap}.exp-app .exp-content{padding-bottom:30px}.exp-app .exp-modal-top,.exp-app .exp-modal-body{padding:18px}.rg-in-shell .rg-panel,.rg-in-shell .rg-detail{padding:16px}.rg-in-shell .rg-detail dl{grid-template-columns:1fr}.rg-in-shell .rg-pagination .au-secondary{flex:1}}

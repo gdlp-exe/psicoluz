@@ -398,7 +398,7 @@
       "metodo_ERS": "I",
       "criterio_aceptacion": "Dado que la profesional abra el apartado de apoyo, cuando se muestre su contenido, entonces el sistema debe mantener visible el aviso «Herramienta de apoyo. No diagnostica ni reemplaza el criterio de la profesional».",
       "estado": "parcial",
-      "observacion": "Autorización familiar separada y proyección solo del texto revisado; pendientes/internos descartados. No se habilitó acceso externo; prueba real con familias pendiente.",
+      "observacion": "Aviso persistente «Herramienta de apoyo. No diagnostica ni reemplaza el criterio de la profesional» conservado en la interfaz y comprobado en navegador. Inspección institucional formal pendiente.",
       "evidencia_actual": "scripts/test-db-seguimiento.mjs; tests/seguimiento-real.spec.js; tests-unit/followup-remote.test.mjs; docs/conexion-seguimiento.md; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
@@ -470,8 +470,8 @@
       "metodo_ERS": "D",
       "criterio_aceptacion": "Dado un escritorio con Chrome o Edge y un portal de seguimiento en un ancho de 360 px, cuando se utilice el sistema, entonces las funciones previstas deben operar y la interfaz debe seguir siendo utilizable sin crear una cuenta.",
       "estado": "parcial",
-      "observacion": "Frontend completo comprobado en Edge y Chrome; portal a 320, 360, 390, 768, 1024 y 1440 px con texto grande y espaciado. Dispositivos, lector de pantalla y demostración institucional pendientes.",
-      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md",
+      "observacion": "Frontend completo comprobado en Edge y Chrome; portal a 320, 360, 390, 768, 1024 y 1440 px con texto grande y espaciado. Dispositivos, lector de pantalla y demostración institucional pendientes. Revisión de distribución: 89 escenarios cubiertos en Chrome/Edge; anchos 360/768/1024/1440, sin desbordamiento de página y cabecera sin menú superpuesto. No sustituye demostración institucional.",
+      "evidencia_actual": "tests/portal.spec.js; tests-unit/portal.test.mjs; docs/modulo-portal.md; docs/resultados-verificacion.md; tests/workspace-layout.spec.js; docs/resultados-verificacion.md",
       "cumplimiento_integral_acreditado": false
     },
     {

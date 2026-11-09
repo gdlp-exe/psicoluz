@@ -37,13 +37,13 @@ Actualización de autenticación: Supabase Auth y lectura del propio perfil impl
 - **RF-AP01 · A · parcial**: Generación en PostgreSQL desde actividades y fuentes recientes etiquetadas; textos clínicos no son entrada del modelo. Sin actividades no se inventan borradores. Inferencia sintética remota observada; validación profesional pendiente.
 - **RF-AP02 · I · parcial**: Beta sin diagnóstico ni pronóstico, aviso permanente y filtro de texto revisado en servidor; revisión profesional obligatoria. No acredita validación clínica ni eficacia.
 - **RF-AP03 · T · parcial**: Borradores internos, revisión/edición/descarte versionados; retirada por cambios de datos, envejecimiento de fuentes o artefacto del motor probada en SQL y navegador. Portal externo pendiente.
-- **RF-AP04 · I · parcial**: Autorización familiar separada y proyección solo del texto revisado; pendientes/internos descartados. No se habilitó acceso externo; prueba real con familias pendiente.
+- **RF-AP04 · I · parcial**: Aviso persistente «Herramienta de apoyo. No diagnostica ni reemplaza el criterio de la profesional» conservado en la interfaz y comprobado en navegador. Inspección institucional formal pendiente.
 - **RF-AP05 · T · parcial**: Desactivación por expediente retira recomendaciones; reactivar no publica textos automáticamente. Aislamiento y persistencia comprobados contra SQL local.
 - **RF-AP06 · T · parcial**: Generación servidor limitada a tres propuestas y revisión/descarte auditados, control de versiones y fuentes; pruebas SQL/navegador aprobadas, demostración institucional pendiente.
 - **RF-AP7 · T · parcial**: Valoración de utilidad de recomendaciones revisadas persistida en SQL; valores inválidos/recomendaciones pendientes rechazados. Resultados del piloto no disponibles.
 - **RNF01 · T · pendiente**: Pendiente medir cada operación en entorno de piloto (<3 s); no extrapolar desde la demo local.
 - **RNF04 · D · pendiente**: SUS >=70/100 para interfaz profesional: aplicación y puntuación con participantes pendientes; no garantizadas.
-- **RNF06 · D · parcial**: Frontend completo comprobado en Edge y Chrome; portal a 320, 360, 390, 768, 1024 y 1440 px con texto grande y espaciado. Dispositivos, lector de pantalla y demostración institucional pendientes.
+- **RNF06 · D · parcial**: Frontend completo comprobado en Edge y Chrome; portal a 320, 360, 390, 768, 1024 y 1440 px con texto grande y espaciado. Dispositivos, lector de pantalla y demostración institucional pendientes. Revisión de distribución: 89 escenarios cubiertos en Chrome/Edge; anchos 360/768/1024/1440, sin desbordamiento de página y cabecera sin menú superpuesto. No sustituye demostración institucional.
 - **RNF-ET01 · I · parcial**: Sin diagnóstico, pronóstico ni puntuación clínica automática. Reglas limitadas, etiquetas elegidas y revisión obligatoria. Modelo entrenado exclusivamente con casos artificiales; resultados de test sintético no acreditan validez clínica. Inspección ética formal pendiente.
 
 ## Cadena de comprobación
@@ -75,3 +75,7 @@ Base privada aplicada en el proyecto nuevo: 15 tablas con RLS y acceso directo d
 ## Seguimiento conectado
 
 Actividades, notas, evaluaciones, enlaces y beta supervisada disponen de API restringida a la profesional responsable. Ver [conexion-seguimiento.md](conexion-seguimiento.md). Storage y portal externo siguen pendientes. Se preservaron los 40 IDs, métodos y criterios originales; ningún requerimiento se declara íntegramente acreditado por estas pruebas.
+
+## Revisión visual transversal
+
+Marco profesional unificado, encabezado único, pestañas completas y formularios aislados del acceso. Ver resultados-verificacion.md y tests/workspace-layout.spec.js. Se conservaron los 40 criterios de aceptación y métodos; la revisión visual no acredita SUS, Likert ni WCAG integral.

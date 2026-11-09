@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { BookOpen, ArrowRight, CalendarDays, CheckCircle2, ChevronRight, FolderOpen, Menu, ShieldCheck, X } from 'lucide-react';
 import { DEMO_IDENTITIES } from '../expedientes/repository';
 import '../expedientes/expedientes.css';
+import './workspace.css';
 
 const PROFILE_KEY = 'psicoluz-development-profile';
 export function useDevelopmentIdentity() {
@@ -17,7 +18,8 @@ export default function DevelopmentShell({ children, identity, onIdentityChange,
   const title = active === 'seguimiento' ? 'Seguimiento' : active === 'agenda' ? 'Agenda y citas' : 'Expedientes';
   return <div className={`exp-app ${active === 'seguimiento' ? 'sf-app' : ''}`}><a href="#exp-content" className="exp-skip">Ir al contenido</a>
     {navOpen && <button className="exp-nav-scrim" aria-label="Cerrar menú" onClick={() => setNavOpen(false)} />}
-    <aside className={`exp-sidebar ${navOpen ? 'open' : ''}`}>
+    <aside className={`exp-sidebar ${navOpen ? 'open' : ''}`} onKeyDown={e=>{if(e.key==='Escape')setNavOpen(false);}}>
+      <button className="exp-nav-close exp-icon" aria-label="Cerrar navegación" onClick={()=>setNavOpen(false)}><X size={22}/></button>
       <a href="/" className="exp-brand"><span><img src="/loguito.png" alt="" /></span><div>Psico<b>Luz</b><small>ESPACIO PROFESIONAL</small></div></a>
       <div className="exp-nav-label">GESTIÓN DEL CENTRO</div>
       <nav aria-label="Navegación del sistema">
@@ -30,7 +32,7 @@ export default function DevelopmentShell({ children, identity, onIdentityChange,
       <div className="exp-sidebar-bottom"><span className="exp-person-dot">{identity.name[0]}</span><div><strong>{identity.name}</strong><small>{identity.role === 'psicologa' ? 'Psicóloga responsable' : identity.role === 'administracion' ? 'Administración' : 'Desarrollo'}</small></div></div>
     </aside>
     <div className="exp-main-shell"><header className="exp-header"><div><button className="exp-mobile-menu exp-icon" onClick={() => setNavOpen(true)} aria-label="Abrir menú"><Menu size={22} /></button><span>Mi espacio <ChevronRight size={14} /><strong>{title}</strong></span></div><a href="/" className="exp-home-link">Ver sitio público<ArrowRight size={15} /></a></header>
-      {production ? <div className="exp-demo-banner"><span>Sesión de {identity.name} · {active==='seguimiento'?'Seguimiento conectado':'Agenda conectada'}</span><button className="exp-secondary" onClick={onSignOut}>Cerrar sesión</button></div> : <div className="exp-demo-banner"><span><i />Vista de desarrollo · Datos ficticios · Sin conexión a Supabase</span><label>Perfil de prueba<select aria-label="Perfil de prueba" value={identity.id} onChange={e => onIdentityChange(DEMO_IDENTITIES.find(p => p.id === e.target.value))}>{DEMO_IDENTITIES.map(p => <option key={p.id} value={p.id}>{p.label}</option>)}</select></label></div>}
+      {production ? <div className="exp-demo-banner"><span>Sesión de {identity.name} · {active==='seguimiento'?'Seguimiento conectado':active==='expedientes'?'Expedientes conectados':'Agenda conectada'}</span><button className="exp-secondary" onClick={onSignOut}>Cerrar sesión</button></div> : <div className="exp-demo-banner"><span><i />Vista de desarrollo · Datos ficticios · Sin conexión a Supabase</span><label>Perfil de prueba<select aria-label="Perfil de prueba" value={identity.id} onChange={e => onIdentityChange(DEMO_IDENTITIES.find(p => p.id === e.target.value))}>{DEMO_IDENTITIES.map(p => <option key={p.id} value={p.id}>{p.label}</option>)}</select></label></div>}
       <ContentTag className="exp-content" id="exp-content">{children}</ContentTag>
       <footer className="exp-footer">PsicoLuz · Espacio profesional<span>Construido para acompañar mejor.</span></footer>
     </div>
